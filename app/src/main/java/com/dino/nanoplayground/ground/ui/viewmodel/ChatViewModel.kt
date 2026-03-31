@@ -1,6 +1,7 @@
 package com.dino.nanoplayground.ground.ui.viewmodel
 
 
+import android.util.Log
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -124,18 +125,18 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
     }
 
 
-    private fun setInferenceState(state: Boolean){
+    private fun setInferenceState(state: Boolean) = viewModelScope.launch {
         homeState.value = homeState.value.copy(isInferencing = state)
     }
 
-    private fun clearAndResetResponse(request: GenerateContentResponse){
+    private fun clearAndResetResponse(request: GenerateContentResponse) = viewModelScope.launch {
         response.clear()
         request.candidates.forEach {
             response.add(it.text)
         }
     }
 
-    private fun setFeatureAvailability(availability: FeatureAvailability){
+    private fun setFeatureAvailability(availability: FeatureAvailability) = viewModelScope.launch {
         homeState.value = homeState.value.copy(featureAvailability = availability)
     }
 

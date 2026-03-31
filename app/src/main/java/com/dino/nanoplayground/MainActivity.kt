@@ -22,7 +22,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NanoPlaygroundTheme {
-                NanoGroundScreen()
+                Scaffold() {
+                    NanoGroundScreen(modifier = Modifier.padding(it))
+                }
             }
         }
     }
