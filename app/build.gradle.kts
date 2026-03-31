@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -52,7 +54,18 @@ dependencies {
     // gen ai
     implementation(libs.genai.prompt)
 
+    // hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.navigation.compose)
 
+
+    // icon core
+    implementation(libs.androidx.material.icons.core)
+    implementation(libs.androidx.material.icons.extended)
+
+    // Mark down
+    implementation(libs.compose.markdown)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
