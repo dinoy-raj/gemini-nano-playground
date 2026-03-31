@@ -9,9 +9,10 @@ import androidx.lifecycle.viewModelScope
 import com.dino.nanoplayground.ground.models.FeatureAvailability
 import com.dino.nanoplayground.ground.models.HomeState
 import com.google.mlkit.genai.common.FeatureStatus
-import com.google.mlkit.genai.prompt.Generation
+import com.google.mlkit.genai.prompt.GenerateContentResponse
 import com.google.mlkit.genai.prompt.GenerativeModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,16 +22,13 @@ import javax.inject.Inject
 
 @Stable
 @HiltViewModel
-class ChatViewModel @Inject constructor() : ViewModel() {
+class ChatViewModel @Inject constructor(private val generativeModel: GenerativeModel) :
+    ViewModel() {
 
     val response = mutableStateListOf<String>()
-    val generativeModel = Generation.getClient()
     var homeState = mutableStateOf<HomeState>(HomeState())
         private set
 
-    private val _countDown = MutableStateFlow(0)
-    val countDown = _countDown.asStateFlow()
-    var countDownJob: Job? = null
 
     init {
         checkForFeatureStatus()
@@ -44,6 +42,7 @@ class ChatViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+
     fun collectNanoConfigurations(generativeModel: GenerativeModel) = viewModelScope.launch {
         homeState.value = homeState.value.copy(
             nanoVersion = generativeModel.getBaseModelName(),
@@ -52,64 +51,58 @@ class ChatViewModel @Inject constructor() : ViewModel() {
     }
 
 
-    private fun checkForFeatureStatus(runInference: () -> Unit) = viewModelScope.launch {
+    private fun checkForFeatureStatus(onAvailable: () -> Unit) = viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         val status = generativeModel.checkStatus()
 
         when (status) {
-            FeatureStatus.UNAVAILABLE -> {
-                homeState.value = homeState.value.copy(
-                    featureAvailability = FeatureAvailability.UnAvailable
-                )
-            }
+            FeatureStatus.UNAVAILABLE -> setFeatureAvailability(FeatureAvailability.UnAvailable)
 
             FeatureStatus.DOWNLOADABLE -> {
-                homeState.value = homeState.value.copy(
-                    featureAvailability = FeatureAvailability.Available
-                )
-                runInference()
+                setFeatureAvailability(FeatureAvailability.Available)
+                onAvailable()
             }
 
             FeatureStatus.DOWNLOADING -> {
-                homeState.value = homeState.value.copy(
-                    featureAvailability = FeatureAvailability.Available
-                )
-                runInference()
+                setFeatureAvailability(FeatureAvailability.Available)
+                onAvailable()
             }
 
             FeatureStatus.AVAILABLE -> {
-                homeState.value = homeState.value.copy(
-                    featureAvailability = FeatureAvailability.Available
-                )
-                runInference()
+                setFeatureAvailability(FeatureAvailability.Available)
+                onAvailable()
             }
         }
     }
 
 
-    fun runInference(prompt: String) = viewModelScope.launch {
-
-        homeState.value = homeState.value.copy(
-            isInferencing = true
-        )
+    fun executePrompt(prompt: String) {
+        setInferenceState(true)
         startCountDown()
         checkForFeatureStatus {
             sendRequest(prompt)
         }
     }
 
-    fun sendRequest(prompt: String) = viewModelScope.launch {
-        val request = generativeModel.generateContent(prompt)
-        response.clear()
-        request.candidates.forEach {
-            response.add(it.text)
+    fun sendRequest(prompt: String) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val request = generativeModel.generateContent(prompt)
+            clearAndResetResponse(request)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            setInferenceState(false)
+            stopCountDown()
         }
-        homeState.value = homeState.value.copy(
-            isInferencing = false
-        )
-        stopCountDown()
     }
 
-    fun startCountDown() {
+
+    private val _countDown = MutableStateFlow(0)
+    val countDown = _countDown.asStateFlow()
+    var countDownJob: Job? = null
+
+    private fun startCountDown() {
         countDownJob?.cancel()
         _countDown.value = 0
         countDownJob = viewModelScope.launch {
@@ -120,13 +113,30 @@ class ChatViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun stopCountDown() {
+    private fun stopCountDown() {
         countDownJob?.cancel()
         countDownJob = null
     }
 
     override fun onCleared() {
         super.onCleared()
+        generativeModel.close()
+    }
+
+
+    private fun setInferenceState(state: Boolean){
+        homeState.value = homeState.value.copy(isInferencing = state)
+    }
+
+    private fun clearAndResetResponse(request: GenerateContentResponse){
+        response.clear()
+        request.candidates.forEach {
+            response.add(it.text)
+        }
+    }
+
+    private fun setFeatureAvailability(availability: FeatureAvailability){
+        homeState.value = homeState.value.copy(featureAvailability = availability)
     }
 
 }

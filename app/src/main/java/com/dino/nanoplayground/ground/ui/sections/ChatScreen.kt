@@ -100,7 +100,7 @@ fun ChatScreen(viewModel: ChatViewModel) {
                     isFieldExpended = false
                 }
                 if (!it.isBlank()) {
-                    viewModel.runInference(it)
+                    viewModel.executePrompt(it)
                 }
             }
 

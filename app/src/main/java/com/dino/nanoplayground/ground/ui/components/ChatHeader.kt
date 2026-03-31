@@ -47,7 +47,7 @@ fun ChatHeader(modifier: Modifier = Modifier, countDown: Int, isInferencing: Boo
         targetValue = if (countDown % 2 == 0) 0f else 450f,
         animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
     )
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
 
@@ -135,7 +135,7 @@ fun ChatHeader(modifier: Modifier = Modifier, countDown: Int, isInferencing: Boo
                     .bounceEffectRotation()
                     {
                         scope.launch {
-                            snackbarHostState.showSnackbar(
+                            snackBarHostState.showSnackbar(
                                 message = "Nano store your least recently used static prompt. Tap Yes Clear Nano lru cache",
                                 actionLabel = "Clear",
                                 withDismissAction = true
