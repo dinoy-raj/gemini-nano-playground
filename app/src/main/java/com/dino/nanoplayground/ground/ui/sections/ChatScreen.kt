@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dino.nanoplayground.core.bounceEffect
 import com.dino.nanoplayground.ground.ui.components.ChatContent
-import com.dino.nanoplayground.ground.ui.components.ChatHeader
+import com.dino.nanoplayground.ground.ui.components.ChatOptions
 import com.dino.nanoplayground.ground.ui.components.UserQueryField
 import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 
@@ -75,7 +75,7 @@ fun ChatScreen(viewModel: ChatViewModel) {
             )
 
             // header
-            ChatHeader(
+            ChatOptions(
                 modifier = Modifier
                     .height(100.dp)
                     .fillMaxWidth(),

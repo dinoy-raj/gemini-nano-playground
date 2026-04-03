@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CleaningServices
+import androidx.compose.material.icons.rounded.Gesture
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
@@ -40,7 +41,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ChatHeader(modifier: Modifier = Modifier, countDown: Int, isInferencing: Boolean) {
+fun ChatOptions(modifier: Modifier = Modifier, countDown: Int, isInferencing: Boolean) {
 
 
     val rotation by animateFloatAsState(
@@ -124,7 +125,12 @@ fun ChatHeader(modifier: Modifier = Modifier, countDown: Int, isInferencing: Boo
                     contentAlignment = Alignment.Center
                 )
                 {
-                    Text(text = "#4 prompt", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Icon(
+                        imageVector = Icons.Rounded.Gesture,
+                        modifier = Modifier.size(20.dp),
+                        contentDescription = "send icon",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
 

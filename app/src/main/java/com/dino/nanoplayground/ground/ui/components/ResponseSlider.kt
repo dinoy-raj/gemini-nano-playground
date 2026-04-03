@@ -2,18 +2,14 @@ package com.dino.nanoplayground.ground.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel
-import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -22,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
-
+// TODO : Implement response slider in future
 
 @Composable
 fun ResponseItem(text: String) {
@@ -36,7 +32,14 @@ fun ResponseItem(text: String) {
             }
 
             item {
-                MarkdownText(text, modifier = Modifier.padding(4.dp))
+                SelectionContainer {
+                    MarkdownText(
+                        text,
+                        modifier = Modifier.padding(4.dp),
+                        syntaxHighlightColor = MaterialTheme.colorScheme.primary,
+                        syntaxHighlightTextColor = MaterialTheme.colorScheme.background
+                    )
+                }
             }
 
             item {
