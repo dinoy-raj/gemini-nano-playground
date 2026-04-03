@@ -21,28 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ResponseSlider(response: SnapshotStateList<String>) {
-    val carousalState = rememberCarouselState(initialItem = 0) { response.size }
-    HorizontalCenteredHeroCarousel(
-        state = carousalState,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 36.dp),
-        itemSpacing = 8.dp,
-        contentPadding = PaddingValues(horizontal = 16.dp),
-    )
-    { item ->
-        ResponseItem(response[item])
-    }
-}
+
 
 
 @Composable
-private fun ResponseItem(text: String) {
+fun ResponseItem(text: String) {
 
-    Box()
+    Box(modifier = Modifier.padding(24.dp))
     {
         LazyColumn() {
 

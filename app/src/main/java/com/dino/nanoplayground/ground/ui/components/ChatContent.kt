@@ -63,7 +63,8 @@ fun ChatContent(
                                 Text(".")
                             }
                         } else {
-                            ResponseSlider(response)
+                            // TODO:  in future construct Response slider
+                            ResponseItem(response[0])
                         }
                     }
                 }

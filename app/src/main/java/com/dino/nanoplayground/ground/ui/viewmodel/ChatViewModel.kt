@@ -1,7 +1,6 @@
 package com.dino.nanoplayground.ground.ui.viewmodel
 
 
-import android.util.Log
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -88,8 +87,8 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
 
     fun sendRequest(prompt: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val request = generativeModel.generateContent(prompt)
-            clearAndResetResponse(request)
+            val response = generativeModel.generateContent(prompt)
+            clearAndResetResponse(response)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
