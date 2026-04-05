@@ -2,6 +2,21 @@
 
 Nano Playground is an Android application designed to test and experiment with Google's on-device Generative AI model - Gemini Nano via ML Kit Prompt API(`com.google.mlkit:genai-prompt`)
 
+
+## Project Structure
+
+The codebase is organized primarily within `app/src/main/java/com/dino/nanoplayground`:
+
+*   **`core/`**: Contains core utilities, such as custom Compose modifiers (e.g., `BounceEffect`).
+*   **`ground/`**: The main feature module containing the UI and business logic.
+    *   **`models/`**: Data classes representing application state (e.g., `HomeState`, `FeatureAvailability`).
+    *   **`ui/`**: Compose UI components and screens.
+        *   **`components/`**: Reusable UI elements like `ChatContent`, `ChatOptions`, and `UserQueryField`.
+        *   **`sections/`**: Main screen layouts like `ChatScreen`, `FeatureStatusCheckingScreen`, etc.
+        *   **`viewmodel/`**: Contains the `ChatViewModel` which handles the logic for checking model status and executing prompts.
+*   **`ui/theme/`**: Theme definitions for the application (colors, typography).
+
+
 ## Closed Testing
 Closed testing is now open!
 
@@ -38,18 +53,6 @@ This project is built using modern Android development practices and libraries:
 *   **Material Design 3**: For styling and UI components.
 *   **Coroutines & Flows**: For asynchronous programming and state management.
 
-## Project Structure
-
-The codebase is organized primarily within `app/src/main/java/com/dino/nanoplayground`:
-
-*   **`core/`**: Contains core utilities, such as custom Compose modifiers (e.g., `BounceEffect`).
-*   **`ground/`**: The main feature module containing the UI and business logic.
-    *   **`models/`**: Data classes representing application state (e.g., `HomeState`, `FeatureAvailability`).
-    *   **`ui/`**: Compose UI components and screens.
-        *   **`components/`**: Reusable UI elements like `ChatContent`, `ChatOptions`, and `UserQueryField`.
-        *   **`sections/`**: Main screen layouts like `ChatScreen`, `FeatureStatusCheckingScreen`, etc.
-        *   **`viewmodel/`**: Contains the `ChatViewModel` which handles the logic for checking model status and executing prompts.
-*   **`ui/theme/`**: Theme definitions for the application (colors, typography).
 
 ## Architecture
 
