@@ -139,4 +139,9 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
         homeState.value = homeState.value.copy(featureAvailability = availability)
     }
 
+
+    fun clearModelCache() = viewModelScope.launch(Dispatchers.IO) {
+        generativeModel.clearImplicitCaches()
+    }
+
 }

@@ -36,8 +36,8 @@ fun ResponseItem(text: String) {
                     MarkdownText(
                         text,
                         modifier = Modifier.padding(4.dp),
-                        syntaxHighlightColor = MaterialTheme.colorScheme.primary,
-                        syntaxHighlightTextColor = MaterialTheme.colorScheme.background
+                        syntaxHighlightTextColor = MaterialTheme.colorScheme.primary,
+                        syntaxHighlightColor =  MaterialTheme.colorScheme.surfaceContainer
                     )
                 }
             }
