@@ -5,7 +5,37 @@ Nano Playground is an Android application designed to test and experiment with G
 
 ## Project Structure
 
+```
+.
+├── app
+├── gradle
+├── build.gradle.kts
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── local.properties
+├── README.md
+└── settings.gradle.kts
+```
+
 The codebase is organized primarily within `app/src/main/java/com/dino/nanoplayground`:
+
+```
+app/src/main/java/com/dino/nanoplayground
+├── core/
+├── ground/
+│   ├── di/
+│   ├── models/
+│   └── ui/
+│       ├── components/
+│       ├── sections/
+│       ├── ChatScreen.kt
+│       └── viewmodel/
+├── ui/
+│   └── theme/
+├── MainActivity.kt
+└── NanoApplication.kt
+```
 
 *   **`core/`**: Contains core utilities, such as custom Compose modifiers (e.g., `BounceEffect`).
 *   **`ground/`**: The main feature module containing the UI and business logic.
