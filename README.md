@@ -1,13 +1,25 @@
 # Nano Playground
 
-Nano Playground is an Android application designed to test and experiment with Google's on-device Generative AI models using ML Kit (`com.google.mlkit:genai-prompt`). It provides a simple chat interface to interact with the on-device AI capabilities without requiring a network connection for inference.
+Nano Playground is an Android application designed to test and experiment with Google's on-device Generative AI model - Gemini Nano via ML Kit Prompt API(`com.google.mlkit:genai-prompt`).
 
 ## Features
 
-*   **On-Device GenAI**: Uses Google ML Kit's GenAI features for local, on-device text generation.
-*   **Model Status Checking**: Automatically checks the availability and download status of the required on-device models before allowing interaction.
-*   **Chat Interface**: A streamlined chat UI built with Jetpack Compose, featuring expandable input fields and markdown rendering for AI responses.
-*   **Animated UI**: Utilizes Compose animations, including shared element transitions and bounce effects, for a smooth user experience.
+* **Model Status Checking**: Automatically checks the availability and download status of the required on-device models before allowing interaction.
+* **Chat Interface**: A streamlined chat UI built with Jetpack Compose, featuring expandable input fields and markdown rendering for AI responses.
+* **Animated UI**: Utilizes Compose animations, including shared element transitions and bounce effects, for a smooth user experience.
+* **Clear Model Cache**: Includes a dedicated Material 3 dialog to safely clear the least recently used (LRU) static prompts and model data, helping manage on-device storage efficiently.
+
+---
+
+## Upcoming Features
+
+* **Multimodality Support**: Expanding capabilities to include image and document processing alongside text-based interactions.
+* **Prefix Caching**: Implementation of prefix caching to significantly reduce latency and compute costs for repetitive prompt structures.
+* **Streaming Responses**: Opt-in support for real-time token streaming to provide a more responsive "typing" feel during AI generation.
+* **Model Configuration Settings**: Granular control over generation parameters, including **Temperature**, **Top-K**, **Top-P**, and **Random Seed**.
+* **Offline Storage for Caching**: Persistent local storage support for prefix-cached prompts to ensure performance gains across app sessions.
+
+
 
 ## Tech Stack
 
@@ -51,7 +63,7 @@ The application follows the Model-View-ViewModel (MVVM) architecture pattern:
 3.  **Requirements**:
     *   The app requires a minimum SDK of **33** (Android 13).
     *   Target SDK is **36**.
-    *   A physical device or emulator running Android 13 or higher. Note that on-device GenAI models may have specific hardware requirements or might need to download initial models upon first run.
+    *   A physical device or emulator running Android 14 or higher. Note that on-device GenAI models may have specific hardware requirements or might need to download initial models upon first run.
 
 ## Building and Running
 
