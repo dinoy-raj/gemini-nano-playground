@@ -2,6 +2,13 @@
 
 Nano Playground is an Android application designed to test and experiment with Google's on-device Generative AI model - Gemini Nano via ML Kit Prompt API(`com.google.mlkit:genai-prompt`)
 
+## Closed Testing
+Closed testing is now open!
+
+* **Link to google group** - https://groups.google.com/g/nano-playground-internal-testers
+* **Join on the web**: Testers can join your test on the web - https://play.google.com/apps/testing/com.dino.nanoplayground
+* **Join on Android**: Testers can join your test using Google Play on Android - https://play.google.com/store/apps/details?id=com.dino.nanoplayground
+
 ## Features
 
 * **Model Status Checking**: Automatically checks the availability and download status of the required on-device models before allowing interaction.
