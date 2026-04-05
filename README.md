@@ -1,3 +1,11 @@
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dinoy-raj/dump/ede4a186f7a9fe6c0fc8295e835d8e4a59c9a4cf/screen.png" alt="Gemini Nano Playground Screen" width="350">
+</p>
+
+# Gemini Nano Playground
+
+
 # Gemini Nano Playground
 
 Nano Playground is an Android application designed to test and experiment with Google's on-device Generative AI model - Gemini Nano via ML Kit Prompt API(`com.google.mlkit:genai-prompt`)
