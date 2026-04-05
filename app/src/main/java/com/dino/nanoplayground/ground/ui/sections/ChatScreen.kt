@@ -80,7 +80,8 @@ fun ChatScreen(viewModel: ChatViewModel) {
                     .height(100.dp)
                     .fillMaxWidth(),
                 countDown = countDown,
-                isInferencing = state.isInferencing
+                isInferencing = state.isInferencing,
+                onCacheClear = viewModel::clearModelCache
             )
 
             // query field

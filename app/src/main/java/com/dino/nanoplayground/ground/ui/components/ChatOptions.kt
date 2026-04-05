@@ -14,19 +14,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AutoAwesomeMotion
 import androidx.compose.material.icons.rounded.CleaningServices
 import androidx.compose.material.icons.rounded.Gesture
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -36,20 +39,65 @@ import androidx.compose.ui.unit.sp
 import com.dino.nanoplayground.core.AnimatedCounter
 import com.dino.nanoplayground.core.bounceEffectRotation
 import com.dino.nanoplayground.core.bounceEffectShape
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun ChatOptions(modifier: Modifier = Modifier, countDown: Int, isInferencing: Boolean) {
+fun ChatOptions(
+    modifier: Modifier = Modifier,
+    countDown: Int,
+    isInferencing: Boolean,
+    onCacheClear: () -> Unit
+) {
 
 
     val rotation by animateFloatAsState(
         targetValue = if (countDown % 2 == 0) 0f else 450f,
         animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing)
     )
-    val snackBarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
+    var showClearCacheDialog by remember { mutableStateOf(false) }
+
+
+
+
+    if (showClearCacheDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showClearCacheDialog = false
+            },
+            icon = {
+                Icon(Icons.Rounded.AutoAwesomeMotion, contentDescription = null)
+            },
+            title = {
+                Text(text = "Clear Nano LRU Cache?")
+            },
+            text = {
+                Text(
+                    text = "Nano stores your least recently used static prompts. " +
+                            "Would you like to clear this cache now?"
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onCacheClear()
+                        showClearCacheDialog = false
+                    }
+                ) {
+                    Text("Clear")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showClearCacheDialog = false
+                    }
+                ) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 
 
 
@@ -140,13 +188,7 @@ fun ChatOptions(modifier: Modifier = Modifier, countDown: Int, isInferencing: Bo
                     .fillMaxHeight()
                     .bounceEffectRotation()
                     {
-                        scope.launch {
-                            snackBarHostState.showSnackbar(
-                                message = "Nano store your least recently used static prompt. Tap Yes Clear Nano lru cache",
-                                actionLabel = "Clear",
-                                withDismissAction = true
-                            )
-                        }
+                        showClearCacheDialog = true
                     }
             )
             {
