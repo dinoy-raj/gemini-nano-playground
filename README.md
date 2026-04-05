@@ -5,9 +5,9 @@ Nano Playground is an Android application designed to test and experiment with G
 ## Closed Testing
 Closed testing is now open!
 
-* **Link to google group** - https://groups.google.com/g/nano-playground-internal-testers
-* **Join on the web**: Testers can join your test on the web - https://play.google.com/apps/testing/com.dino.nanoplayground
-* **Join on Android**: Testers can join your test using Google Play on Android - https://play.google.com/store/apps/details?id=com.dino.nanoplayground
+* **Join Testing google group** - https://groups.google.com/g/nano-playground-internal-testers
+* **Join Closed Testing on the web**: Testers can join your test on the web - https://play.google.com/apps/testing/com.dino.nanoplayground
+* **Join Closed Testing on Android**: Testers can join your test using Google Play on Android - https://play.google.com/store/apps/details?id=com.dino.nanoplayground
 
 ## Features
 
