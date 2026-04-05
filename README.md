@@ -1,9 +1,7 @@
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/dinoy-raj/dump/ede4a186f7a9fe6c0fc8295e835d8e4a59c9a4cf/screen.png" alt="Gemini Nano Playground Screen" width="350">
+  <img src="https://raw.githubusercontent.com/dinoy-raj/dump/ede4a186f7a9fe6c0fc8295e835d8e4a59c9a4cf/screen.png" alt="Gemini Nano Playground Screen" width="600">
 </p>
-
-# Gemini Nano Playground
 
 
 # Gemini Nano Playground
