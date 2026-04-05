@@ -9,7 +9,6 @@ Nano Playground is an Android application designed to test and experiment with G
 * **Animated UI**: Utilizes Compose animations, including shared element transitions and bounce effects, for a smooth user experience.
 * **Clear Model Cache**: Includes a dedicated Material 3 dialog to safely clear the least recently used (LRU) static prompts and model data, helping manage on-device storage efficiently.
 
----
 
 ## Upcoming Features
 
