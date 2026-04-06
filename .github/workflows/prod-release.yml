@@ -1,0 +1,76 @@
+name: deploy to google play
+
+on:
+  push:
+    branches:
+      - prod
+
+
+jobs:
+  checks:
+    name: initial checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup java dev environment
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: 'gradle'
+
+      - name: setup gradlew permission
+        run: chmod +x gradlew
+
+
+  distribute:
+    name: deploy to play
+    needs: checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup java dev environment
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: 'gradle'
+
+      - name: version bump
+        uses: chkfung/android-version-actions@v1.2.3
+        with:
+          gradlePath: app/build.gradle.kts
+          versionCode: ${{ github.run_number }}
+
+      - name: Assemble release bundle
+        run: ./gradlew bundleRelease
+
+      - name: Sign Release Bundle
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.NANO_KEYSTORE }}
+          keystorePassword: ${{ secrets.NANO_PASSWORD }}
+          alias: ${{ secrets.NANO_ALIAS }}
+          keyPassword: ${{ secrets.NANO_PASSWORD }}
+
+      - name: Authorize with play
+        run: echo '${{ secrets.PLAY_AUTH_JSON }}' > service_account.json
+
+      - name: Deploy bundle to google play
+        uses: r0adkll/upload-google-play@v1.1.3
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.dino.simple
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: internal
+          status: 'completed'
+          whatsNewDirectory: release/
+
+      - name: Clean up
+        if: always()
+        run: rm service_account.json
