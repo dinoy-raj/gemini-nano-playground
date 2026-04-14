@@ -160,7 +160,7 @@ private fun FieldExpandedLayout(
                         Text(
                             modifier = Modifier
                                 .padding(start = 16.dp),
-                            text = "Type your query .....",
+                            text = "type your prompt.....",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Medium,
                             color = color,

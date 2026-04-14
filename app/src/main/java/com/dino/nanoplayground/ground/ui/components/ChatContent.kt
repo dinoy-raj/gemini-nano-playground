@@ -1,6 +1,9 @@
 package com.dino.nanoplayground.ground.ui.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
@@ -15,6 +18,7 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +31,14 @@ fun ChatContent(
     isInferencing: Boolean,
     response: SnapshotStateList<String>
 ) {
+
+    val chatBoxRadius by animateDpAsState(
+        targetValue = if (isInferencing) 56.dp else 36.dp,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessVeryLow
+        )
+    )
+
     Box(modifier = modifier)
     {
         Box(
@@ -35,7 +47,7 @@ fun ChatContent(
                 .fillMaxSize()
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainer,
-                    shape = RoundedCornerShape(36.dp)
+                    shape = RoundedCornerShape(chatBoxRadius)
                 ),
             contentAlignment = Alignment.Center
         )
