@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.dino.nanoplayground.ground.ui.NanoGroundScreen
 import com.dino.nanoplayground.navigation.MainNavigation
 import com.dino.nanoplayground.ui.theme.NanoPlaygroundTheme
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        installSplashScreen()
         setContent {
             NanoPlaygroundTheme {
                 Scaffold() {
