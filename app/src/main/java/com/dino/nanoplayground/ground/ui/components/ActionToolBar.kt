@@ -16,11 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dino.nanoplayground.core.bounceEffectShape
 import kotlinx.coroutines.launch
@@ -29,7 +26,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun ActionToolBar(content: String, title: String) {
 
-    val context = LocalContext.current
     val clipboardManager = LocalClipboard.current
     val scope = rememberCoroutineScope()
 
@@ -39,45 +35,34 @@ fun ActionToolBar(content: String, title: String) {
         horizontalArrangement = Arrangement.Center
     )
     {
-        ActionButton(imageVector = Icons.Rounded.CopyAll)
-        {
-            val clipData = ClipData.newPlainText(title, content)
-            scope.launch {
-                clipboardManager.setClipEntry(clipEntry = ClipEntry(clipData = clipData))
-            }
-        }
-    }
-}
 
-
-@Composable
-fun ActionButton(imageVector: ImageVector = Icons.Rounded.CopyAll, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .bounceEffectShape(
-                scaleFactor = .9f,
-                initialShape = 36.dp,
-                pressedShape = 16.dp,
-                onClick = onClick
-            )
-            .background(color = MaterialTheme.colorScheme.surface.copy(alpha = .5f)),
-        contentAlignment = Alignment.Center
-    )
-    {
-        Icon(
-            imageVector = imageVector,
+        Box(
             modifier = Modifier
-                .padding(24.dp)
-                .size(20.dp),
-            contentDescription = "send icon",
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                .bounceEffectShape(
+                    scaleFactor = .9f,
+                    initialShape = 36.dp,
+                    pressedShape = 16.dp,
+                    onClick = {
+                        val clipData = ClipData.newPlainText(title, content)
+                        scope.launch {
+                            clipboardManager.setClipEntry(clipEntry = ClipEntry(clipData = clipData))
+                        }
+                    }
+                )
+                .background(color = MaterialTheme.colorScheme.surface.copy(alpha = .5f)),
+            contentAlignment = Alignment.Center
         )
+        {
+            Icon(
+                imageVector = Icons.Rounded.CopyAll,
+                modifier = Modifier
+                    .padding(24.dp)
+                    .size(20.dp),
+                contentDescription = "send icon",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
     }
 }
 
-
-@Preview
-@Composable
-fun ActionToolBarPreview() {
-    ActionToolBar(title = "This is Title", content = "This is content")
-}
