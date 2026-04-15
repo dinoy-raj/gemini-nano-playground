@@ -74,6 +74,10 @@ dependencies {
     // splash api
     implementation(libs.androidx.core.splashscreen)
 
+    // in app update
+    implementation(libs.app.update)
+    implementation(libs.app.update.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
