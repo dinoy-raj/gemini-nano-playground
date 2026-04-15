@@ -60,10 +60,11 @@ fun UserQueryField(
     modifier: Modifier = Modifier,
     isExpanded: Boolean,
     sharedTransitionScope: SharedTransitionScope,
+    intentPrompt: String,
     onFocusDismiss: (String) -> Unit
 ) {
 
-    var query by remember { mutableStateOf("") }
+    var query by remember { mutableStateOf(intentPrompt) }
 
 
     val infiniteTransition = rememberInfiniteTransition(label = "placeholder")
@@ -92,27 +93,27 @@ fun UserQueryField(
             contentAlignment = Alignment.Center
         )
         {
-                AnimatedContent(
-                    targetState = isExpanded,
-                    transitionSpec = { fadeIn() togetherWith fadeOut() }) { state ->
-                    when (state) {
-                        true -> FieldExpandedLayout(
-                            animatedVisibilityScope = this@AnimatedContent,
-                            sharedTransitionScope = sharedTransitionScope,
-                            query = query,
-                            onQueryChange = { query = it },
-                            onFocusDismiss = { onFocusDismiss(query) }
-                        )
+            AnimatedContent(
+                targetState = isExpanded,
+                transitionSpec = { fadeIn() togetherWith fadeOut() }) { state ->
+                when (state) {
+                    true -> FieldExpandedLayout(
+                        animatedVisibilityScope = this@AnimatedContent,
+                        sharedTransitionScope = sharedTransitionScope,
+                        query = query,
+                        onQueryChange = { query = it },
+                        onFocusDismiss = { onFocusDismiss(query) }
+                    )
 
-                        false -> FieldShrinkedLayout(
-                            animatedVisibilityScope = this@AnimatedContent,
-                            sharedTransitionScope = sharedTransitionScope,
-                            query = query,
-                            onQueryChange = { query = it },
-                            onFocusDismiss = { onFocusDismiss(query) }
-                        )
-                    }
+                    false -> FieldShrinkedLayout(
+                        animatedVisibilityScope = this@AnimatedContent,
+                        sharedTransitionScope = sharedTransitionScope,
+                        query = query,
+                        onQueryChange = { query = it },
+                        onFocusDismiss = { onFocusDismiss(query) }
+                    )
                 }
+            }
         }
     }
 }
@@ -174,7 +175,7 @@ private fun FieldExpandedLayout(
                         rememberSharedContentState(key = "query_field"),
                         animatedVisibilityScope = animatedVisibilityScope,
                         placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                        boundsTransform = BoundsTransform {_,_ -> spring(stiffness = Spring.StiffnessLow)}
+                        boundsTransform = BoundsTransform { _, _ -> spring(stiffness = Spring.StiffnessLow) }
                     ),
                     colors = TextFieldDefaults.colors().copy(
                         unfocusedIndicatorColor = Color.Transparent,
@@ -281,7 +282,7 @@ private fun FieldShrinkedLayout(
                         rememberSharedContentState(key = "query_field"),
                         animatedVisibilityScope = animatedVisibilityScope,
                         placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                        boundsTransform = BoundsTransform {_,_ -> spring(stiffness = Spring.StiffnessLow)}
+                        boundsTransform = BoundsTransform { _, _ -> spring(stiffness = Spring.StiffnessLow) }
                     ),
                     colors = TextFieldDefaults.colors().copy(
                         unfocusedIndicatorColor = Color.Transparent,

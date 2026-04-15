@@ -15,7 +15,7 @@ data object Documentation
 
 
 @Composable
-fun MainNavigation(modifier: Modifier = Modifier) {
+fun MainNavigation(modifier: Modifier = Modifier, intentPrompt: String) {
     val backStack = remember { mutableStateListOf<Any>(Ground) }
 
     NavDisplay(
@@ -23,7 +23,7 @@ fun MainNavigation(modifier: Modifier = Modifier) {
         backStack = backStack,
         entryProvider = entryProvider {
             entry<Ground> {
-                NanoGroundScreen()
+                NanoGroundScreen(intentPrompt = intentPrompt)
                 {
                     backStack.add(it)
                 }

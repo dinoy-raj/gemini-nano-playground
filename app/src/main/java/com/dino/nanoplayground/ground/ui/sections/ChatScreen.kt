@@ -28,7 +28,7 @@ import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun ChatScreen(viewModel: ChatViewModel, onNavigate: (Any) -> Unit) {
+fun ChatScreen(viewModel: ChatViewModel, intentPrompt: String, onNavigate: (Any) -> Unit) {
 
     val state by viewModel.homeState
     var isFieldExpended by remember { mutableStateOf(false) }
@@ -95,7 +95,8 @@ fun ChatScreen(viewModel: ChatViewModel, onNavigate: (Any) -> Unit) {
                     .fillMaxWidth()
                     .weight(fieldWeight),
                 isExpanded = isFieldExpended,
-                sharedTransitionScope = this@SharedTransitionLayout
+                sharedTransitionScope = this@SharedTransitionLayout,
+                intentPrompt = intentPrompt
             )
             {
                 if (isFieldExpended) {

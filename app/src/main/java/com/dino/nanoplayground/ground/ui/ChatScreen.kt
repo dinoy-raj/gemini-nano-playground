@@ -19,6 +19,7 @@ import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 fun NanoGroundScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel = hiltViewModel(),
+    intentPrompt: String,
     onNavigate: (Any) -> Unit
 ) {
 
@@ -31,7 +32,7 @@ fun NanoGroundScreen(
         when (it) {
             FeatureAvailability.Checking -> FeatureStatusCheckingScreen()
             FeatureAvailability.UnAvailable -> FeatureUnAvailableScreen()
-            FeatureAvailability.Available -> ChatScreen(viewModel, onNavigate)
+            FeatureAvailability.Available -> ChatScreen(viewModel, intentPrompt, onNavigate)
         }
     }
 }
