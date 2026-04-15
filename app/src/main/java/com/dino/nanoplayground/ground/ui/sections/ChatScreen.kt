@@ -21,14 +21,14 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dino.nanoplayground.core.bounceEffect
-import com.dino.nanoplayground.ground.ui.components.ChatContent
 import com.dino.nanoplayground.ground.ui.components.ChatOptions
+import com.dino.nanoplayground.ground.ui.components.ResponseContent
 import com.dino.nanoplayground.ground.ui.components.UserQueryField
 import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun ChatScreen(viewModel: ChatViewModel) {
+fun ChatScreen(viewModel: ChatViewModel, intentPrompt: String, onNavigate: (Any) -> Unit) {
 
     val state by viewModel.homeState
     var isFieldExpended by remember { mutableStateOf(false) }
@@ -64,23 +64,26 @@ fun ChatScreen(viewModel: ChatViewModel) {
         )
         {
 
-            // chat
-            ChatContent(
+            // response section
+            ResponseContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(bodyWeight)
                     .alpha(bodyVisibility),
                 isInferencing = state.isInferencing,
-                viewModel.response
+                modelVersion = state.nanoVersion.orEmpty(),
+                onNavigate = onNavigate,
+                response = viewModel.response
             )
 
-            // header
+
             ChatOptions(
                 modifier = Modifier
                     .height(100.dp)
                     .fillMaxWidth(),
                 countDown = countDown,
                 isInferencing = state.isInferencing,
+                onNavigate = onNavigate,
                 onCacheClear = viewModel::clearModelCache
             )
 
@@ -94,7 +97,8 @@ fun ChatScreen(viewModel: ChatViewModel) {
                     .fillMaxWidth()
                     .weight(fieldWeight),
                 isExpanded = isFieldExpended,
-                sharedTransitionScope = this@SharedTransitionLayout
+                sharedTransitionScope = this@SharedTransitionLayout,
+                intentPrompt = intentPrompt
             )
             {
                 if (isFieldExpended) {

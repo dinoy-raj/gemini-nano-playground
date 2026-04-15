@@ -1,0 +1,15 @@
+name: "Enforce Develop -> Main"
+on:
+  pull_request:
+    branches:
+      - prod
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source branch
+        if: github.head_ref != 'develop'
+        run: |
+          echo "ERROR: You can only merge into main from the 'develop' branch."
+          exit 1

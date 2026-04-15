@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+# Keep ML Kit components
+-keep class com.google.mlkit.** { *; }
+-keep class com.google.android.gms.internal.mlkit_common.** { *; }
+
+# Keep the ComponentRegistrars that are loaded by reflection
+-keep public class * extends com.google.firebase.components.ComponentRegistrar
+-keep public class * extends com.google.mlkit.common.internal.CommonComponentRegistrar {
+    public <init>();
+}

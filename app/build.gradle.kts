@@ -18,7 +18,7 @@ android {
         minSdk = 33
         targetSdk = 36
         versionCode = 3
-        versionName = "1.0.2"
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,6 +26,8 @@ android {
     buildTypes {
         release {
             isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -66,6 +68,17 @@ dependencies {
 
     // Mark down
     implementation(libs.compose.markdown)
+
+    // navigation 3
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+
+    // splash api
+    implementation(libs.androidx.core.splashscreen)
+
+    // in app update
+    implementation(libs.app.update)
+    implementation(libs.app.update.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

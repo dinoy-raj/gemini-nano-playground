@@ -1,0 +1,48 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup java dev environment
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: 'gradle'
+
+      - name: setup gradlew permission
+        run: chmod +x gradlew
+
+      - name: run unit tests
+        run: ./gradlew clean testDebug
+
+      # Debug Build
+      - name: build debug apk
+        run: ./gradlew assembleDebug
+
+      # Verify
+      - name: verify debug build
+        run: |
+          if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
+            echo "Debug APK successfully generated."
+          else
+            echo "Debug APK not found!"
+            exit 1
+          fi
+
+      # artifact retention
+      - name: upload debug apk
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          overwrite: true
