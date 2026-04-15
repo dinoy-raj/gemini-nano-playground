@@ -14,6 +14,9 @@ import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -22,9 +25,12 @@ import com.dino.nanoplayground.core.bounceEffectRotation
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SubmitButton(
+fun ActionButton(
     modifier: Modifier = Modifier,
     isActive: Boolean = true,
+    icon: ImageVector = Icons.Rounded.AutoAwesome,
+    shape: Shape = MaterialShapes.VerySunny.toShape(),
+    activeColor: Color = MaterialTheme.colorScheme.onSurface,
     size: Dp,
     onClick: () -> Unit
 ) {
@@ -36,14 +42,14 @@ fun SubmitButton(
             .padding(8.dp)
             .size(size)
             .background(
-                color = if (isActive) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
-                shape = MaterialShapes.VerySunny.toShape()
+                color = if (isActive) activeColor else MaterialTheme.colorScheme.onSurfaceVariant,
+                shape = shape
             ),
         contentAlignment = Alignment.Center
     )
     {
         Icon(
-            imageVector = Icons.Rounded.AutoAwesome,
+            imageVector = icon,
             modifier = Modifier.size(size / 3),
             contentDescription = "send icon",
             tint = MaterialTheme.colorScheme.surface
@@ -53,8 +59,8 @@ fun SubmitButton(
 
 @Preview(showBackground = true)
 @Composable
-fun SubmitButtonPreview() {
-    SubmitButton(isActive = true, size = 50.dp)
+fun ActionButtonPreview() {
+    ActionButton(isActive = true, size = 50.dp)
     {
 
     }

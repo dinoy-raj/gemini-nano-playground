@@ -1,4 +1,4 @@
-package com.dino.nanoplayground.ground.di
+package com.dino.nanoplayground.di
 
 import com.google.mlkit.genai.prompt.Generation
 import com.google.mlkit.genai.prompt.GenerativeModel

@@ -67,6 +67,17 @@ dependencies {
     // Mark down
     implementation(libs.compose.markdown)
 
+    // navigation 3
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+
+    // splash api
+    implementation(libs.androidx.core.splashscreen)
+
+    // in app update
+    implementation(libs.app.update)
+    implementation(libs.app.update.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

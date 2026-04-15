@@ -16,8 +16,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,27 +29,40 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CleaningServices
+import androidx.compose.material.icons.rounded.ContentPasteGo
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawOutline
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dino.nanoplayground.R
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalSharedTransitionApi::class)
@@ -60,10 +71,11 @@ fun UserQueryField(
     modifier: Modifier = Modifier,
     isExpanded: Boolean,
     sharedTransitionScope: SharedTransitionScope,
+    intentPrompt: String,
     onFocusDismiss: (String) -> Unit
 ) {
 
-    var query by remember { mutableStateOf("") }
+    var query by remember { mutableStateOf(intentPrompt) }
 
 
     val infiniteTransition = rememberInfiniteTransition(label = "placeholder")
@@ -77,6 +89,8 @@ fun UserQueryField(
         label = "color"
     )
 
+    val backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest
+
 
     Box(modifier = modifier, contentAlignment = Alignment.Center)
     {
@@ -84,35 +98,46 @@ fun UserQueryField(
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxSize()
-                .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
-                    shape = RoundedCornerShape(36.dp)
-                )
-                .border(width = 1.dp, color = color, shape = RoundedCornerShape(36.dp)),
+                .drawBehind {
+                    val strokeWidth = 1.dp.toPx()
+                    val shape = RoundedCornerShape(36.dp)
+                    val outline = shape.createOutline(size, layoutDirection, this)
+
+                    drawOutline(
+                        outline = outline,
+                        color = backgroundColor
+                    )
+
+                    drawOutline(
+                        outline = outline,
+                        color = color,
+                        style = Stroke(width = strokeWidth)
+                    )
+                },
             contentAlignment = Alignment.Center
         )
         {
-                AnimatedContent(
-                    targetState = isExpanded,
-                    transitionSpec = { fadeIn() togetherWith fadeOut() }) { state ->
-                    when (state) {
-                        true -> FieldExpandedLayout(
-                            animatedVisibilityScope = this@AnimatedContent,
-                            sharedTransitionScope = sharedTransitionScope,
-                            query = query,
-                            onQueryChange = { query = it },
-                            onFocusDismiss = { onFocusDismiss(query) }
-                        )
+            AnimatedContent(
+                targetState = isExpanded,
+                transitionSpec = { fadeIn() togetherWith fadeOut() }) { state ->
+                when (state) {
+                    true -> FieldExpandedLayout(
+                        animatedVisibilityScope = this@AnimatedContent,
+                        sharedTransitionScope = sharedTransitionScope,
+                        query = query,
+                        onQueryChange = { query = it },
+                        onFocusDismiss = { onFocusDismiss(query) }
+                    )
 
-                        false -> FieldShrinkedLayout(
-                            animatedVisibilityScope = this@AnimatedContent,
-                            sharedTransitionScope = sharedTransitionScope,
-                            query = query,
-                            onQueryChange = { query = it },
-                            onFocusDismiss = { onFocusDismiss(query) }
-                        )
-                    }
+                    false -> FieldShrankLayout(
+                        animatedVisibilityScope = this@AnimatedContent,
+                        sharedTransitionScope = sharedTransitionScope,
+                        query = query,
+                        onQueryChange = { query = it },
+                        onFocusDismiss = { onFocusDismiss(query) }
+                    )
                 }
+            }
         }
     }
 }
@@ -140,6 +165,8 @@ private fun FieldExpandedLayout(
         )
 
         val keyboardManager = LocalSoftwareKeyboardController.current
+        val clipboardManager = LocalClipboard.current
+        val scope = rememberCoroutineScope()
 
 
         Column(
@@ -160,7 +187,7 @@ private fun FieldExpandedLayout(
                         Text(
                             modifier = Modifier
                                 .padding(start = 16.dp),
-                            text = "Type your query .....",
+                            text = stringResource(R.string.type_your_prompt),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Medium,
                             color = color,
@@ -174,7 +201,7 @@ private fun FieldExpandedLayout(
                         rememberSharedContentState(key = "query_field"),
                         animatedVisibilityScope = animatedVisibilityScope,
                         placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                        boundsTransform = BoundsTransform {_,_ -> spring(stiffness = Spring.StiffnessLow)}
+                        boundsTransform = BoundsTransform { _, _ -> spring(stiffness = Spring.StiffnessLow) }
                     ),
                     colors = TextFieldDefaults.colors().copy(
                         unfocusedIndicatorColor = Color.Transparent,
@@ -207,18 +234,58 @@ private fun FieldExpandedLayout(
                 contentAlignment = Alignment.Center
             )
             {
-                SubmitButton(
-                    isActive = true,
-                    modifier = Modifier.sharedElement(
-                        sharedContentState = rememberSharedContentState(key = "submit_button"),
-                        animatedVisibilityScope = animatedVisibilityScope,
-                        placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                        boundsTransform = BoundsTransform { _, _ -> spring(stiffness = Spring.StiffnessLow) }
-                    ),
-                    size = 120.dp
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 )
                 {
-                    onFocusDismiss(query)
+
+                    ActionButton(
+                        isActive = true,
+                        icon = Icons.Rounded.ContentPasteGo,
+                        shape = MaterialShapes.Slanted.toShape(),
+                        activeColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        size = 48.dp
+                    )
+                    {
+                        scope.launch {
+                            clipboardManager.getClipEntry()?.let {
+                                onQueryChange(it.clipData.getItemAt(0).text.toString())
+                            }
+                        }
+                    }
+
+
+                    Spacer(Modifier.width(16.dp))
+
+                    ActionButton(
+                        isActive = true,
+                        modifier = Modifier.sharedElement(
+                            sharedContentState = rememberSharedContentState(key = "submit_button"),
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
+                            boundsTransform = BoundsTransform { _, _ -> spring(stiffness = Spring.StiffnessLow) }
+                        ),
+                        size = 120.dp
+                    )
+                    {
+                        onFocusDismiss(query)
+                    }
+
+                    Spacer(Modifier.width(16.dp))
+
+                    ActionButton(
+                        isActive = true,
+                        icon = Icons.Rounded.CleaningServices,
+                        shape = MaterialShapes.Gem.toShape(),
+                        activeColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        size = 48.dp
+                    )
+                    {
+                        onQueryChange("")
+                    }
                 }
             }
         }
@@ -228,7 +295,7 @@ private fun FieldExpandedLayout(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun FieldShrinkedLayout(
+private fun FieldShrankLayout(
     query: String,
     onQueryChange: (String) -> Unit,
     onFocusDismiss: (String) -> Unit,
@@ -267,7 +334,7 @@ private fun FieldShrinkedLayout(
                         Text(
                             modifier = Modifier
                                 .padding(start = 16.dp),
-                            text = "Type your query .....",
+                            text = stringResource(R.string.type_your_prompt),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Medium,
                             color = color,
@@ -281,7 +348,7 @@ private fun FieldShrinkedLayout(
                         rememberSharedContentState(key = "query_field"),
                         animatedVisibilityScope = animatedVisibilityScope,
                         placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                        boundsTransform = BoundsTransform {_,_ -> spring(stiffness = Spring.StiffnessLow)}
+                        boundsTransform = BoundsTransform { _, _ -> spring(stiffness = Spring.StiffnessLow) }
                     ),
                     colors = TextFieldDefaults.colors().copy(
                         unfocusedIndicatorColor = Color.Transparent,
@@ -311,7 +378,7 @@ private fun FieldShrinkedLayout(
                     .fillMaxHeight(), contentAlignment = Alignment.Center
             )
             {
-                SubmitButton(
+                ActionButton(
                     isActive = false,
                     modifier = Modifier.sharedElement(
                         rememberSharedContentState(key = "submit_button"),

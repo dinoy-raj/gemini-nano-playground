@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Nano Prompt Ground</string>
+    <string name="type_your_prompt">Type your prompt .....</string>
 </resources>
