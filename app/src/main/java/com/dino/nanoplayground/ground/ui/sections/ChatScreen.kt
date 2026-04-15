@@ -21,8 +21,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dino.nanoplayground.core.bounceEffect
-import com.dino.nanoplayground.ground.ui.components.ChatContent
 import com.dino.nanoplayground.ground.ui.components.ChatOptions
+import com.dino.nanoplayground.ground.ui.components.ResponseContent
 import com.dino.nanoplayground.ground.ui.components.UserQueryField
 import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 
@@ -64,17 +64,19 @@ fun ChatScreen(viewModel: ChatViewModel, intentPrompt: String, onNavigate: (Any)
         )
         {
 
-            // chat
-            ChatContent(
+            // response section
+            ResponseContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(bodyWeight)
                     .alpha(bodyVisibility),
                 isInferencing = state.isInferencing,
-                viewModel.response
+                modelVersion = state.nanoVersion.orEmpty(),
+                onNavigate = onNavigate,
+                response = viewModel.response
             )
 
-            // header
+
             ChatOptions(
                 modifier = Modifier
                     .height(100.dp)
