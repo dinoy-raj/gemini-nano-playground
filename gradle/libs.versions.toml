@@ -14,6 +14,7 @@ ksp = "2.3.6"
 m3 = "1.5.0-alpha17"
 genaiPrompt = "1.0.0-beta2"
 navigationCompose = "1.3.0"
+nav3Core = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,6 +46,10 @@ androidx-navigation-compose = { group = "androidx.hilt", name = "hilt-lifecycle-
 
 # compose mark down
 compose-markdown = { module = "com.github.jeziellago:compose-markdown", version.ref = "composeMarkdown" }
+
+# nav 3
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 
 
 [plugins]

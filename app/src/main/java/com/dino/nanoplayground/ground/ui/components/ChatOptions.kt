@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.dino.nanoplayground.core.AnimatedCounter
 import com.dino.nanoplayground.core.bounceEffectRotation
 import com.dino.nanoplayground.core.bounceEffectShape
+import com.dino.nanoplayground.navigation.Settings
 
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -47,6 +48,7 @@ fun ChatOptions(
     modifier: Modifier = Modifier,
     countDown: Int,
     isInferencing: Boolean,
+    onNavigate: (Any) -> Unit,
     onCacheClear: () -> Unit
 ) {
 
@@ -160,7 +162,9 @@ fun ChatOptions(
                     .fillMaxHeight()
                     .weight(1f)
                     .bounceEffectShape(initialShape = 24.dp, pressedShape = 80.dp)
-                    {}
+                    {
+                        onNavigate(Settings)
+                    }
             )
             {
                 Box(

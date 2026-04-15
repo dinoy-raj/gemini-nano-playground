@@ -16,10 +16,13 @@ import com.dino.nanoplayground.ground.ui.sections.FeatureUnAvailableScreen
 import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 
 @Composable
-fun NanoGroundScreen(modifier: Modifier = Modifier, viewModel: ChatViewModel = hiltViewModel()) {
+fun NanoGroundScreen(
+    modifier: Modifier = Modifier,
+    viewModel: ChatViewModel = hiltViewModel(),
+    onNavigate: (Any) -> Unit
+) {
 
     val state by viewModel.homeState
-
 
     AnimatedContent(
         modifier = modifier.fillMaxSize(),
@@ -28,7 +31,7 @@ fun NanoGroundScreen(modifier: Modifier = Modifier, viewModel: ChatViewModel = h
         when (it) {
             FeatureAvailability.Checking -> FeatureStatusCheckingScreen()
             FeatureAvailability.UnAvailable -> FeatureUnAvailableScreen()
-            FeatureAvailability.Available -> ChatScreen(viewModel)
+            FeatureAvailability.Available -> ChatScreen(viewModel, onNavigate)
         }
     }
 }

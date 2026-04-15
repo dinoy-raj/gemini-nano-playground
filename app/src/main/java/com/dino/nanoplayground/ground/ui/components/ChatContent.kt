@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 fun ChatContent(
     modifier: Modifier = Modifier,
     isInferencing: Boolean,
-    response: SnapshotStateList<String>
+    response: SnapshotStateList<String>,
 ) {
 
     val chatBoxRadius by animateDpAsState(
