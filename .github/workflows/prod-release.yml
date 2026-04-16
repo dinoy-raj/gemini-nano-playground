@@ -44,7 +44,7 @@ jobs:
         uses: chkfung/android-version-actions@v1.2.3
         with:
           gradlePath: app/build.gradle.kts
-          versionCode: ${{ github.run_number + 2 }}
+          versionCode: ${{ github.run_number }}
 
       - name: Assemble release bundle
         run: ./gradlew bundleRelease
