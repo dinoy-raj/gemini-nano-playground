@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
 import com.dino.nanoplayground.core.bounceEffectShape
 
 @Composable
@@ -50,14 +52,14 @@ fun HeaderInfoBar(modifier: Modifier = Modifier, modelVersion: String, onClick: 
                 modifier = Modifier
                     .padding(12.dp)
                     .size(10.dp),
-                contentDescription = "send icon",
+                contentDescription = stringResource(R.string.send_icon_content_description),
                 tint = MaterialTheme.colorScheme.primary
             )
         }
         Spacer(Modifier.width(16.dp))
 
         Text(
-            text = "Gemini $modelVersion",
+            text = stringResource(R.string.gemini_model_version, modelVersion),
             color = MaterialTheme.colorScheme.secondary,
             fontSize = 12.sp
         )
@@ -77,7 +79,7 @@ fun HeaderInfoBar(modifier: Modifier = Modifier, modelVersion: String, onClick: 
                     modifier = Modifier
                         .padding(8.dp)
                         .size(12.dp),
-                    contentDescription = "send icon",
+                    contentDescription = stringResource(R.string.send_icon_content_description),
                     tint = MaterialTheme.colorScheme.surface
                 )
             }

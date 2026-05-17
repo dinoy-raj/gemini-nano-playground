@@ -36,6 +36,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
 import com.dino.nanoplayground.core.AnimatedCounter
 import com.dino.nanoplayground.core.bounceEffectRotation
 import com.dino.nanoplayground.core.bounceEffectShape
@@ -71,12 +73,11 @@ fun ChatOptions(
                 Icon(Icons.Rounded.AutoAwesomeMotion, contentDescription = null)
             },
             title = {
-                Text(text = "Clear Nano LRU Cache?")
+                Text(text = stringResource(R.string.clear_cache_title))
             },
             text = {
                 Text(
-                    text = "Nano stores your least recently used static prompts. " +
-                            "Would you like to clear this cache now?"
+                    text = stringResource(R.string.clear_cache_message)
                 )
             },
             confirmButton = {
@@ -86,7 +87,7 @@ fun ChatOptions(
                         showClearCacheDialog = false
                     }
                 ) {
-                    Text("Clear")
+                    Text(stringResource(R.string.clear))
                 }
             },
             dismissButton = {
@@ -95,7 +96,7 @@ fun ChatOptions(
                         showClearCacheDialog = false
                     }
                 ) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -148,7 +149,7 @@ fun ChatOptions(
                     }
 
                     Text(
-                        text = "s",
+                        text = stringResource(R.string.seconds_suffix),
                         fontSize = 8.sp,
                         color = if (isInferencing) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = if (isInferencing) FontWeight.Bold else FontWeight.Normal
@@ -180,7 +181,7 @@ fun ChatOptions(
                     Icon(
                         imageVector = Icons.Rounded.Gesture,
                         modifier = Modifier.size(20.dp),
-                        contentDescription = "send icon",
+                        contentDescription = stringResource(R.string.send_icon_content_description),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -210,7 +211,7 @@ fun ChatOptions(
                     Icon(
                         imageVector = Icons.Rounded.CleaningServices,
                         modifier = Modifier.size(20.dp),
-                        contentDescription = "send icon",
+                        contentDescription = stringResource(R.string.send_icon_content_description),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
