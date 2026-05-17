@@ -35,6 +35,7 @@ fun ResponseContent(
         )
 
         ResponseDisplayBox(
+            modifier = Modifier.weight(1f),
             isInferencing = isInferencing,
             response = response
         )
