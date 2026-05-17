@@ -17,6 +17,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +26,8 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(private val generativeModel: GenerativeModel) :
     ViewModel() {
 
-    val response = mutableStateListOf<String>()
+    private val _response = MutableStateFlow<String>("")
+    val response = _response.asStateFlow()
     var homeState = mutableStateOf<HomeState>(HomeState())
         private set
 
@@ -80,6 +82,7 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
     fun executePrompt(prompt: String) {
         setInferenceState(true)
         startCountDown()
+        clearResponse()
         checkForFeatureStatus {
             sendRequest(prompt)
         }
@@ -87,8 +90,15 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
 
     fun sendRequest(prompt: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val response = generativeModel.generateContent(prompt)
-            clearAndResetResponse(response)
+            generativeModel.generateContentStream(prompt).collect {
+                if(homeState.value.isInferencing)
+                {
+                    setInferenceState(false)
+                }
+                _response.update { oldValue ->
+                    oldValue + it.candidates[0].text
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -128,11 +138,8 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
         homeState.value = homeState.value.copy(isInferencing = state)
     }
 
-    private fun clearAndResetResponse(request: GenerateContentResponse) = viewModelScope.launch {
-        response.clear()
-        request.candidates.forEach {
-            response.add(it.text)
-        }
+    private fun clearResponse() = viewModelScope.launch {
+        _response.update { "" }
     }
 
     private fun setFeatureAvailability(availability: FeatureAvailability) = viewModelScope.launch {

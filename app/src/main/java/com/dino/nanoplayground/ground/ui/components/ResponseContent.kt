@@ -18,7 +18,7 @@ fun ResponseContent(
     isInferencing: Boolean,
     modelVersion: String,
     onNavigate: (Any) -> Unit,
-    response: SnapshotStateList<String>,
+    response: String,
 ) {
     Column(
         modifier = modifier
@@ -35,6 +35,7 @@ fun ResponseContent(
         )
 
         ResponseDisplayBox(
+            modifier = Modifier.weight(1f),
             isInferencing = isInferencing,
             response = response
         )

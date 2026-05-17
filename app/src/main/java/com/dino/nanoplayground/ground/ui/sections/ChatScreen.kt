@@ -31,6 +31,7 @@ import com.dino.nanoplayground.ground.ui.viewmodel.ChatViewModel
 fun ChatScreen(viewModel: ChatViewModel, intentPrompt: String, onNavigate: (Any) -> Unit) {
 
     val state by viewModel.homeState
+    val response by  viewModel.response.collectAsStateWithLifecycle()
     var isFieldExpended by remember { mutableStateOf(false) }
 
     val fieldWeight by animateFloatAsState(
@@ -73,7 +74,7 @@ fun ChatScreen(viewModel: ChatViewModel, intentPrompt: String, onNavigate: (Any)
                 isInferencing = state.isInferencing,
                 modelVersion = state.nanoVersion.orEmpty(),
                 onNavigate = onNavigate,
-                response = viewModel.response
+                response = response
             )
 
 
