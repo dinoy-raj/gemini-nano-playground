@@ -6,7 +6,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import com.dino.nanoplayground.core.NanoTransitionSpecs
 import com.dino.nanoplayground.ground.ui.NanoGroundScreen
+import com.dino.nanoplayground.info.ui.InfoScreen
 
 data object Ground
 data object Settings
@@ -21,6 +23,9 @@ fun MainNavigation(modifier: Modifier = Modifier, intentPrompt: String) {
     NavDisplay(
         modifier = modifier,
         backStack = backStack,
+        transitionSpec = { NanoTransitionSpecs.default },
+        popTransitionSpec = { NanoTransitionSpecs.default },
+        predictivePopTransitionSpec = { NanoTransitionSpecs.default },
         entryProvider = entryProvider {
             entry<Ground> {
                 NanoGroundScreen(intentPrompt = intentPrompt)
@@ -29,7 +34,9 @@ fun MainNavigation(modifier: Modifier = Modifier, intentPrompt: String) {
                 }
             }
             entry<Settings> {}
-            entry<Info> {}
+            entry<Info> {
+                InfoScreen()
+            }
             entry<Documentation> {}
         }
     )
