@@ -7,10 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
+
 @Composable
 fun SettingScreen() {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
     {
-        Text("nothing here")
+        Text(stringResource(R.string.nothing_here))
     }
 }

@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
 import com.dino.nanoplayground.core.bounceEffectRotation
 
 
@@ -51,7 +53,7 @@ fun ActionButton(
         Icon(
             imageVector = icon,
             modifier = Modifier.size(size / 3),
-            contentDescription = "send icon",
+            contentDescription = stringResource(R.string.send_icon_content_description),
             tint = MaterialTheme.colorScheme.surface
         )
     }

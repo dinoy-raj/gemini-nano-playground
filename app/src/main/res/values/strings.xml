@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Nano Prompt Ground</string>
     <string name="type_your_prompt">Type your prompt .....</string>
+    <string name="clear_cache_title">Clear Nano LRU Cache?</string>
+    <string name="clear_cache_message">Nano stores your least recently used static prompts. Would you like to clear this cache now?</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="nothing_here">nothing here</string>
+    <string name="nano_response">Nano Response</string>
+    <string name="send_icon_content_description">send icon</string>
+    <string name="seconds_suffix">s</string>
+    <string name="getting_nano_ready">Getting nano ready for you ...</string>
+    <string name="feature_unavailable_message">Gemini nano Feature is un-available on this device\n:(  Try again after upgrading your phone.</string>
+    <string name="gemini_model_version">Gemini %1$s</string>
 </resources>

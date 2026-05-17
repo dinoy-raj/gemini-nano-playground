@@ -29,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
@@ -78,7 +80,7 @@ fun ResponseDisplayBox(
                             contentAlignment = Alignment.Center
                         )
                         {
-                            Text(".")
+                            Text(stringResource(R.string.seconds_suffix))
                         }
                     } else {
                         // TODO:  in future construct Response slider
@@ -97,7 +99,7 @@ fun ResponseDisplayBox(
         )
         {
             ActionToolBar(
-                title = "Nano Response",
+                title = stringResource(R.string.nano_response),
                 content = response[0]
             )
         }

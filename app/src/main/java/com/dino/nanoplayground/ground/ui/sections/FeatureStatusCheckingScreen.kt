@@ -26,6 +26,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun FeatureStatusCheckingScreen()
@@ -58,7 +61,7 @@ fun FeatureStatusCheckingScreen()
 
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
-            text = "Getting nano ready for you ...",
+            text = stringResource(R.string.getting_nano_ready),
             fontSize = 14.sp,
             lineHeight = 28.sp,
             textAlign = TextAlign.Center,
