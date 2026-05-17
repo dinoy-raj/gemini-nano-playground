@@ -30,7 +30,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.core.view.HapticFeedbackConstantsCompat
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
@@ -106,8 +108,10 @@ fun ResponseDisplayBox(
 @Composable
 fun ResponseItem(text: String) {
     val scrollState = rememberScrollState()
+    val view = LocalView.current
 
     LaunchedEffect(text) {
+        view.performHapticFeedback(HapticFeedbackConstantsCompat.SEGMENT_FREQUENT_TICK)
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
