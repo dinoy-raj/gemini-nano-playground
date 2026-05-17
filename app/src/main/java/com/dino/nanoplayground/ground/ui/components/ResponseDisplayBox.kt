@@ -38,7 +38,7 @@ import dev.jeziellago.compose.markdowntext.MarkdownText
 @Composable
 fun ResponseDisplayBox(
     isInferencing: Boolean,
-    response: SnapshotStateList<String>,
+    response: String,
 ) {
 
     val chatBoxRadius by animateDpAsState(
@@ -82,7 +82,7 @@ fun ResponseDisplayBox(
                         }
                     } else {
                         // TODO:  in future construct Response slider
-                        ResponseItem(response[0])
+                        ResponseItem(response)
                     }
                 }
             }
@@ -98,7 +98,7 @@ fun ResponseDisplayBox(
         {
             ActionToolBar(
                 title = "Nano Response",
-                content = response[0]
+                content = response
             )
         }
     }
