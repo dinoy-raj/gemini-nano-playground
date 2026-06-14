@@ -16,6 +16,9 @@ fun ResponseContent(
     modifier: Modifier = Modifier,
     isInferencing: Boolean,
     modelVersion: String,
+    finishReason: String,
+    inferenceTime: Float,
+    outputTokens: Int,
     onNavigate: (Any) -> Unit,
     response: String,
 ) {
@@ -36,7 +39,10 @@ fun ResponseContent(
         ResponseDisplayBox(
             modifier = Modifier.weight(1f),
             isInferencing = isInferencing,
-            response = response
+            response = response,
+            finishReason = finishReason,
+            inferenceTime = inferenceTime,
+            outputTokens = outputTokens
         )
 
     }

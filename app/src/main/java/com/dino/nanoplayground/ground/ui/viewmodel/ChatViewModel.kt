@@ -193,6 +193,11 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
 
     private fun clearResponse() = viewModelScope.launch {
         _response.update { "" }
+        homeState.value = homeState.value.copy(
+            inferenceTime = 0f,
+            finishReason = "",
+            responseTokenCount = 0
+        )
     }
 
     private fun setFeatureAvailability(availability: FeatureAvailability) = viewModelScope.launch {
