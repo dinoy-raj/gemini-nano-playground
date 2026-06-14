@@ -9,7 +9,11 @@ import com.dino.nanoplayground.ground.models.FeatureAvailability
 import com.dino.nanoplayground.ground.models.HomeState
 import com.google.mlkit.genai.common.DownloadStatus
 import com.google.mlkit.genai.common.FeatureStatus
+import com.google.mlkit.genai.prompt.Candidate
+import com.google.mlkit.genai.prompt.CountTokensResponse
+import com.google.mlkit.genai.prompt.GenerateContentRequest
 import com.google.mlkit.genai.prompt.GenerativeModel
+import com.google.mlkit.genai.prompt.TextPart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -111,22 +115,49 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
     }
 
     fun sendRequest(prompt: String) = viewModelScope.launch(Dispatchers.IO) {
+        val startTime = System.currentTimeMillis()
+        var lastFinishReason = -1
         try {
             generativeModel.generateContentStream(prompt).collect {
-                if(homeState.value.isInferencing)
-                {
+                if (homeState.value.isInferencing) {
                     setInferenceState(false)
+                }
+                it.candidates.firstOrNull()?.finishReason?.let { reason ->
+                    lastFinishReason = reason
                 }
                 _response.update { oldValue ->
                     oldValue + (it.candidates.firstOrNull()?.text ?: "")
                 }
             }
+
+            val totalTime = System.currentTimeMillis() - startTime
+            val finalResponse = _response.value
+            val tokenCount = countTokens(finalResponse).totalTokens
+
+            val reasonText = when (lastFinishReason) {
+                Candidate.FinishReason.STOP -> "STOP"
+                Candidate.FinishReason.MAX_TOKENS -> "MAX_TOKENS"
+                Candidate.FinishReason.OTHER -> "OTHER"
+                else -> "UNKNOWN"
+            }
+
+            updateMetrics(totalTime.toFloat(), reasonText, tokenCount)
+
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
             setInferenceState(false)
             stopCountDown()
         }
+    }
+
+
+    private fun updateMetrics(time: Float, reason: String, tokens: Int) = viewModelScope.launch {
+        homeState.value = homeState.value.copy(
+            inferenceTime = time,
+            finishReason = reason,
+            responseTokenCount = tokens
+        )
     }
 
 
@@ -171,6 +202,10 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
 
     fun clearModelCache() = viewModelScope.launch(Dispatchers.IO) {
         generativeModel.clearImplicitCaches()
+    }
+
+    suspend fun countTokens(text: String): CountTokensResponse {
+        return generativeModel.countTokens(GenerateContentRequest.builder(TextPart(text)).build())
     }
 
 }
