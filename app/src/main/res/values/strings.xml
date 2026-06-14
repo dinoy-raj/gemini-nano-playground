@@ -9,7 +9,7 @@
     <string name="nano_response">Nano Response</string>
     <string name="send_icon_content_description">send icon</string>
     <string name="seconds_suffix">s</string>
-    <string name="getting_nano_ready">Getting nano ready for you ...</string>
+    <string name="getting_nano_ready">Getting nano ready for you …</string>
     <string name="feature_unavailable_message">Gemini nano Feature is un-available on this device\n:(  Try again after upgrading your phone.</string>
     <string name="gemini_model_version">Gemini %1$s</string>
     <string name="version">version %1$s</string>

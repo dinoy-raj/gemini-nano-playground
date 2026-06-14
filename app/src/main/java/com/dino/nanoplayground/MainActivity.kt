@@ -4,20 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.dino.nanoplayground.core.getSharedTextContent
-import com.dino.nanoplayground.ground.ui.NanoGroundScreen
 import com.dino.nanoplayground.navigation.MainNavigation
 import com.dino.nanoplayground.ui.theme.NanoPlaygroundTheme
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -71,8 +66,8 @@ class MainActivity : ComponentActivity() {
             }
 
 
-            NanoPlaygroundTheme() {
-                Scaffold() {
+            NanoPlaygroundTheme {
+                Scaffold {
                     MainNavigation(intentPrompt = intentPrompt, modifier = Modifier.padding(it))
                 }
             }

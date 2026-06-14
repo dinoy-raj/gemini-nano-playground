@@ -20,6 +20,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,6 +38,7 @@ import androidx.core.view.HapticFeedbackConstantsCompat
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ResponseDisplayBox(
     modifier: Modifier = Modifier,
@@ -115,7 +118,9 @@ fun ResponseItem(text: String) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
-    Box(modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(horizontal = 24.dp)) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -2,14 +2,12 @@ package com.dino.nanoplayground.ground.ui.viewmodel
 
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dino.nanoplayground.ground.models.FeatureAvailability
 import com.dino.nanoplayground.ground.models.HomeState
 import com.google.mlkit.genai.common.FeatureStatus
-import com.google.mlkit.genai.prompt.GenerateContentResponse
 import com.google.mlkit.genai.prompt.GenerativeModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,15 +18,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @Stable
 @HiltViewModel
 class ChatViewModel @Inject constructor(private val generativeModel: GenerativeModel) :
     ViewModel() {
 
-    private val _response = MutableStateFlow<String>("")
+    private val _response = MutableStateFlow("")
     val response = _response.asStateFlow()
-    var homeState = mutableStateOf<HomeState>(HomeState())
+    var homeState = mutableStateOf(HomeState())
         private set
 
 
@@ -117,7 +116,7 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
         _countDown.value = 0
         countDownJob = viewModelScope.launch {
             for (i in (1..1000)) {
-                delay(1000)
+                delay(1000.milliseconds)
                 _countDown.value = i
             }
         }
