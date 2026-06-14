@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dino.nanoplayground.ground.models.FeatureAvailability
 import com.dino.nanoplayground.ground.models.HomeState
+import com.google.mlkit.genai.common.DownloadStatus
 import com.google.mlkit.genai.common.FeatureStatus
 import com.google.mlkit.genai.prompt.GenerativeModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
+
 @Stable
 @HiltViewModel
 class ChatViewModel @Inject constructor(private val generativeModel: GenerativeModel) :
@@ -32,13 +34,10 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
 
 
     init {
-        checkForFeatureStatus()
-        {
+        checkForFeatureStatus {
             viewModelScope.launch {
-                if (homeState.value.featureAvailability == FeatureAvailability.Available) {
-                    collectNanoConfigurations(generativeModel)
-                    generativeModel.warmup()
-                }
+                collectNanoConfigurations(generativeModel)
+                generativeModel.warmup()
             }
         }
     }
@@ -52,7 +51,7 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
     }
 
 
-    private fun checkForFeatureStatus(onAvailable: () -> Unit) = viewModelScope.launch(
+    private fun checkForFeatureStatus(onAvailable: () -> Unit = {}) = viewModelScope.launch(
         Dispatchers.IO
     ) {
         val status = generativeModel.checkStatus()
@@ -60,14 +59,33 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
         when (status) {
             FeatureStatus.UNAVAILABLE -> setFeatureAvailability(FeatureAvailability.UnAvailable)
 
-            FeatureStatus.DOWNLOADABLE -> {
-                setFeatureAvailability(FeatureAvailability.Available)
-                onAvailable()
-            }
+            FeatureStatus.DOWNLOADABLE, FeatureStatus.DOWNLOADING -> {
+                var totalBytes = 0L
+                generativeModel.download().collect { downloadStatus ->
+                    when (downloadStatus) {
+                        is DownloadStatus.DownloadStarted -> {
+                            totalBytes = downloadStatus.bytesToDownload
+                            setFeatureAvailability(FeatureAvailability.Downloading)
+                        }
 
-            FeatureStatus.DOWNLOADING -> {
-                setFeatureAvailability(FeatureAvailability.Available)
-                onAvailable()
+                        is DownloadStatus.DownloadProgress -> {
+                            if (totalBytes > 0) {
+                                setDownloadProgress(downloadStatus.totalBytesDownloaded.toFloat() / totalBytes.toFloat())
+                            } else {
+                                setFeatureAvailability(FeatureAvailability.Downloading)
+                            }
+                        }
+
+                        is DownloadStatus.DownloadCompleted -> {
+                            setFeatureAvailability(FeatureAvailability.Available)
+                            onAvailable()
+                        }
+
+                        is DownloadStatus.DownloadFailed -> {
+                            setFeatureAvailability(FeatureAvailability.UnAvailable)
+                        }
+                    }
+                }
             }
 
             FeatureStatus.AVAILABLE -> {
@@ -75,6 +93,11 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
                 onAvailable()
             }
         }
+    }
+
+
+    private fun setDownloadProgress(progress: Float) = viewModelScope.launch {
+        homeState.value = homeState.value.copy(downloadProgress = progress)
     }
 
 
@@ -95,7 +118,7 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
                     setInferenceState(false)
                 }
                 _response.update { oldValue ->
-                    oldValue + it.candidates[0].text
+                    oldValue + (it.candidates.firstOrNull()?.text ?: "")
                 }
             }
         } catch (e: Exception) {
