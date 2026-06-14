@@ -7,13 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dino.nanoplayground.info.ui.sections.SettingsFooterSection
+import com.dino.nanoplayground.info.ui.components.NanoVersionHeader
+import com.dino.nanoplayground.info.ui.sections.InfoFooterSection
 
 @Composable
-fun InfoScreen(modifier: Modifier = Modifier)
-{
+fun InfoScreen(modifier: Modifier = Modifier, nanoVersion: String, tokenLimit: String) {
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -21,13 +22,26 @@ fun InfoScreen(modifier: Modifier = Modifier)
         }
     )
     {
-        LazyColumn(modifier = Modifier.padding(it).fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             item {
                 Spacer(Modifier.height(24.dp))
             }
 
             item {
-                SettingsFooterSection()
+                NanoVersionHeader(version = nanoVersion)
+            }
+
+            item {
+                Spacer(Modifier.height(24.dp))
+            }
+
+            item {
+                InfoFooterSection()
             }
 
             item {

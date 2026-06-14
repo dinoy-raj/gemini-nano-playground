@@ -74,7 +74,10 @@ fun ChatScreen(viewModel: ChatViewModel, intentPrompt: String, onNavigate: (Any)
                 isInferencing = state.isInferencing,
                 modelVersion = state.nanoVersion.orEmpty(),
                 onNavigate = onNavigate,
-                response = response
+                response = response,
+                finishReason = state.finishReason,
+                inferenceTime = state.inferenceTime,
+                outputTokens = state.responseTokenCount
             )
 
 

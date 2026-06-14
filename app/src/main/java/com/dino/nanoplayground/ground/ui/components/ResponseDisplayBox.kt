@@ -1,6 +1,7 @@
 package com.dino.nanoplayground.ground.ui.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -10,6 +11,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +22,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,15 +36,20 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.view.HapticFeedbackConstantsCompat
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ResponseDisplayBox(
     modifier: Modifier = Modifier,
     isInferencing: Boolean,
     response: String,
+    finishReason: String,
+    inferenceTime: Float,
+    outputTokens: Int,
 ) {
 
     val chatBoxRadius by animateDpAsState(
@@ -83,13 +92,18 @@ fun ResponseDisplayBox(
                             Text(".")
                         }
                     } else {
-                        ResponseItem(response)
+                        ResponseItem(
+                            text = response,
+                            finishReason = finishReason,
+                            inferenceTime = inferenceTime,
+                            outputTokens = outputTokens
+                        )
                     }
                 }
             }
         }
 
-        androidx.compose.animation.AnimatedVisibility(
+        AnimatedVisibility(
             visible = response.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -106,7 +120,12 @@ fun ResponseDisplayBox(
 }
 
 @Composable
-fun ResponseItem(text: String) {
+fun ResponseItem(
+    text: String,
+    finishReason: String,
+    inferenceTime: Float,
+    outputTokens: Int
+) {
     val scrollState = rememberScrollState()
     val view = LocalView.current
 
@@ -115,7 +134,11 @@ fun ResponseItem(text: String) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
-    Box(modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp)
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -130,6 +153,21 @@ fun ResponseItem(text: String) {
                     syntaxHighlightTextColor = MaterialTheme.colorScheme.primary,
                     syntaxHighlightColor = MaterialTheme.colorScheme.surfaceContainer
                 )
+            }
+
+            AnimatedVisibility(visible = inferenceTime != 0f) {
+                FlowRow(
+                    modifier = Modifier.padding(top = 16.dp),
+                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(
+                        8.dp
+                    )
+                ) {
+                    StatsText("$inferenceTime ms")
+                    StatsText("|")
+                    StatsText("$outputTokens tokens")
+                    StatsText("|")
+                    StatsText("Finish Reason: $finishReason")
+                }
             }
 
             Spacer(Modifier.height(150.dp))
@@ -168,4 +206,15 @@ fun ResponseItem(text: String) {
                 .align(Alignment.BottomCenter)
         )
     }
+}
+
+
+@Composable
+private fun StatsText(content: String) {
+
+    Text(
+        text = content,
+        fontSize = 10.sp,
+        color = MaterialTheme.colorScheme.primary,
+    )
 }
