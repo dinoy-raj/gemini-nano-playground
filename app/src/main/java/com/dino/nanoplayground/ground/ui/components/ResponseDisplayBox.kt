@@ -1,6 +1,7 @@
 package com.dino.nanoplayground.ground.ui.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -9,36 +10,46 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.core.view.HapticFeedbackConstantsCompat
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
-// TODO : Implement response slider in future
-
-
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ResponseDisplayBox(
+    modifier: Modifier = Modifier,
     isInferencing: Boolean,
-    response: SnapshotStateList<String>,
+    response: String,
+    finishReason: String,
+    inferenceTime: Float,
+    outputTokens: Int,
 ) {
 
     val chatBoxRadius by animateDpAsState(
@@ -49,7 +60,7 @@ fun ResponseDisplayBox(
     )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainer,
@@ -81,14 +92,18 @@ fun ResponseDisplayBox(
                             Text(".")
                         }
                     } else {
-                        // TODO:  in future construct Response slider
-                        ResponseItem(response[0])
+                        ResponseItem(
+                            text = response,
+                            finishReason = finishReason,
+                            inferenceTime = inferenceTime,
+                            outputTokens = outputTokens
+                        )
                     }
                 }
             }
         }
 
-        androidx.compose.animation.AnimatedVisibility(
+        AnimatedVisibility(
             visible = response.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -98,47 +113,71 @@ fun ResponseDisplayBox(
         {
             ActionToolBar(
                 title = "Nano Response",
-                content = response[0]
+                content = response
             )
         }
     }
 }
 
-
-
-
-
 @Composable
-fun ResponseItem(text: String) {
+fun ResponseItem(
+    text: String,
+    finishReason: String,
+    inferenceTime: Float,
+    outputTokens: Int
+) {
+    val scrollState = rememberScrollState()
+    val view = LocalView.current
 
-    Box(modifier = Modifier.padding(24.dp))
-    {
-        LazyColumn() {
+    LaunchedEffect(text) {
+        view.performHapticFeedback(HapticFeedbackConstantsCompat.SEGMENT_FREQUENT_TICK)
+        scrollState.animateScrollTo(scrollState.maxValue)
+    }
 
-            item {
-                Spacer(Modifier.height(16.dp))
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+        ) {
+            Spacer(Modifier.height(32.dp))
+
+            SelectionContainer {
+                MarkdownText(
+                    text,
+                    modifier = Modifier.padding(4.dp),
+                    syntaxHighlightTextColor = MaterialTheme.colorScheme.primary,
+                    syntaxHighlightColor = MaterialTheme.colorScheme.surfaceContainer
+                )
             }
 
-            item {
-                SelectionContainer {
-                    MarkdownText(
-                        text,
-                        modifier = Modifier.padding(4.dp),
-                        syntaxHighlightTextColor = MaterialTheme.colorScheme.primary,
-                        syntaxHighlightColor =  MaterialTheme.colorScheme.surfaceContainer
+            AnimatedVisibility(visible = inferenceTime != 0f) {
+                FlowRow(
+                    modifier = Modifier.padding(top = 16.dp),
+                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(
+                        8.dp
                     )
+                ) {
+                    StatsText("$inferenceTime ms")
+                    StatsText("|")
+                    StatsText("$outputTokens tokens")
+                    StatsText("|")
+                    StatsText("Finish Reason: $finishReason")
                 }
             }
 
-            item {
-                Spacer(Modifier.height(24.dp))
-            }
+            Spacer(Modifier.height(150.dp))
         }
 
+        // Top Gradient Overlay
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(24.dp)
+                .height(32.dp)
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
@@ -149,17 +188,17 @@ fun ResponseItem(text: String) {
                 )
                 .align(Alignment.TopCenter)
         )
+
+        // Bottom Gradient Overlay
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(100.dp)
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
                             Color.Transparent,
-                            MaterialTheme.colorScheme.surfaceContainer.copy(alpha = .2f),
-                            MaterialTheme.colorScheme.surfaceContainer.copy(alpha = .5f),
-                            MaterialTheme.colorScheme.surfaceContainer.copy(alpha = .7f),
+                            MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.5f),
                             MaterialTheme.colorScheme.surfaceContainer
                         )
                     )
@@ -167,5 +206,15 @@ fun ResponseItem(text: String) {
                 .align(Alignment.BottomCenter)
         )
     }
+}
 
+
+@Composable
+private fun StatsText(content: String) {
+
+    Text(
+        text = content,
+        fontSize = 10.sp,
+        color = MaterialTheme.colorScheme.primary,
+    )
 }

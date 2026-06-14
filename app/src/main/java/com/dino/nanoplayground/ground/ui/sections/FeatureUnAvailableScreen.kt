@@ -29,6 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun FeatureUnAvailableScreen() {
@@ -66,7 +69,7 @@ fun FeatureUnAvailableScreen() {
 
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
-            text = "Gemini nano Feature is un-available on this device\n:(  Try again after upgrading your phone.",
+            text = stringResource(R.string.feature_unavailable_message),
             fontSize = 14.sp,
             lineHeight = 28.sp,
             textAlign = TextAlign.Center,
