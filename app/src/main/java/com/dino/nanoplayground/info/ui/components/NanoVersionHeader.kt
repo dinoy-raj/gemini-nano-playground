@@ -68,7 +68,7 @@ fun NanoVersionHeader(version: String) {
                 tint = MaterialTheme.colorScheme.primary
             )
             Text(
-                text = "Gemini Nano \n$version",
+                text = "Gemini\n$version",
                 color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp,
