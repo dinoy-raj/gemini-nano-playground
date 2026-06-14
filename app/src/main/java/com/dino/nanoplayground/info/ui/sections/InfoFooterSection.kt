@@ -1,6 +1,5 @@
 package com.dino.nanoplayground.info.ui.sections
 
-import com.dino.nanoplayground.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,10 +22,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dino.nanoplayground.R
 import com.dino.nanoplayground.info.ui.components.PlayRatingTile
 
 @Composable
-fun SettingsFooterSection(modifier: Modifier = Modifier) {
+fun InfoFooterSection(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val packageManager = context.packageManager
     val info = packageManager.getPackageInfo(context.packageName, 0)
