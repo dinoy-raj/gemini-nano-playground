@@ -25,6 +25,7 @@ fun MainNavigation(
     viewModel: ChatViewModel = hiltViewModel(),
 ) {
     val backStack = remember { mutableStateListOf<Any>(Ground) }
+    val state = viewModel.homeState.value
 
     NavDisplay(
         modifier = modifier,
@@ -41,7 +42,10 @@ fun MainNavigation(
             }
             entry<Settings> {}
             entry<Info> {
-                InfoScreen()
+                InfoScreen(
+                    nanoVersion = state.nanoVersion.orEmpty(),
+                    tokenLimit = state.nanoTokenLimit.toString()
+                )
             }
             entry<Documentation> {}
         }
