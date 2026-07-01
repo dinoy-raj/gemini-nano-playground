@@ -12,6 +12,7 @@
     <string name="getting_nano_ready">Getting nano ready for you …</string>
     <string name="downloading_nano">Downloading Gemini Nano …</string>
     <string name="feature_unavailable_message">Gemini nano Feature is un-available on this device\n:(  Try again after upgrading your phone.</string>
+    <string name="connection_error_message">Could not connect to AI core, make sure you have updated all necessary AI services and apps.</string>
     <string name="gemini_model_version">Gemini %1$s</string>
     <string name="version">version %1$s</string>
 </resources>
