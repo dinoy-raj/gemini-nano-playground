@@ -24,17 +24,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-import androidx.compose.ui.res.stringResource
 import com.dino.nanoplayground.R
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun FeatureUnAvailableScreen() {
+fun FeatureUnAvailableScreen(
+    message: String = stringResource(R.string.feature_unavailable_message)
+) {
 
     val infiniteTransition = rememberInfiniteTransition(label = "placeholder")
     val color by infiniteTransition.animateColor(
@@ -69,7 +70,7 @@ fun FeatureUnAvailableScreen() {
 
         Text(
             modifier = Modifier.padding(horizontal = 8.dp),
-            text = stringResource(R.string.feature_unavailable_message),
+            text = message,
             fontSize = 14.sp,
             lineHeight = 28.sp,
             textAlign = TextAlign.Center,

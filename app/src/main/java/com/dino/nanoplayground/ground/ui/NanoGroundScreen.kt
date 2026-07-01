@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.dino.nanoplayground.R
 import com.dino.nanoplayground.ground.models.FeatureAvailability
 import com.dino.nanoplayground.ground.ui.sections.ChatScreen
 import com.dino.nanoplayground.ground.ui.sections.FeatureDownloadingScreen
@@ -34,6 +36,8 @@ fun NanoGroundScreen(
             FeatureAvailability.Checking -> FeatureStatusCheckingScreen()
             FeatureAvailability.Downloading -> FeatureDownloadingScreen(state.downloadProgress)
             FeatureAvailability.UnAvailable -> FeatureUnAvailableScreen()
+            FeatureAvailability.ConnectionError -> FeatureUnAvailableScreen(stringResource(R.string.connection_error_message))
+            is FeatureAvailability.Error -> FeatureUnAvailableScreen(it.message)
             FeatureAvailability.Available -> ChatScreen(viewModel, intentPrompt, onNavigate)
         }
     }
