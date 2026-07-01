@@ -9,6 +9,7 @@ import com.dino.nanoplayground.ground.models.FeatureAvailability
 import com.dino.nanoplayground.ground.models.HomeState
 import com.google.mlkit.genai.common.DownloadStatus
 import com.google.mlkit.genai.common.FeatureStatus
+import com.google.mlkit.genai.common.GenAiException
 import com.google.mlkit.genai.prompt.Candidate
 import com.google.mlkit.genai.prompt.CountTokensResponse
 import com.google.mlkit.genai.prompt.GenerateContentRequest
@@ -58,7 +59,16 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
     private fun checkForFeatureStatus(onAvailable: () -> Unit = {}) = viewModelScope.launch(
         Dispatchers.IO
     ) {
-        val status = generativeModel.checkStatus()
+        val status = try {
+            generativeModel.checkStatus()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            if (e is GenAiException && e.errorCode == 601) {
+                setFeatureAvailability(FeatureAvailability.ConnectionError)
+                return@launch
+            }
+            FeatureStatus.UNAVAILABLE
+        }
 
         when (status) {
             FeatureStatus.UNAVAILABLE -> setFeatureAvailability(FeatureAvailability.UnAvailable)
