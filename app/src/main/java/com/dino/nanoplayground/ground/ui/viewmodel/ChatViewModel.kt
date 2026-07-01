@@ -67,6 +67,7 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
                 setFeatureAvailability(FeatureAvailability.ConnectionError)
                 return@launch
             }
+            setFeatureAvailability(FeatureAvailability.Error(e.message ?: "Unknown error occurred"))
             FeatureStatus.UNAVAILABLE
         }
 

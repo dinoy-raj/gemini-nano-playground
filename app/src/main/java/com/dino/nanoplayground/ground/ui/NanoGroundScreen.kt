@@ -37,6 +37,7 @@ fun NanoGroundScreen(
             FeatureAvailability.Downloading -> FeatureDownloadingScreen(state.downloadProgress)
             FeatureAvailability.UnAvailable -> FeatureUnAvailableScreen()
             FeatureAvailability.ConnectionError -> FeatureUnAvailableScreen(stringResource(R.string.connection_error_message))
+            is FeatureAvailability.Error -> FeatureUnAvailableScreen(it.message)
             FeatureAvailability.Available -> ChatScreen(viewModel, intentPrompt, onNavigate)
         }
     }
