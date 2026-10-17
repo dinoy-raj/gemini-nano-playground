@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="app/src/main/ic_launcher-playstore.png" alt="Nano Playground app icon" width="120">
+</p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dinoy-raj/dump/ede4a186f7a9fe6c0fc8295e835d8e4a59c9a4cf/screen.png" alt="Gemini Nano Playground Screen" width="1000">
@@ -8,18 +11,30 @@
 
 Nano Playground is an Android application designed to test and experiment with Google's on-device Generative AI model - Gemini Nano via ML Kit Prompt API(`com.google.mlkit:genai-prompt`)
 
+## Install
+
+Nano Playground is now available on Google Play!
+
+<a href="https://play.google.com/store/apps/details?id=com.dino.nanoplayground">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
+</a>
+
+> **Note:** Gemini Nano runs only on supported devices (see [Currently Supported Devices](#currently-supported-devices)). On first launch the app may need to download the model through AICore.
+
 
 ## Project Structure
 
 ```
 .
+├── .github/workflows
 ├── app
 ├── gradle
+├── release
 ├── build.gradle.kts
 ├── gradle.properties
 ├── gradlew
 ├── gradlew.bat
-├── local.properties
+├── LICENSE
 ├── README.md
 └── settings.gradle.kts
 ```
@@ -29,27 +44,38 @@ The codebase is organized primarily within `app/src/main/java/com/dino/nanoplayg
 ```
 app/src/main/java/com/dino/nanoplayground
 ├── core/
+├── di/
 ├── ground/
-│   ├── di/
 │   ├── models/
 │   └── ui/
 │       ├── components/
 │       ├── sections/
-│       ├── ChatScreen.kt
-│       └── viewmodel/
+│       ├── viewmodel/
+│       └── NanoGroundScreen.kt
+├── info/
+│   └── ui/
+│       ├── components/
+│       ├── sections/
+│       └── InfoScreen.kt
+├── navigation/
+├── settings/
 ├── ui/
 │   └── theme/
 ├── MainActivity.kt
 └── NanoApplication.kt
 ```
 
-*   **`core/`**: Contains core utilities, such as custom Compose modifiers (e.g., `BounceEffect`).
+*   **`core/`**: Core utilities such as custom Compose modifiers (`BounceEffect`), `AnimatedCounter`, navigation transitions and intent helpers.
+*   **`di/`**: Hilt module (`NanoModule`) providing the ML Kit `GenerativeModel`.
 *   **`ground/`**: The main feature module containing the UI and business logic.
     *   **`models/`**: Data classes representing application state (e.g., `HomeState`, `FeatureAvailability`).
     *   **`ui/`**: Compose UI components and screens.
-        *   **`components/`**: Reusable UI elements like `ChatContent`, `ChatOptions`, and `UserQueryField`.
-        *   **`sections/`**: Main screen layouts like `ChatScreen`, `FeatureStatusCheckingScreen`, etc.
+        *   **`components/`**: Reusable UI elements like `ResponseContent`, `ChatOptions`, `HeaderInfoBar` and `UserQueryField`.
+        *   **`sections/`**: Main screen layouts like `ChatScreen`, `FeatureStatusCheckingScreen`, `FeatureDownloadingScreen` and `FeatureUnAvailableScreen`.
         *   **`viewmodel/`**: Contains the `ChatViewModel` which handles the logic for checking model status and executing prompts.
+*   **`info/`**: Info screen showing the Gemini Nano version, token limit, app version and a Play Store review tile.
+*   **`navigation/`**: App navigation built with Navigation 3 (`MainNavigation`).
+*   **`settings/`**: Settings screen (work in progress).
 *   **`ui/theme/`**: Theme definitions for the application (colors, typography).
 
 
@@ -80,26 +106,23 @@ app/src/main/java/com/dino/nanoplayground
 *   **realme:** realme GT 7T
 *   **vivo:** vivo X200T, vivo X200, vivo X200 Pro, vivo X300, vivo X300 Pro
 
-## Closed Testing
-Closed testing is now open!
-
-* **Join Testing google group** - https://groups.google.com/g/nano-playground-internal-testers
-* **Join Closed Testing on the web**: Testers can join your test on the web - https://play.google.com/apps/testing/com.dino.nanoplayground
-* **Join Closed Testing on Android**: Testers can join your test using Google Play on Android - https://play.google.com/store/apps/details?id=com.dino.nanoplayground
-
 ## Features
 
-* **Model Status Checking**: Automatically checks the availability and download status of the required on-device models before allowing interaction.
+* **Model Status Checking**: Automatically checks the availability and download status of the required on-device models before allowing interaction, with download progress and clear error screens (unsupported device, AICore connection error, generic errors).
 * **Chat Interface**: A streamlined chat UI built with Jetpack Compose, featuring expandable input fields and markdown rendering for AI responses.
+* **Streaming Responses**: Responses are streamed token by token using `generateContentStream` for a responsive "typing" feel.
+* **Inference Stats**: Shows inference time, response token count and finish reason once a response completes.
+* **Share to Nano**: Share any text from another app to Nano Playground to use it as a prompt.
+* **Model Info**: Displays the Gemini Nano version and token limit of the on-device model.
 * **Animated UI**: Utilizes Compose animations, including shared element transitions and bounce effects, for a smooth user experience.
 * **Clear Model Cache**: Includes a dedicated Material 3 dialog to safely clear the least recently used (LRU) static prompts and model data, helping manage on-device storage efficiently.
+* **In-App Updates**: Uses Google Play In-App Updates to keep the app up to date.
 
 
 ## Upcoming Features
 
 * **Multimodality Support**: Expanding capabilities to include image and document processing alongside text-based interactions.
 * **Prefix Caching**: Implementation of prefix caching to significantly reduce latency and compute costs for repetitive prompt structures.
-* **Streaming Responses**: Opt-in support for real-time token streaming to provide a more responsive "typing" feel during AI generation.
 * **Model Configuration Settings**: Granular control over generation parameters, including **Temperature**, **Top-K**, **Top-P**, and **Random Seed**.
 * **Offline Storage for Caching**: Persistent local storage support for prefix-cached prompts to ensure performance gains across app sessions.
 
@@ -114,6 +137,10 @@ This project is built using modern Android development practices and libraries:
 *   **Hilt**: Dependency injection framework for managing application components.
 *   **Google ML Kit GenAI**: Provides the on-device generative AI models and inference capabilities.
 *   **Material Design 3**: For styling and UI components.
+*   **Navigation 3**: For navigating between screens.
+*   **Compose Markdown**: For rendering markdown responses.
+*   **Google Play In-App Updates**: For prompting users to update the app.
+*   **SplashScreen API**: For the app launch screen.
 *   **Coroutines & Flows**: For asynchronous programming and state management.
 
 
@@ -122,20 +149,22 @@ This project is built using modern Android development practices and libraries:
 The application follows the Model-View-ViewModel (MVVM) architecture pattern:
 *   **View**: Jetpack Compose screens (`NanoGroundScreen`, `ChatScreen`) observe state from the ViewModel and handle user interactions.
 *   **ViewModel**: `ChatViewModel` manages the state (`HomeState`), interacts with the `GenerativeModel`, and exposes data streams (`MutableStateFlow`, `StateFlow`) to the UI.
+*   **Model**: The ML Kit `GenerativeModel` is provided through Hilt (`NanoModule`) and injected into the ViewModel.
 
 ## Setup Instructions
 
 1.  **Clone the repository**:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/dinoy-raj/gemini-nano-playground.git
     cd gemini-nano-playground
     ```
 2.  **Open in Android Studio**:
-    Open the project using a recent version of Android Studio (preferably Ladybug or newer to fully support Compose and AGP 8.x/9.x).
+    Open the project using the latest stable version of Android Studio (the project uses AGP 9.x, Gradle 9.x and Kotlin 2.x).
 3.  **Requirements**:
+    *   JDK **21**.
     *   The app requires a minimum SDK of **33** (Android 13).
-    *   Target SDK is **36**.
-    *   A physical device or emulator running Android 14 or higher. Note that on-device GenAI models may have specific hardware requirements or might need to download initial models upon first run.
+    *   Target SDK is **36**, compile SDK is **37**.
+    *   A [supported physical device](#currently-supported-devices) with AICore. Gemini Nano does not run on emulators, and the model may need to be downloaded on first run.
 
 ## Building and Running
 
@@ -149,8 +178,16 @@ You can build and run the app directly from Android Studio or using Gradle from 
 ./gradlew assembleDebug
 ```
 
-## Resources
+## CI/CD
 
+GitHub Actions workflows live in `.github/workflows`:
+
+*   **`verify-build.yml`**: Runs unit tests and builds a debug APK for pull requests into `develop`.
+*   **`check-prod-source-branch.yml`**: Ensures only `develop` can be merged into `prod`.
+*   **`prod-release.yml`**: Builds, signs and uploads the release bundle to Google Play on pushes to `prod`, using the release notes in `release/`.
+
+## Resources
 
 *   **Presentation / Slides**: [Supercharging Android Apps with On-Device AI (Gemini Nano Prompt API) - Droid Con Uganda 2025](https://www.slideshare.net/slideshow/supercharging-android-apps-with-on-device-ai-gemini-nano-prompt-api-droid-con-uganda-2025-session-by-dinoy-raj-b5db/286843138)
 *   **Prompt API Documentation**: [Get started with the ML Kit GenAI Prompt API for Android](https://developers.google.com/ml-kit/genai/prompt/android/get-started)
+*   **Google Play**: [Nano Playground on Google Play](https://play.google.com/store/apps/details?id=com.dino.nanoplayground)
