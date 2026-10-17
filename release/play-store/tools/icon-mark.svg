@@ -1,0 +1,11 @@
+<svg viewBox="0 0 108 108" width="108" height="108" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="aPh" x1="34" y1="34" x2="66" y2="82" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C4D2FF"/><stop offset="1" stop-color="#93A6FF"/></linearGradient>
+ <linearGradient id="aSp" x1="52" y1="26" x2="80" y2="62" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3E8BFF"/><stop offset="0.6" stop-color="#7A5CFF"/><stop offset="1" stop-color="#FF6FB1"/></linearGradient>
+ <radialGradient id="aGl" cx="62" cy="46" r="14" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFB8DF" stop-opacity="0.95"/><stop offset="1" stop-color="#FFB8DF" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="33" y="31" width="32" height="50" rx="9" fill="url(#aPh)"/>
+<rect x="33" y="31" width="32" height="50" rx="9" fill="url(#aGl)"/>
+<rect x="43" y="72" width="12" height="3.5" rx="1.75" fill="#FFFFFF"/>
+<path d="M64,28 Q66.72,42.28 81,45 Q66.72,47.72 64,62 Q61.28,47.72 47,45 Q61.28,42.28 64,28Z" fill="url(#aSp)"/>
+</svg>

@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- device, cut out around the spark and the home bar so both read in one tint -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillAlpha="0.5"
+        android:fillType="evenOdd"
+        android:pathData="M42,31H56A9,9 0,0 1,65 40V72A9,9 0,0 1,56 81H42A9,9 0,0 1,33 72V40A9,9 0,0 1,42 31Z
+            M44.75,72H53.25A1.75,1.75 0,0 1,53.25 75.5H44.75A1.75,1.75 0,0 1,44.75 72Z" />
+
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M64,28Q66.72,42.28 81,45Q66.72,47.72 64,62Q61.28,47.72 47,45Q61.28,42.28 64,28Z" />
+</vector>

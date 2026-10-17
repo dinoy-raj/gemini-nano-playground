@@ -1,0 +1,29 @@
+Experience on-device generative AI
+
+Nano Prompt Ground is an experimental playground for developers and AI enthusiasts to try Gemini Nano, Google's on-device model, running entirely on your Android phone.
+
+Built with Kotlin and Jetpack Compose, the app uses the ML Kit GenAI Prompt API, backed by Android AICore, to generate text on the device itself instead of in the cloud.
+
+Key features
+
+• Private by design: prompts and responses are processed locally by Gemini Nano and never leave your phone.
+
+• Works offline: once the model is on your device, there are no API keys, no cloud round trip and no data used for inference.
+
+• Share to Nano: send text from any app with the Android share sheet and it lands straight in a prompt.
+
+• Performance stats: see the inference time, output token count and finish reason after every response.
+
+• Model info: check which Gemini Nano version your device is running.
+
+• Modern Android: 100% Jetpack Compose with Material 3 Expressive shapes and motion.
+
+A technical showcase
+
+Nano Prompt Ground shows how an Android app can use a system-level language model for tasks like summarising, rewriting and creative writing while keeping user data on the device.
+
+Requirements
+
+Needs a phone that supports Gemini Nano through AICore, with Android System Intelligence and AICore up to date. On supported phones the model may need to download once before first use; on unsupported phones the app will tell you the feature isn't available.
+
+Nano Prompt Ground is an independent project and is not affiliated with or endorsed by Google.
