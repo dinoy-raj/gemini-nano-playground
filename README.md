@@ -1,9 +1,5 @@
 <p align="center">
-  <img src="app/src/main/ic_launcher-playstore.png" alt="Nano Playground app icon" width="120">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/dinoy-raj/dump/ede4a186f7a9fe6c0fc8295e835d8e4a59c9a4cf/screen.png" alt="Gemini Nano Playground Screen" width="1000">
+  <img src="docs/images/app-icon.png" alt="Nano Playground app icon" width="120">
 </p>
 
 
@@ -22,12 +18,27 @@ Nano Playground is now available on Google Play!
 > **Note:** Gemini Nano runs only on supported devices (see [Currently Supported Devices](#currently-supported-devices)). On first launch the app may need to download the model through AICore.
 
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/images/screenshot-private.png" alt="Generative AI that never leaves your phone" width="250">
+  <img src="docs/images/screenshot-offline.png" alt="Runs locally, works offline" width="250">
+  <img src="docs/images/screenshot-playground.png" alt="Prompt anything" width="250">
+</p>
+<p align="center">
+  <img src="docs/images/screenshot-speed.png" alt="See the speed of every answer" width="250">
+  <img src="docs/images/screenshot-share.png" alt="Send text from any app" width="250">
+  <img src="docs/images/screenshot-model-info.png" alt="Check which Nano you have" width="250">
+</p>
+
+
 ## Project Structure
 
 ```
 .
 ├── .github/workflows
 ├── app
+├── docs/images
 ├── gradle
 ├── release
 ├── build.gradle.kts
