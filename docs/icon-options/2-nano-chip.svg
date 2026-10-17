@@ -1,0 +1,11 @@
+<svg viewBox="0 0 108 108" width="108" height="108" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="bPin" x1="27" y1="27" x2="81" y2="81" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9FE3C4"/><stop offset="1" stop-color="#8FC8FF"/></linearGradient>
+ <linearGradient id="bBody" x1="34" y1="34" x2="74" y2="74" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#14C27A"/><stop offset="0.55" stop-color="#14A9B8"/><stop offset="1" stop-color="#3D7BFF"/></linearGradient>
+ <radialGradient id="bGl" cx="54" cy="54" r="15" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE27A" stop-opacity="0.95"/><stop offset="0.5" stop-color="#FFB8DF" stop-opacity="0.45"/><stop offset="1" stop-color="#FFB8DF" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="41.5" y="27" width="5" height="10" rx="2.5" fill="url(#bPin)"/><rect x="41.5" y="71" width="5" height="10" rx="2.5" fill="url(#bPin)"/><rect x="27" y="41.5" width="10" height="5" rx="2.5" fill="url(#bPin)"/><rect x="71" y="41.5" width="10" height="5" rx="2.5" fill="url(#bPin)"/><rect x="51.5" y="27" width="5" height="10" rx="2.5" fill="url(#bPin)"/><rect x="51.5" y="71" width="5" height="10" rx="2.5" fill="url(#bPin)"/><rect x="27" y="51.5" width="10" height="5" rx="2.5" fill="url(#bPin)"/><rect x="71" y="51.5" width="10" height="5" rx="2.5" fill="url(#bPin)"/><rect x="61.5" y="27" width="5" height="10" rx="2.5" fill="url(#bPin)"/><rect x="61.5" y="71" width="5" height="10" rx="2.5" fill="url(#bPin)"/><rect x="27" y="61.5" width="10" height="5" rx="2.5" fill="url(#bPin)"/><rect x="71" y="61.5" width="10" height="5" rx="2.5" fill="url(#bPin)"/>
+<rect x="34" y="34" width="40" height="40" rx="11" fill="url(#bBody)"/>
+<rect x="34" y="34" width="40" height="40" rx="11" fill="url(#bGl)"/>
+<path d="M54,42 Q55.92,52.08 66,54 Q55.92,55.92 54,66 Q52.08,55.92 42,54 Q52.08,52.08 54,42Z" fill="#FFFFFF"/>
+</svg>

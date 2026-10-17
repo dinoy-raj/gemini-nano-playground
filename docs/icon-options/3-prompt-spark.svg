@@ -1,0 +1,13 @@
+<svg viewBox="0 0 108 108" width="108" height="108" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="cBu" x1="30" y1="34" x2="72" y2="80" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFD43B"/><stop offset="0.55" stop-color="#FF9A3D"/><stop offset="1" stop-color="#FF5A7A"/></linearGradient>
+ <linearGradient id="cSp" x1="60" y1="22" x2="82" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF6FB1"/><stop offset="1" stop-color="#7A5CFF"/></linearGradient>
+ <radialGradient id="cGl" cx="66" cy="38" r="14" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFC6E6" stop-opacity="0.95"/><stop offset="1" stop-color="#FFC6E6" stop-opacity="0"/></radialGradient>
+</defs>
+<path d="M42,34 H64 A12,12 0 0 1 76,46 V60 A12,12 0 0 1 64,72 H46 L36,80 V70.5 A12,12 0 0 1 30,60 V46 A12,12 0 0 1 42,34 Z" fill="url(#cBu)"/>
+<path d="M42,34 H64 A12,12 0 0 1 76,46 V60 A12,12 0 0 1 64,72 H46 L36,80 V70.5 A12,12 0 0 1 30,60 V46 A12,12 0 0 1 42,34 Z" fill="url(#cGl)"/>
+<circle cx="42" cy="53" r="3.6" fill="#FFFFFF" fill-opacity="0.55"/>
+<circle cx="53" cy="53" r="3.6" fill="#FFFFFF" fill-opacity="0.8"/>
+<circle cx="64" cy="53" r="3.6" fill="#FFFFFF"/>
+<path d="M67,24 Q68.76,33.24 78,35 Q68.76,36.76 67,46 Q65.24,36.76 56,35 Q65.24,33.24 67,24Z" fill="url(#cSp)"/>
+</svg>
