@@ -1,0 +1,45 @@
+Nano Prompt Ground is a playground for Gemini Nano, the generative AI model that runs directly on your Android phone. Type a prompt, tap the sparkle and watch the answer stream in, without your words ever leaving the device.
+
+The app talks to the on-device model through the official ML Kit GenAI Prompt API and Android AICore. There are no accounts, no API keys and no cloud servers involved in answering your prompts.
+
+★ PRIVATE BY DESIGN
+Every prompt is processed locally by Gemini Nano. Your questions, notes and drafts stay on your phone.
+
+★ WORKS OFFLINE
+Once the model is on your device, you can prompt it in airplane mode, on a flight or anywhere without signal. No mobile data is used for inference.
+
+★ PROMPT ANYTHING
+Summaries, rewrites, ideas, explanations, short stories, haiku. Tap the prompt field to expand it into a full editor, paste from your clipboard in one tap and send.
+
+★ STREAMING RESPONSES
+Answers appear token by token as the model generates them, with rich Markdown formatting for lists, headings and code.
+
+★ SEE THE SPEED OF EVERY ANSWER
+After each response you get inference time in milliseconds, the number of output tokens and the finish reason, plus a live seconds counter while the model is thinking. Great for comparing prompts and learning how on-device models behave.
+
+★ SHARE TO NANO
+Select text in any app, tap Share and pick Nano Prompt Ground. The text lands in the prompt field, ready to summarise, translate or rewrite.
+
+★ KNOW YOUR MODEL
+Tap the model bar to see which Gemini Nano version is running on your phone.
+
+★ COPY AND CLEAR
+Copy any answer with one tap. Clear Nano's cache of recently used prompts from a simple dialog whenever you want to free up space.
+
+★ SMOOTH, EXPRESSIVE UI
+Built entirely with Kotlin and Jetpack Compose using Material 3 Expressive shapes, shared element transitions, bounce effects and dynamic color that follows your wallpaper.
+
+★ BUILT FOR DEVELOPERS AND THE CURIOUS
+Nano Prompt Ground is open source. It is a hands-on way to try Android's built-in AI before adding it to your own app, and a reference for how the Prompt API, AICore model download and streaming fit together in a real app.
+
+HOW IT WORKS
+1. Open the app. It checks whether Gemini Nano is available on your device.
+2. If the model isn't downloaded yet, the app downloads it through AICore and shows the progress.
+3. Start prompting. After the first download, everything runs on device.
+
+SUPPORTED DEVICES
+Gemini Nano runs only on phones with AICore and the on-device model, including recent flagship devices such as the Pixel 9 and Pixel 10 series, Samsung Galaxy S26 series and Galaxy Z Fold7, OnePlus 13 and 15, Xiaomi 15 series and other models from Honor, Motorola, OPPO, realme, vivo, iQOO and POCO. Android 13 or later is required. Make sure Android AICore and Private Compute Services are up to date. On devices without Gemini Nano support, the app will let you know that the feature is unavailable.
+
+Gemini Nano is a model by Google. Nano Prompt Ground is an independent project and is not affiliated with or endorsed by Google.
+
+Feedback and ideas are always welcome. If you enjoy the app, please leave a review on Google Play.
