@@ -1,14 +1,58 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
-    android:viewportWidth="380"
-    android:viewportHeight="380">
-  <group android:scaleX="0.47"
-      android:scaleY="0.47"
-      android:translateX="100.7"
-      android:translateY="100.7">
+    android:viewportWidth="768"
+    android:viewportHeight="768">
+  <!-- 512x512 icon artwork centred in the 108dp adaptive canvas (visible 72dp = 512 units) -->
+  <group
+      android:translateX="128"
+      android:translateY="128">
+    <!-- phone -->
+    <path android:pathData="M187,122H281A48,48 0,0 1,329 170V369A48,48 0,0 1,281 417H187A48,48 0,0 1,139 369V170A48,48 0,0 1,187 122Z">
+      <aapt:attr name="android:fillColor">
+        <gradient
+            android:type="linear"
+            android:startX="139"
+            android:startY="122"
+            android:endX="339"
+            android:endY="417"
+            android:startColor="#FFC6D2FF"
+            android:endColor="#FF94A8FF" />
+      </aapt:attr>
+    </path>
+    <!-- glow behind the sparkle -->
+    <path android:pathData="M187,122H281A48,48 0,0 1,329 170V369A48,48 0,0 1,281 417H187A48,48 0,0 1,139 369V170A48,48 0,0 1,187 122Z">
+      <aapt:attr name="android:fillColor">
+        <gradient
+            android:type="radial"
+            android:centerX="323"
+            android:centerY="204"
+            android:gradientRadius="120">
+          <item android:offset="0" android:color="#E6F2A2E4" />
+          <item android:offset="0.55" android:color="#73E9AEEA" />
+          <item android:offset="1" android:color="#00E9AEEA" />
+        </gradient>
+      </aapt:attr>
+    </path>
+    <!-- home bar -->
     <path
-        android:pathData="M166.73,43.19C177.26,25.6 202.74,25.6 213.27,43.19L225.12,62.96C231.27,73.21 243.4,78.24 254.99,75.33L277.36,69.73C297.24,64.75 315.25,82.76 310.27,102.64L304.67,125C301.76,136.6 306.79,148.73 317.04,154.88L336.81,166.73C354.4,177.26 354.4,202.74 336.81,213.27L317.04,225.12C306.79,231.27 301.76,243.4 304.67,254.99L310.27,277.36C315.25,297.24 297.24,315.25 277.36,310.27L254.99,304.67C243.4,301.76 231.27,306.79 225.12,317.04L213.27,336.81C202.74,354.4 177.26,354.4 166.73,336.81L154.88,317.04C148.73,306.79 136.6,301.76 125,304.67L102.65,310.27C82.76,315.25 64.75,297.24 69.73,277.36L75.33,254.99C78.24,243.4 73.21,231.27 62.96,225.12L43.19,213.27C25.6,202.74 25.6,177.26 43.19,166.73L62.96,154.88C73.21,148.73 78.24,136.6 75.33,125L69.73,102.65C64.75,82.76 82.76,64.75 102.64,69.73L125,75.33C136.6,78.24 148.73,73.21 154.88,62.96L166.73,43.19Z"
-        android:fillColor="#F2F2F2"/>
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M209,365H258A10,10 0,0 1,258 385H209A10,10 0,0 1,209 365Z" />
+    <!-- sparkle -->
+    <path android:pathData="M323,104C328,158 369,199 423,204C369,209 328,250 323,304C318,250 277,209 223,204C277,199 318,158 323,104Z">
+      <aapt:attr name="android:fillColor">
+        <gradient
+            android:type="linear"
+            android:startX="263"
+            android:startY="144"
+            android:endX="383"
+            android:endY="300">
+          <item android:offset="0" android:color="#FF5872FF" />
+          <item android:offset="0.55" android:color="#FF6E63FD" />
+          <item android:offset="1" android:color="#FFA65FE6" />
+        </gradient>
+      </aapt:attr>
+    </path>
   </group>
 </vector>
