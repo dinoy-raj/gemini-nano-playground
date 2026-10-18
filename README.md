@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="app/src/main/ic_launcher-playstore.png" alt="Nano Playground app icon" width="120">
-</p>
+
 
 <p align="center">
   <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" alt="Nano Prompt Ground feature graphic" width="1000">
@@ -33,24 +31,6 @@ Nano Playground is now available on Google Play!
 </a>
 
 > **Note:** Gemini Nano runs only on supported devices (see [Currently Supported Devices](#currently-supported-devices)). On first launch the app may need to download the model through AICore.
-
-## Screenshots
-
-**Tablet**
-
-<p align="center">
-  <img src="fastlane/metadata/android/en-US/images/tenInchScreenshots/1.png" alt="Tablet: Gemini Nano, right on your device" width="49%">
-  <img src="fastlane/metadata/android/en-US/images/tenInchScreenshots/4.png" alt="Tablet: Prompt anything" width="49%">
-</p>
-
-**Desktop**
-
-<p align="center">
-  <img src="fastlane/metadata/android/en-US/images/desktopScreenshots/6.png" alt="Desktop: See the speed of every answer" width="49%">
-  <img src="fastlane/metadata/android/en-US/images/desktopScreenshots/7.png" alt="Desktop: Send text from any app" width="49%">
-</p>
-
-All store screenshots live in [`fastlane/metadata/android/en-US/images`](fastlane/metadata/android/en-US/images).
 
 
 ## Project Structure
