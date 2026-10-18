@@ -3,7 +3,20 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/dinoy-raj/dump/ede4a186f7a9fe6c0fc8295e835d8e4a59c9a4cf/screen.png" alt="Gemini Nano Playground Screen" width="1000">
+  <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" alt="Nano Prompt Ground feature graphic" width="1000">
+</p>
+
+<p align="center">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Gemini Nano, right on your phone" width="24%">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Your prompts never leave your phone" width="24%">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Prompt anything" width="24%">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" alt="See the speed of every answer" width="24%">
+</p>
+<p align="center">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="No signal? No problem." width="24%">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="Watch answers stream in" width="24%">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Send text from any app" width="24%">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/8.png" alt="Check which Nano you have" width="24%">
 </p>
 
 
@@ -21,6 +34,24 @@ Nano Playground is now available on Google Play!
 
 > **Note:** Gemini Nano runs only on supported devices (see [Currently Supported Devices](#currently-supported-devices)). On first launch the app may need to download the model through AICore.
 
+## Screenshots
+
+**Tablet**
+
+<p align="center">
+  <img src="fastlane/metadata/android/en-US/images/tenInchScreenshots/1.png" alt="Tablet: Gemini Nano, right on your device" width="49%">
+  <img src="fastlane/metadata/android/en-US/images/tenInchScreenshots/4.png" alt="Tablet: Prompt anything" width="49%">
+</p>
+
+**Desktop**
+
+<p align="center">
+  <img src="fastlane/metadata/android/en-US/images/desktopScreenshots/6.png" alt="Desktop: See the speed of every answer" width="49%">
+  <img src="fastlane/metadata/android/en-US/images/desktopScreenshots/7.png" alt="Desktop: Send text from any app" width="49%">
+</p>
+
+All store screenshots live in [`fastlane/metadata/android/en-US/images`](fastlane/metadata/android/en-US/images).
+
 
 ## Project Structure
 
@@ -28,8 +59,10 @@ Nano Playground is now available on Google Play!
 .
 ├── .github/workflows
 ├── app
+├── fastlane/metadata/android
 ├── gradle
 ├── release
+├── store-listing
 ├── build.gradle.kts
 ├── gradle.properties
 ├── gradlew
@@ -77,6 +110,11 @@ app/src/main/java/com/dino/nanoplayground
 *   **`navigation/`**: App navigation built with Navigation 3 (`MainNavigation`).
 *   **`settings/`**: Settings screen (work in progress).
 *   **`ui/theme/`**: Theme definitions for the application (colors, typography).
+
+Outside the app module:
+
+*   **`fastlane/metadata/android/en-US/`**: Google Play store listing (title, descriptions, app icon, feature graphic and phone, tablet and desktop screenshots).
+*   **`store-listing/`**: Generator that renders the store screenshots and feature graphic from an HTML recreation of the app UI. See [`store-listing/README.md`](store-listing/README.md).
 
 
 ## Currently Supported Devices
