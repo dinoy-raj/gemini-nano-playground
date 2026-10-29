@@ -132,7 +132,7 @@ all come from one builder, `layered()` in `generate.cjs`
 | [67. Next Token](option-67-gl-next-token.svg) | Two pale typed dots | Violet to cyan sparkle |
 | [68. Open Book](option-68-gl-open-book.svg) | Pale yellow left page | Orange right page, sparkle |
 | [69. Quote](option-69-gl-quote.svg) | Peach quote mark | Red quote mark, sparkle |
-| [70. Prompt Window](option-70-gl-prompt-window.svg) | Tilted blue card | Green window, chevron and sparkle |
+| [70. Prompt Window](option-70-gl-prompt-window.svg) | Tilted blue square | Green square window, chevron and sparkle |
 | [71. Code Card](option-71-gl-code-card.svg) | Tilted pink card | Violet card, braces and sparkle |
 | [72. Dialogue](option-72-gl-dialogue.svg) | Violet bubble | Translucent blue bubble, typing dots |
 | [73. Spark Doc](option-73-gl-spark-doc.svg) | Offset lavender page | Blue to violet page, fold, lines, sparkle |

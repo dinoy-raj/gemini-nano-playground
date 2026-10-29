@@ -926,9 +926,9 @@ const GUIDELINE = [
     colors: ['#FF6B6B', '#F03E3E'], backColors: ['#FFD0C2', '#FFB4A2'],
     glow: ['#FFC21A', 250, 190, 110], glyph: whiteSpark(304, 232, 26) }],
   ['70-gl-prompt-window', 'Prompt Window', {
-    front: rrect(84, 150, 344, 240, 60), back: rrect(84, 150, 344, 240, 60), backTransform: 'rotate(8 256 270) translate(0 -38)',
-    box: [84, 150, 428, 390], colors: ['#34D399', '#12B76A', '#0E9F6E'], backColors: ['#93C5FD', '#60A5FA'],
-    glow: ['#FDE047', 100, 390, 150], glyph: white('M150,228L206,270L150,312', 30) + whiteSpark(300, 276, 52) }],
+    front: rrect(106, 116, 300, 300, 76), back: rrect(106, 116, 300, 300, 76), backTransform: 'rotate(8 256 266) translate(0 -34)',
+    box: [106, 116, 406, 416], colors: ['#34D399', '#12B76A', '#0E9F6E'], backColors: ['#93C5FD', '#60A5FA'],
+    glow: ['#FDE047', 110, 416, 160], glyph: white('M178,222L238,270L178,318', 32) + whiteSpark(326, 278, 54) }],
   ['71-gl-code-card', 'Code Card', {
     front: rrect(96, 150, 320, 236, 60), back: rrect(96, 150, 320, 236, 60), backTransform: 'rotate(-7 256 268) translate(0 -38)',
     box: [96, 150, 416, 386], colors: ['#A78BFA', '#7C3AED'], backColors: ['#FBCFE8', '#F9A8D4'],
