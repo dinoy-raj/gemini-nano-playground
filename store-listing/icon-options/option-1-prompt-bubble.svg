@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="b-base" x1="80" y1="112" x2="432" y2="414" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4C8DFF"/>
+      <stop offset="0.55" stop-color="#4F6BFF"/>
+      <stop offset="1" stop-color="#7B5CFF"/>
+    </linearGradient>
+    
+    <radialGradient id="b-pink">
+      <stop offset="0" stop-color="#FF6FB5" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#FF6FB5" stop-opacity="0.405"/>
+      <stop offset="1" stop-color="#FF6FB5" stop-opacity="0"/>
+    </radialGradient>
+    
+    <radialGradient id="b-cyan">
+      <stop offset="0" stop-color="#4FE0FF" stop-opacity="0.85"/>
+      <stop offset="0.6" stop-color="#4FE0FF" stop-opacity="0.3825"/>
+      <stop offset="1" stop-color="#4FE0FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="b-top" x1="0" y1="112" x2="0" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="b-clip"><path d="M152,112H360A72,72 0 0 1 432,184V296A72,72 0 0 1 360,368H214L148,414A10,10 0 0 1 132,405V362A72,72 0 0 1 80,296V184A72,72 0 0 1 152,112Z"/></clipPath>
+  </defs>
+  <path d="M152,112H360A72,72 0 0 1 432,184V296A72,72 0 0 1 360,368H214L148,414A10,10 0 0 1 132,405V362A72,72 0 0 1 80,296V184A72,72 0 0 1 152,112Z" fill="url(#b-base)"/>
+  <g clip-path="url(#b-clip)">
+    <circle cx="430" cy="120" r="190" fill="url(#b-pink)"/>
+    <circle cx="70" cy="420" r="200" fill="url(#b-cyan)"/>
+    <rect x="80" y="112" width="352" height="90" fill="url(#b-top)"/>
+  </g>
+  <path d="M256,148 C263.36,197.68 298.32,232.64 348,240 C298.32,247.36 263.36,282.32 256,332 C248.64,282.32 213.68,247.36 164,240 C213.68,232.64 248.64,197.68 256,148Z" fill="#FFFFFF"/>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <g transform="translate(-14 4)">
+  <defs>
+    <linearGradient id="p-back" x1="100" y1="100" x2="320" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFC94D"/>
+      <stop offset="1" stop-color="#FF8A3D"/>
+    </linearGradient>
+    <linearGradient id="p-phone" x1="128" y1="120" x2="340" y2="428" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5AA2FF"/>
+      <stop offset="1" stop-color="#2F6BFF"/>
+    </linearGradient>
+    
+    <radialGradient id="p-glow">
+      <stop offset="0" stop-color="#FF7AD1" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FF7AD1" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FF7AD1" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="p-spark" x1="300" y1="70" x2="440" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22C55E"/>
+      <stop offset="0.45" stop-color="#2FB8E6"/>
+      <stop offset="1" stop-color="#6D5BFF"/>
+    </linearGradient>
+    <clipPath id="p-clip"><path d="M178,120H290A50,50 0 0 1 340,170V378A50,50 0 0 1 290,428H178A50,50 0 0 1 128,378V170A50,50 0 0 1 178,120Z"/></clipPath>
+  </defs>
+  <g transform="rotate(-9 234 274)" opacity="0.95">
+    <path d="M178,120H290A50,50 0 0 1 340,170V378A50,50 0 0 1 290,428H178A50,50 0 0 1 128,378V170A50,50 0 0 1 178,120Z" fill="url(#p-back)" transform="translate(-26 10)"/>
+  </g>
+  <path d="M178,120H290A50,50 0 0 1 340,170V378A50,50 0 0 1 290,428H178A50,50 0 0 1 128,378V170A50,50 0 0 1 178,120Z" fill="url(#p-phone)"/>
+  <g clip-path="url(#p-clip)">
+    <circle cx="340" cy="190" r="150" fill="url(#p-glow)"/>
+  </g>
+  <rect x="206" y="384" width="56" height="18" rx="9" fill="#FFFFFF"/>
+  <path d="M344,88 C351.68,139.84 388.16,176.32 440,184 C388.16,191.68 351.68,228.16 344,280 C336.32,228.16 299.84,191.68 248,184 C299.84,176.32 336.32,139.84 344,88Z" fill="url(#p-spark)"/>
+  </g>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="c-pins" x1="78" y1="78" x2="434" y2="434" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B9C6FF"/>
+      <stop offset="1" stop-color="#8E9BFF"/>
+    </linearGradient>
+    <linearGradient id="c-base" x1="120" y1="120" x2="392" y2="392" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3F7BFF"/>
+      <stop offset="1" stop-color="#5B4BF0"/>
+    </linearGradient>
+    <linearGradient id="c-top" x1="0" y1="120" x2="0" y2="230" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    
+    <radialGradient id="c-red">
+      <stop offset="0" stop-color="#FF4D6D" stop-opacity="1"/>
+      <stop offset="0.6" stop-color="#FF4D6D" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FF4D6D" stop-opacity="0"/>
+    </radialGradient>
+    
+    <radialGradient id="c-yellow">
+      <stop offset="0" stop-color="#FFC93C" stop-opacity="1"/>
+      <stop offset="0.6" stop-color="#FFC93C" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FFC93C" stop-opacity="0"/>
+    </radialGradient>
+    
+    <radialGradient id="c-green">
+      <stop offset="0" stop-color="#22C55E" stop-opacity="1"/>
+      <stop offset="0.6" stop-color="#22C55E" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+    
+    <radialGradient id="c-blue">
+      <stop offset="0" stop-color="#3B82FF" stop-opacity="1"/>
+      <stop offset="0.6" stop-color="#3B82FF" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#3B82FF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="c-spark"><path d="M256,152 C266.4,208.16 303.84000000000003,245.6 360,256 C303.84000000000003,266.4 266.4,303.84000000000003 256,360 C245.6,303.84000000000003 208.16,266.4 152,256 C208.16,245.6 245.6,208.16 256,152Z"/></clipPath>
+  </defs>
+  <g fill="url(#c-pins)">
+  <rect x="176" y="78" width="40" height="58" rx="20"/>
+  <rect x="176" y="376" width="40" height="58" rx="20"/>
+  <rect x="78" y="176" width="58" height="40" rx="20"/>
+  <rect x="376" y="176" width="58" height="40" rx="20"/>
+  <rect x="236" y="78" width="40" height="58" rx="20"/>
+  <rect x="236" y="376" width="40" height="58" rx="20"/>
+  <rect x="78" y="236" width="58" height="40" rx="20"/>
+  <rect x="376" y="236" width="58" height="40" rx="20"/>
+  <rect x="296" y="78" width="40" height="58" rx="20"/>
+  <rect x="296" y="376" width="40" height="58" rx="20"/>
+  <rect x="78" y="296" width="58" height="40" rx="20"/>
+  <rect x="376" y="296" width="58" height="40" rx="20"/>
+  </g>
+  <path d="M168,120H344A48,48 0 0 1 392,168V344A48,48 0 0 1 344,392H168A48,48 0 0 1 120,344V168A48,48 0 0 1 168,120Z" fill="url(#c-base)"/>
+  <path d="M168,120H344A48,48 0 0 1 392,168V344A48,48 0 0 1 344,392H168A48,48 0 0 1 120,344V168A48,48 0 0 1 168,120Z" fill="url(#c-top)"/>
+  <path d="M256,152 C266.4,208.16 303.84000000000003,245.6 360,256 C303.84000000000003,266.4 266.4,303.84000000000003 256,360 C245.6,303.84000000000003 208.16,266.4 152,256 C208.16,245.6 245.6,208.16 256,152Z" fill="#FFFFFF"/>
+  <g clip-path="url(#c-spark)">
+    <circle cx="256" cy="192" r="120" fill="url(#c-blue)"/>
+    <circle cx="320" cy="256" r="120" fill="url(#c-red)"/>
+    <circle cx="256" cy="320" r="120" fill="url(#c-yellow)"/>
+    <circle cx="192" cy="256" r="120" fill="url(#c-green)"/>
+  </g>
+</svg>
