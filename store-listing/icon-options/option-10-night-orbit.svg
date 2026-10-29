@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="o-planet" x1="140" y1="120" x2="372" y2="392" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6366F1"/><stop offset="0.5" stop-color="#3730A3"/><stop offset="1" stop-color="#1E1B4B"/></linearGradient>
+    
+    <radialGradient id="o-glow">
+      <stop offset="0" stop-color="#A5B4FC" stop-opacity="0.8"/>
+      <stop offset="0.6" stop-color="#A5B4FC" stop-opacity="0.36000000000000004"/>
+      <stop offset="1" stop-color="#A5B4FC" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="o-ring" x1="50" y1="0" x2="462" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDE68A"/><stop offset="0.5" stop-color="#F59E0B"/><stop offset="1" stop-color="#FDE68A"/></linearGradient>
+    
+    <linearGradient id="o-moon" x1="340" y1="80" x2="430" y2="190" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FEF3C7"/><stop offset="1" stop-color="#FBBF24"/></linearGradient>
+    <clipPath id="o-back"><rect x="0" y="0" width="512" height="256"/></clipPath>
+    <clipPath id="o-front"><rect x="0" y="256" width="512" height="256"/></clipPath>
+    <clipPath id="o-clip"><circle cx="256" cy="268" r="132"/></clipPath>
+  </defs>
+  <g transform="rotate(-18 256 268) translate(0 12)">
+    <ellipse cx="256" cy="256" rx="214" ry="62" fill="none" stroke="url(#o-ring)" stroke-width="20" clip-path="url(#o-back)"/>
+  </g>
+  <circle cx="256" cy="268" r="132" fill="url(#o-planet)"/>
+  <g clip-path="url(#o-clip)"><circle cx="190" cy="190" r="150" fill="url(#o-glow)"/></g>
+  <g transform="rotate(-18 256 268) translate(0 12)">
+    <ellipse cx="256" cy="256" rx="214" ry="62" fill="none" stroke="url(#o-ring)" stroke-width="20" clip-path="url(#o-front)"/>
+  </g>
+  <path d="M384,74 C388.32,103.16 408.84,123.68 438,128 C408.84,132.32 388.32,152.84 384,182 C379.68,152.84 359.16,132.32 330,128 C359.16,123.68 379.68,103.16 384,74Z" fill="url(#o-moon)"/>
+  <path d="M120,376 C121.92,388.96 131.04,398.08 144,400 C131.04,401.92 121.92,411.04 120,424 C118.08,411.04 108.96,401.92 96,400 C108.96,398.08 118.08,388.96 120,376Z" fill="#FBBF24"/>
+</svg>

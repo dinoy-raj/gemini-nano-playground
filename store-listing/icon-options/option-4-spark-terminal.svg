@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="t-base" x1="72" y1="104" x2="440" y2="408" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF5F6D"/><stop offset="0.5" stop-color="#FF8A4C"/><stop offset="1" stop-color="#FFC371"/></linearGradient>
+    
+    <radialGradient id="t-pink">
+      <stop offset="0" stop-color="#FF4FA3" stop-opacity="0.8"/>
+      <stop offset="0.6" stop-color="#FF4FA3" stop-opacity="0.36000000000000004"/>
+      <stop offset="1" stop-color="#FF4FA3" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="t-clip"><path d="M136,104H376A64,64 0 0 1 440,168V344A64,64 0 0 1 376,408H136A64,64 0 0 1 72,344V168A64,64 0 0 1 136,104Z"/></clipPath>
+  </defs>
+  <path d="M136,104H376A64,64 0 0 1 440,168V344A64,64 0 0 1 376,408H136A64,64 0 0 1 72,344V168A64,64 0 0 1 136,104Z" fill="url(#t-base)"/>
+  <g clip-path="url(#t-clip)">
+    <circle cx="80" cy="110" r="190" fill="url(#t-pink)"/>
+    <rect x="72" y="104" width="368" height="64" fill="#FFFFFF" opacity="0.22"/>
+  </g>
+  <g fill="#FFFFFF" opacity="0.85"><circle cx="122" cy="136" r="11"/><circle cx="156" cy="136" r="11"/><circle cx="190" cy="136" r="11"/></g>
+  <polyline points="142,226 200,276 142,326" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M318,218 C323.28,253.64 348.36,278.72 384,284 C348.36,289.28 323.28,314.36 318,350 C312.72,314.36 287.64,289.28 252,284 C287.64,278.72 312.72,253.64 318,218Z" fill="#FFFFFF"/>
+</svg>

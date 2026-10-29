@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="sh-base" x1="114" y1="96" x2="398" y2="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5EEAD4"/><stop offset="0.5" stop-color="#14B8A6"/><stop offset="1" stop-color="#0284C7"/></linearGradient>
+    
+    <radialGradient id="sh-mint">
+      <stop offset="0" stop-color="#BBF7D0" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#BBF7D0" stop-opacity="0.405"/>
+      <stop offset="1" stop-color="#BBF7D0" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="sh-clip"><path d="M256,96L398,146V250C398,340 336,394 256,420C176,394 114,340 114,250V146Z"/></clipPath>
+  </defs>
+  <path d="M256,96L398,146V250C398,340 336,394 256,420C176,394 114,340 114,250V146Z" fill="url(#sh-base)" stroke="url(#sh-base)" stroke-width="44" stroke-linejoin="round"/>
+  <g clip-path="url(#sh-clip)"><circle cx="130" cy="110" r="190" fill="url(#sh-mint)"/></g>
+  <path d="M256,172 C263.2,220.6 297.4,254.8 346,262 C297.4,269.2 263.2,303.4 256,352 C248.8,303.4 214.6,269.2 166,262 C214.6,254.8 248.8,220.6 256,172Z" fill="#FFFFFF"/>
+</svg>

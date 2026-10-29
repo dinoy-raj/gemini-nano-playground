@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="f-glass" x1="114" y1="104" x2="398" y2="428" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FCE7F3"/><stop offset="1" stop-color="#F5D0FE"/></linearGradient>
+    
+    <linearGradient id="f-liquid" x1="110" y1="280" x2="400" y2="428" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F472B6"/><stop offset="0.5" stop-color="#D946EF"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <clipPath id="f-clip"><path d="M218,104H294V206L398,372C414,400 396,428 364,428H148C116,428 98,400 114,372L218,206Z"/></clipPath>
+  </defs>
+  <path d="M218,104H294V206L398,372C414,400 396,428 364,428H148C116,428 98,400 114,372L218,206Z" fill="url(#f-glass)" stroke="url(#f-glass)" stroke-width="28" stroke-linejoin="round"/>
+  <g clip-path="url(#f-clip)">
+    <path d="M90,292C160,270 220,316 290,292S380,272 420,286V440H90Z" fill="url(#f-liquid)"/>
+  </g>
+  <rect x="192" y="76" width="128" height="40" rx="20" fill="#EC4899"/>
+  <path d="M250,314 C253.84,339.92 272.08,358.16 298,362 C272.08,365.84 253.84,384.08 250,410 C246.16,384.08 227.92,365.84 202,362 C227.92,358.16 246.16,339.92 250,314Z" fill="#FFFFFF"/>
+  <circle cx="320" cy="338" r="13" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="186" cy="396" r="9" fill="#FFFFFF" opacity="0.75"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="g-arc" x1="106" y1="0" x2="406" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFD43B"/><stop offset="0.5" stop-color="#FF922B"/><stop offset="1" stop-color="#F03E3E"/></linearGradient>
+    
+    <linearGradient id="g-needle" x1="256" y1="330" x2="344" y2="226" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFE8CC"/></linearGradient>
+  </defs>
+  <path d="M106,330A150,150 0 0 1 406,330" fill="none" stroke="url(#g-arc)" stroke-width="72" stroke-linecap="round"/>
+  <path d="M106,330A150,150 0 0 1 406,330" fill="none" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="18" stroke-linecap="round" transform="translate(0 -18)"/>
+  <circle cx="256" cy="330" r="46" fill="#F76707"/>
+  <path d="M256,330L334,240" stroke="#F76707" stroke-width="30" stroke-linecap="round"/>
+  <circle cx="256" cy="330" r="22" fill="#FFFFFF"/>
+  <path d="M344,176 C348.16,204.07999999999998 367.92,223.84 396,228 C367.92,232.16 348.16,251.92000000000002 344,280 C339.84,251.92000000000002 320.08,232.16 292,228 C320.08,223.84 339.84,204.07999999999998 344,176Z" fill="#F03E3E"/>
+</svg>

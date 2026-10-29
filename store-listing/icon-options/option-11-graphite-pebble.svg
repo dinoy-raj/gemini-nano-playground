@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="pb-base" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#525B6B"/><stop offset="0.5" stop-color="#262B35"/><stop offset="1" stop-color="#111318"/></linearGradient>
+    
+    <linearGradient id="pb-sheen" x1="0" y1="96" x2="0" y2="220" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.28)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    
+    <linearGradient id="pb-spark" x1="180" y1="160" x2="340" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ECFCCB"/><stop offset="0.5" stop-color="#A3E635"/><stop offset="1" stop-color="#4ADE80"/></linearGradient>
+    
+    <radialGradient id="pb-glow">
+      <stop offset="0" stop-color="#A3E635" stop-opacity="0.45"/>
+      <stop offset="0.6" stop-color="#A3E635" stop-opacity="0.2025"/>
+      <stop offset="1" stop-color="#A3E635" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="pb-clip"><path d="M206,96H306C376,96 416,136 416,206V306C416,376 376,416 306,416H206C136,416 96,376 96,306V206C96,136 136,96 206,96Z"/></clipPath>
+  </defs>
+  <path d="M206,96H306C376,96 416,136 416,206V306C416,376 376,416 306,416H206C136,416 96,376 96,306V206C96,136 136,96 206,96Z" fill="url(#pb-base)"/>
+  <path d="M206,96H306C376,96 416,136 416,206V306C416,376 376,416 306,416H206C136,416 96,376 96,306V206C96,136 136,96 206,96Z" fill="url(#pb-sheen)"/>
+  <g clip-path="url(#pb-clip)"><circle cx="256" cy="256" r="170" fill="url(#pb-glow)"/></g>
+  <path d="M256,156 C264,210 302,248 356,256 C302,264 264,302 256,356 C248,302 210,264 156,256 C210,248 248,210 256,156Z" fill="url(#pb-spark)"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="st-1" x1="106" y1="0" x2="406" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#67E8F9"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+    
+    <linearGradient id="st-2" x1="106" y1="0" x2="336" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    
+    <linearGradient id="st-3" x1="106" y1="0" x2="246" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#06B6D4"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient>
+    
+    <linearGradient id="st-spark" x1="260" y1="270" x2="380" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0891B2"/></linearGradient>
+  </defs>
+  <rect x="106" y="146" width="300" height="56" rx="28" fill="url(#st-1)"/>
+  <rect x="106" y="228" width="230" height="56" rx="28" fill="url(#st-2)"/>
+  <rect x="106" y="310" width="140" height="56" rx="28" fill="url(#st-3)"/>
+  <path d="M320,276 C324.96,309.48 348.52,333.04 382,338 C348.52,342.96 324.96,366.52 320,400 C315.04,366.52 291.48,342.96 258,338 C291.48,333.04 315.04,309.48 320,276Z" fill="url(#st-spark)"/>
+</svg>

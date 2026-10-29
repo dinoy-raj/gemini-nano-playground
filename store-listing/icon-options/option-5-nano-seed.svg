@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="s-left" x1="112" y1="170" x2="250" y2="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#D9F99D"/><stop offset="1" stop-color="#4ADE80"/></linearGradient>
+    
+    <linearGradient id="s-right" x1="420" y1="116" x2="262" y2="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6EE7B7"/><stop offset="0.5" stop-color="#10B981"/><stop offset="1" stop-color="#047857"/></linearGradient>
+    
+    <radialGradient id="s-sun">
+      <stop offset="0" stop-color="#FDE047" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#FDE047" stop-opacity="0.405"/>
+      <stop offset="1" stop-color="#FDE047" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="s-clip"><path d="M262,304C262,190 322,118 424,112C432,218 362,304 262,304Z"/></clipPath>
+  </defs>
+  <path d="M256,300V410" stroke="#0E9F6E" stroke-width="32" stroke-linecap="round"/>
+  <path d="M250,334C166,334 104,272 106,166C208,164 264,230 250,334Z" fill="url(#s-left)"/>
+  <path d="M262,304C262,190 322,118 424,112C432,218 362,304 262,304Z" fill="url(#s-right)"/>
+  <g clip-path="url(#s-clip)"><circle cx="420" cy="110" r="150" fill="url(#s-sun)"/></g>
+  <path d="M350,170 C353.52,193.76 370.24,210.48 394,214 C370.24,217.52 353.52,234.24 350,258 C346.48,234.24 329.76,217.52 306,214 C329.76,210.48 346.48,193.76 350,170Z" fill="#FFFFFF"/>
+</svg>

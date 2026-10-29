@@ -1,10 +1,10 @@
 <!doctype html><html><head><style>
   body { margin: 0; font-family: 'Google Sans', Roboto, Arial, sans-serif; }
-  .row { display: flex; justify-content: center; gap: 120px; padding: 70px 80px 40px; }
+  .row { display: grid; grid-template-columns: repeat(4, 220px); justify-content: center; gap: 56px 70px; padding: 64px 60px; }
   .light { background: #FFFFFF; color: #1F1F1F; }
   .dark { background: #000000; color: #E3E3E3; }
   .cell { display: flex; flex-direction: column; align-items: center; gap: 28px; }
-  .cell img.big { width: 200px; height: 200px; }
+  .cell img.big { width: 170px; height: 170px; }
   .launch { display: flex; gap: 22px; align-items: center; }
   .launch div { width: 72px; height: 72px; display: grid; place-items: center; overflow: hidden; }
   .launch img { width: 72px; height: 72px; transform: scale(1.12); }
@@ -17,17 +17,62 @@
   <div class="cell">
     <img class="big" src="option-1-prompt-bubble.svg">
     <div class="launch"><div class="circle"><img src="option-1-prompt-bubble.svg"></div><div class="squircle"><img src="option-1-prompt-bubble.svg"></div></div>
-    <div class="label">Prompt Bubble</div>
+    <div class="label">1. Prompt Bubble</div>
   </div>
   <div class="cell">
     <img class="big" src="option-2-pocket-spark.svg">
     <div class="launch"><div class="circle"><img src="option-2-pocket-spark.svg"></div><div class="squircle"><img src="option-2-pocket-spark.svg"></div></div>
-    <div class="label">Pocket Spark</div>
+    <div class="label">2. Pocket Spark</div>
   </div>
   <div class="cell">
     <img class="big" src="option-3-nano-chip.svg">
     <div class="launch"><div class="circle"><img src="option-3-nano-chip.svg"></div><div class="squircle"><img src="option-3-nano-chip.svg"></div></div>
-    <div class="label">Nano Chip</div>
+    <div class="label">3. Nano Chip</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-4-spark-terminal.svg">
+    <div class="launch"><div class="circle"><img src="option-4-spark-terminal.svg"></div><div class="squircle"><img src="option-4-spark-terminal.svg"></div></div>
+    <div class="label">4. Spark Terminal</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-5-nano-seed.svg">
+    <div class="launch"><div class="circle"><img src="option-5-nano-seed.svg"></div><div class="squircle"><img src="option-5-nano-seed.svg"></div></div>
+    <div class="label">5. Nano Seed</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-6-speed-gauge.svg">
+    <div class="launch"><div class="circle"><img src="option-6-speed-gauge.svg"></div><div class="squircle"><img src="option-6-speed-gauge.svg"></div></div>
+    <div class="label">6. Speed Gauge</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-7-shield-spark.svg">
+    <div class="launch"><div class="circle"><img src="option-7-shield-spark.svg"></div><div class="squircle"><img src="option-7-shield-spark.svg"></div></div>
+    <div class="label">7. Shield Spark</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-8-lab-flask.svg">
+    <div class="launch"><div class="circle"><img src="option-8-lab-flask.svg"></div><div class="squircle"><img src="option-8-lab-flask.svg"></div></div>
+    <div class="label">8. Lab Flask</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-9-prompt-cards.svg">
+    <div class="launch"><div class="circle"><img src="option-9-prompt-cards.svg"></div><div class="squircle"><img src="option-9-prompt-cards.svg"></div></div>
+    <div class="label">9. Prompt Cards</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-10-night-orbit.svg">
+    <div class="launch"><div class="circle"><img src="option-10-night-orbit.svg"></div><div class="squircle"><img src="option-10-night-orbit.svg"></div></div>
+    <div class="label">10. Night Orbit</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-11-graphite-pebble.svg">
+    <div class="launch"><div class="circle"><img src="option-11-graphite-pebble.svg"></div><div class="squircle"><img src="option-11-graphite-pebble.svg"></div></div>
+    <div class="label">11. Graphite Pebble</div>
+  </div>
+  <div class="cell">
+    <img class="big" src="option-12-stream-lines.svg">
+    <div class="launch"><div class="circle"><img src="option-12-stream-lines.svg"></div><div class="squircle"><img src="option-12-stream-lines.svg"></div></div>
+    <div class="label">12. Stream Lines</div>
   </div></div><div class="row dark">
   <div class="cell">
     <img class="big" src="option-1-prompt-bubble.svg">
@@ -42,6 +87,51 @@
   <div class="cell">
     <img class="big" src="option-3-nano-chip.svg">
     <div class="launch"><div class="circle"><img src="option-3-nano-chip.svg"></div><div class="squircle"><img src="option-3-nano-chip.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-4-spark-terminal.svg">
+    <div class="launch"><div class="circle"><img src="option-4-spark-terminal.svg"></div><div class="squircle"><img src="option-4-spark-terminal.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-5-nano-seed.svg">
+    <div class="launch"><div class="circle"><img src="option-5-nano-seed.svg"></div><div class="squircle"><img src="option-5-nano-seed.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-6-speed-gauge.svg">
+    <div class="launch"><div class="circle"><img src="option-6-speed-gauge.svg"></div><div class="squircle"><img src="option-6-speed-gauge.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-7-shield-spark.svg">
+    <div class="launch"><div class="circle"><img src="option-7-shield-spark.svg"></div><div class="squircle"><img src="option-7-shield-spark.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-8-lab-flask.svg">
+    <div class="launch"><div class="circle"><img src="option-8-lab-flask.svg"></div><div class="squircle"><img src="option-8-lab-flask.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-9-prompt-cards.svg">
+    <div class="launch"><div class="circle"><img src="option-9-prompt-cards.svg"></div><div class="squircle"><img src="option-9-prompt-cards.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-10-night-orbit.svg">
+    <div class="launch"><div class="circle"><img src="option-10-night-orbit.svg"></div><div class="squircle"><img src="option-10-night-orbit.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-11-graphite-pebble.svg">
+    <div class="launch"><div class="circle"><img src="option-11-graphite-pebble.svg"></div><div class="squircle"><img src="option-11-graphite-pebble.svg"></div></div>
+    
+  </div>
+  <div class="cell">
+    <img class="big" src="option-12-stream-lines.svg">
+    <div class="launch"><div class="circle"><img src="option-12-stream-lines.svg"></div><div class="squircle"><img src="option-12-stream-lines.svg"></div></div>
     
   </div></div>
 </body></html>
