@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="lk-a" x1="96" y1="146" x2="316" y2="366" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6E9BFF"/><stop offset="1" stop-color="#1E40AF"/></linearGradient>
+    <linearGradient id="lk-b" x1="196" y1="146" x2="416" y2="366" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBC2D0"/><stop offset="1" stop-color="#E0607E"/></linearGradient>
+    <linearGradient id="lk-gold" x1="140" y1="110" x2="380" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBEBB5"/><stop offset="0.5" stop-color="#E2B65C"/><stop offset="1" stop-color="#B9852F"/></linearGradient>
+    <clipPath id="lk-top"><rect x="222" y="120" width="68" height="76"/></clipPath>
+  </defs>
+  <g fill="none" stroke-width="32">
+    <circle cx="206" cy="256" r="108" stroke="url(#lk-a)"/>
+    <circle cx="306" cy="256" r="108" stroke="url(#lk-b)"/>
+    <circle cx="206" cy="256" r="108" stroke="url(#lk-a)" clip-path="url(#lk-top)"/>
+  </g>
+  <path d="M256,222 C258.72,240.36 271.64,253.28 290,256 C271.64,258.72 258.72,271.64 256,290 C253.28,271.64 240.36,258.72 222,256 C240.36,253.28 253.28,240.36 256,222Z" fill="url(#lk-gold)"/>
+</svg>

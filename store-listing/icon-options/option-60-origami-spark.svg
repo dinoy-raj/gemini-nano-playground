@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <polygon points="256,256 212,212 256,66" fill="#FAD4C0"/><polygon points="256,256 256,66 300,212" fill="#E8907E"/><polygon points="256,256 300,212 446,256" fill="#F7C1AE"/><polygon points="256,256 446,256 300,300" fill="#D9776B"/><polygon points="256,256 300,300 256,446" fill="#FAD4C0"/><polygon points="256,256 256,446 212,300" fill="#E8907E"/><polygon points="256,256 212,300 66,256" fill="#F7C1AE"/><polygon points="256,256 66,256 212,212" fill="#D9776B"/>
+</svg>

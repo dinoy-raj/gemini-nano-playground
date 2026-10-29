@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="dg-back" x1="196" y1="104" x2="424" y2="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>
+    <linearGradient id="dg-front" x1="92" y1="210" x2="334" y2="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F5F3FF"/><stop offset="1" stop-color="#DDD6FE"/></linearGradient>
+    <linearGradient id="dg-spark" x1="170" y1="260" x2="260" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#6D28D9"/></linearGradient></defs>
+  <path d="M256,104H366A58,58 0 0 1 424,162V230A58,58 0 0 1 400,277V312L370,288H256A58,58 0 0 1 198,230V162A58,58 0 0 1 256,104Z" fill="url(#dg-back)"/>
+  <path d="M154,210H272A62,62 0 0 1 334,272V340A62,62 0 0 1 272,402H170L124,428V390A62,62 0 0 1 92,340V272A62,62 0 0 1 154,210Z" fill="url(#dg-front)" opacity="0.88"/>
+  <path d="M212,260 C215.68,284.84 233.16,302.32 258,306 C233.16,309.68 215.68,327.16 212,352 C208.32,327.16 190.84,309.68 166,306 C190.84,302.32 208.32,284.84 212,260Z" fill="url(#dg-spark)"/>
+</svg>

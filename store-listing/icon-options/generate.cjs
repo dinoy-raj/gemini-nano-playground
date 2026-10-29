@@ -661,6 +661,185 @@ const optionOrb = svg(`
   </g>
   <path d="${sparkle(256, 256, 72)}" fill="#FFFFFF"/>`);
 
+// Options 43 to 62 are classy LLM and generative AI marks: few elements, premium palettes.
+
+// A rounded square tile filled with gradient `id`, for the options that sit on a tile.
+const tileRect = (id) => `<rect x="96" y="96" width="320" height="320" rx="88" fill="url(#${id})"/>`;
+const gold = (id) => lin(id, 140, 110, 380, 400, '#FBEBB5', '#E2B65C', '#B9852F');
+
+// 43. Gilded Bubble (navy and gold): a chat bubble with a gold rim and a gold sparkle.
+const optionGildedBubble = svg(`
+  <defs>${lin('gb-navy', 80, 112, 432, 414, '#22355E', '#0E1A33')}${gold('gb-gold')}</defs>
+  <path d="${bubble}" fill="url(#gb-navy)" stroke="url(#gb-gold)" stroke-width="18" stroke-linejoin="round"/>
+  <path d="${sparkle(256, 240, 74)}" fill="url(#gb-gold)"/>`);
+
+// 44. ai Mark (ivory, ink and gold): a lowercase "ai" whose dot is a sparkle.
+const optionAiMark = svg(`
+  <defs>${lin('am-tile', 96, 96, 416, 416, '#FFFBF2', '#EFE4CF')}${gold('am-gold')}</defs>
+  ${tileRect('am-tile')}
+  <g fill="none" stroke="#1C2333" stroke-width="34" stroke-linecap="round">
+    <circle cx="210" cy="302" r="58"/><path d="M268,246V360M338,252V360"/>
+  </g>
+  <path d="${sparkle(338, 178, 42)}" fill="url(#am-gold)"/>`);
+
+// 45. Quill (plum and lilac): a feather writing, text being generated.
+const optionQuill = svg(`
+  <defs>${lin('qu-feather', 380, 100, 160, 380, '#F3E8FF', '#C4B5FD', '#8B5CF6')}${lin('qu-ink', 0, 300, 0, 430, '#6D28D9', '#3B1E54')}</defs>
+  <path d="M384,100C300,110 206,186 176,298L158,372L232,342C334,300 392,208 384,100Z" fill="url(#qu-feather)"/>
+  <path d="M372,116C306,186 232,270 160,378" fill="none" stroke="#5B21B6" stroke-opacity="0.45" stroke-width="10" stroke-linecap="round"/>
+  <path d="M160,378L132,416" stroke="url(#qu-ink)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M190,416H380" stroke="#C4B5FD" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+  <path d="${sparkle(352, 340, 36)}" fill="#8B5CF6"/>`);
+
+// 46. Text Cursor (sapphire and pearl): an I-beam with a sparkle being typed.
+const optionCursor = svg(`
+  <defs>${lin('tc-tile', 96, 96, 416, 416, '#2747A8', '#0F1E4D')}${lin('tc-pearl', 260, 170, 380, 300, '#FFFFFF', '#BFD0FF')}</defs>
+  ${tileRect('tc-tile')}
+  <path d="M210,160V352M180,156H240M180,356H240" stroke="#E6ECFF" stroke-width="24" stroke-linecap="round"/>
+  <path d="${sparkle(316, 240, 64)}" fill="url(#tc-pearl)"/>`);
+
+// 47. Rose Lines (charcoal and rose gold): lines of an answer resolving into a sparkle.
+const optionRoseLines = svg(`
+  <defs>${lin('rl-tile', 96, 96, 416, 416, '#34343A', '#121215')}${lin('rl-rose', 140, 0, 380, 0, '#F9D3C2', '#D98C7A')}</defs>
+  ${tileRect('rl-tile')}
+  <rect x="146" y="170" width="190" height="28" rx="14" fill="url(#rl-rose)"/>
+  <rect x="146" y="228" width="150" height="28" rx="14" fill="url(#rl-rose)" opacity="0.8"/>
+  <rect x="146" y="286" width="96" height="28" rx="14" fill="url(#rl-rose)" opacity="0.6"/>
+  <path d="${sparkle(318, 318, 50)}" fill="url(#rl-rose)"/>`);
+
+// 48. Open Book (emerald and gold): a language model's knowledge, with a sparkle rising.
+const optionBook = svg(`
+  <defs>${lin('bk-tile', 96, 96, 416, 416, '#16714A', '#06331F')}${gold('bk-gold')}</defs>
+  ${tileRect('bk-tile')}
+  <path d="M256,226C222,202 176,196 138,204V362C176,354 222,360 256,384Z" fill="#FBF3DE"/>
+  <path d="M256,226C290,202 336,196 374,204V362C336,354 290,360 256,384Z" fill="#EAD9B4"/>
+  <path d="${sparkle(256, 160, 42)}" fill="url(#bk-gold)"/>`);
+
+// 49. Quote (burgundy and blush): a pair of quotation marks, language itself.
+const comma = (cx, cy) => `<circle cx="${cx}" cy="${cy}" r="50"/><path d="M${cx + 50},${cy}C${cx + 50},${cy + 84} ${cx - 6},${cy + 124} ${cx - 44},${cy + 132}C${cx - 18},${cy + 104} ${cx - 2},${cy + 78} ${cx},${cy + 50}Z"/>`;
+const optionQuote = svg(`
+  <defs>${lin('qt-tile', 96, 96, 416, 416, '#7A1C38', '#3A0A18')}${lin('qt-blush', 140, 160, 370, 370, '#FFE4EC', '#F4A7BC')}</defs>
+  ${tileRect('qt-tile')}
+  <g fill="url(#qt-blush)">${comma(200, 214)}${comma(316, 214)}</g>`);
+
+// 50. Spark Ring (champagne gold): a slim ring crossed by a long sparkle.
+const optionSparkRing = svg(`
+  <defs>${gold('sr-gold')}</defs>
+  <circle cx="256" cy="256" r="146" fill="none" stroke="url(#sr-gold)" stroke-width="18"/>
+  <path d="${sparkle(256, 256, 196, 0.06)}" fill="url(#sr-gold)"/>`);
+
+// 51. Braces (graphite and mint): code braces holding a sparkle, the model as a function.
+const brace = 'M204,150C172,150 166,170 166,200V228C166,248 156,256 138,256C156,256 166,264 166,284V312C166,342 172,362 204,362';
+const optionBraces = svg(`
+  <defs>${lin('bc2-tile', 96, 96, 416, 416, '#27313D', '#0E1319')}${lin('bc2-mint', 210, 200, 300, 310, '#D1FAE5', '#5EEAD4')}</defs>
+  ${tileRect('bc2-tile')}
+  <g fill="none" stroke="#E2E8F0" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="${brace}"/><path d="${brace}" transform="translate(512 0) scale(-1 1)"/>
+  </g>
+  <path d="${sparkle(256, 256, 54)}" fill="url(#bc2-mint)"/>`);
+
+// 52. Next Token (periwinkle to violet): two typed dots, and the next one is generated.
+const optionNextToken = svg(`
+  <defs>${lin('nt', 290, 180, 440, 330, '#93A5FF', '#6D4AFF')}</defs>
+  <circle cx="132" cy="256" r="34" fill="#93A5FF" opacity="0.45"/>
+  <circle cx="226" cy="256" r="34" fill="#93A5FF" opacity="0.75"/>
+  <path d="${sparkle(354, 256, 84)}" fill="url(#nt)"/>`);
+
+// 53. Aa (cream, ink and gold): the type specimen mark, the model speaks your language.
+const optionAa = svg(`
+  <defs>${lin('aa-tile', 96, 96, 416, 416, '#FFFBF2', '#EFE4CF')}${gold('aa-gold')}</defs>
+  ${tileRect('aa-tile')}
+  <g fill="none" stroke="#1C2333" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140,358L198,168L256,358M160,296H236"/>
+    <circle cx="322" cy="314" r="44"/><path d="M366,270V358"/>
+  </g>
+  <path d="${sparkle(344, 182, 38)}" fill="url(#aa-gold)"/>`);
+
+// 54. Ink Drop (deep teal and pearl): a drop of ink that becomes a sparkle.
+const optionInk = svg(`
+  <defs>${lin('ik', 132, 96, 380, 434, '#5EEAD4', '#0F766E', '#0B3B3A')}</defs>
+  <path d="M256,92C256,92 382,228 382,310A126,126 0 0 1 130,310C130,228 256,92 256,92Z" fill="url(#ik)"/>
+  <ellipse cx="190" cy="300" rx="22" ry="44" fill="#FFFFFF" opacity="0.28" transform="rotate(18 190 300)"/>
+  <path d="${sparkle(270, 320, 56)}" fill="#F1FFFC"/>`);
+
+// 55. Dialogue Glass (lilac and violet): two overlapping bubbles, one of frosted glass.
+const optionDialogue = svg(`
+  <defs>${lin('dg-back', 196, 104, 424, 300, '#A78BFA', '#6D28D9')}${lin('dg-front', 92, 210, 334, 420, '#F5F3FF', '#DDD6FE')}${lin('dg-spark', 170, 260, 260, 360, '#A78BFA', '#6D28D9')}</defs>
+  <path d="M256,104H366A58,58 0 0 1 424,162V230A58,58 0 0 1 400,277V312L370,288H256A58,58 0 0 1 198,230V162A58,58 0 0 1 256,104Z" fill="url(#dg-back)"/>
+  <path d="M154,210H272A62,62 0 0 1 334,272V340A62,62 0 0 1 272,402H170L124,428V390A62,62 0 0 1 92,340V272A62,62 0 0 1 154,210Z" fill="url(#dg-front)" opacity="0.88"/>
+  <path d="${sparkle(212, 306, 46)}" fill="url(#dg-spark)"/>`);
+
+// 56. Linked Rings (sapphire and rose): two interlocked rings, prompt and response.
+const optionLinked = svg(`
+  <defs>
+    ${lin('lk-a', 96, 146, 316, 366, '#6E9BFF', '#1E40AF')}${lin('lk-b', 196, 146, 416, 366, '#FBC2D0', '#E0607E')}${gold('lk-gold')}
+    <clipPath id="lk-top"><rect x="222" y="120" width="68" height="76"/></clipPath>
+  </defs>
+  <g fill="none" stroke-width="32">
+    <circle cx="206" cy="256" r="108" stroke="url(#lk-a)"/>
+    <circle cx="306" cy="256" r="108" stroke="url(#lk-b)"/>
+    <circle cx="206" cy="256" r="108" stroke="url(#lk-a)" clip-path="url(#lk-top)"/>
+  </g>
+  <path d="${sparkle(256, 256, 34)}" fill="url(#lk-gold)"/>`);
+
+// 57. Noir (black and gold): the luxury tile, a single gold sparkle.
+const optionNoir = svg(`
+  <defs>
+    ${lin('nr-tile', 96, 96, 416, 416, '#2E2E33', '#0B0B0D')}${gold('nr-gold')}
+    ${lin('nr-sheen', 0, 96, 0, 230, 'rgba(255,255,255,0.12)', 'rgba(255,255,255,0)')}
+  </defs>
+  ${tileRect('nr-tile')}
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#nr-sheen)"/>
+  <rect x="110" y="110" width="292" height="292" rx="76" fill="none" stroke="url(#nr-gold)" stroke-opacity="0.4" stroke-width="4"/>
+  <path d="${sparkle(256, 256, 106)}" fill="url(#nr-gold)"/>`);
+
+// 58. Prism (navy and spectrum): a prompt goes in as light and comes out as colour.
+const optionPrismLight = svg(`
+  <defs>${lin('pl-tile', 96, 96, 416, 416, '#22355E', '#0B1426')}${lin('pl-glass', 160, 150, 350, 330, '#F1F5FF', '#A9B8F5')}</defs>
+  ${tileRect('pl-tile')}
+  <path d="M128,282L222,256" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+  <g stroke-width="14" stroke-linecap="round">
+    <path d="M300,248L386,206" stroke="#F9A8D4"/><path d="M300,256L390,250" stroke="#FCD34D"/><path d="M300,264L386,296" stroke="#67E8F9"/>
+  </g>
+  <path d="M256,156L340,322H172Z" fill="url(#pl-glass)" stroke="url(#pl-glass)" stroke-width="20" stroke-linejoin="round" opacity="0.95"/>`);
+
+// 59. Prompt Seal (emerald and gold): a round seal with a prompt chevron and a sparkle.
+const optionSeal = svg(`
+  <defs>${lin('se-disc', 86, 86, 426, 426, '#1C8A5A', '#063A24')}${gold('se-gold')}</defs>
+  <circle cx="256" cy="256" r="168" fill="url(#se-disc)"/>
+  <circle cx="256" cy="256" r="142" fill="none" stroke="url(#se-gold)" stroke-opacity="0.6" stroke-width="6"/>
+  <path d="M190,206L248,256L190,306" fill="none" stroke="url(#se-gold)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="${sparkle(318, 296, 42)}" fill="url(#se-gold)"/>`);
+
+// 60. Origami Spark (rose and peach): a folded paper sparkle, each arm two-toned.
+const oriTips = [[256, 66], [446, 256], [256, 446], [66, 256]];
+const oriInner = [[300, 212], [300, 300], [212, 300], [212, 212]];
+const oriShades = [['#FAD4C0', '#E8907E'], ['#F7C1AE', '#D9776B'], ['#FAD4C0', '#E8907E'], ['#F7C1AE', '#D9776B']];
+const optionOrigami = svg(`
+  ${oriTips.map(([tx, ty], i) => {
+    const [ax, ay] = oriInner[(i + 3) % 4], [bx, by] = oriInner[i];
+    return `<polygon points="256,256 ${ax},${ay} ${tx},${ty}" fill="${oriShades[i][0]}"/><polygon points="256,256 ${tx},${ty} ${bx},${by}" fill="${oriShades[i][1]}"/>`;
+  }).join('')}`);
+
+// 61. Comet (plum and gold): a sparkle streaking in, generation in motion.
+const optionComet = svg(`
+  <defs>
+    ${gold('cm-gold')}
+    <linearGradient id="cm-tail" x1="330" y1="190" x2="120" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C084FC"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M300,152L368,220L124,404Z" fill="url(#cm-tail)"/>
+  <path d="${sparkle(334, 186, 80)}" fill="url(#cm-gold)"/>`);
+
+// 62. Constellation (midnight and silver): a few stars joined into a thought.
+const stars = [[168, 330, 20], [226, 222, 26], [334, 178, 46], [352, 318, 22], [252, 360, 16]];
+const optionConstellation = svg(`
+  <defs>${lin('cn-tile', 96, 96, 416, 416, '#1D2B55', '#0A1028')}${gold('cn-gold')}</defs>
+  ${tileRect('cn-tile')}
+  <path d="M168,330L226,222L334,178L352,318L252,360Z" fill="none" stroke="#C7D2FE" stroke-opacity="0.45" stroke-width="6" stroke-linejoin="round"/>
+  ${stars.map(([x, y, r], i) => `<path d="${sparkle(x, y, r)}" fill="${i === 2 ? 'url(#cn-gold)' : '#E6ECFF'}"/>`).join('')}`);
+
 const OPTIONS = [
   { file: 'option-1-prompt-bubble', name: 'Prompt Bubble', svg: optionBubble },
   { file: 'option-2-pocket-spark', name: 'Pocket Spark', svg: optionPocket },
@@ -704,6 +883,26 @@ const OPTIONS = [
   { file: 'option-40-learning-loop', name: 'Learning Loop', svg: optionLoop },
   { file: 'option-41-decision-tree', name: 'Decision Tree', svg: optionTree },
   { file: 'option-42-spark-orb', name: 'Spark Orb', svg: optionOrb },
+  { file: 'option-43-gilded-bubble', name: 'Gilded Bubble', svg: optionGildedBubble },
+  { file: 'option-44-ai-mark', name: 'ai Mark', svg: optionAiMark },
+  { file: 'option-45-quill', name: 'Quill', svg: optionQuill },
+  { file: 'option-46-text-cursor', name: 'Text Cursor', svg: optionCursor },
+  { file: 'option-47-rose-lines', name: 'Rose Lines', svg: optionRoseLines },
+  { file: 'option-48-open-book', name: 'Open Book', svg: optionBook },
+  { file: 'option-49-quote', name: 'Quote', svg: optionQuote },
+  { file: 'option-50-spark-ring', name: 'Spark Ring', svg: optionSparkRing },
+  { file: 'option-51-braces', name: 'Braces', svg: optionBraces },
+  { file: 'option-52-next-token', name: 'Next Token', svg: optionNextToken },
+  { file: 'option-53-aa', name: 'Aa', svg: optionAa },
+  { file: 'option-54-ink-drop', name: 'Ink Drop', svg: optionInk },
+  { file: 'option-55-dialogue-glass', name: 'Dialogue Glass', svg: optionDialogue },
+  { file: 'option-56-linked-rings', name: 'Linked Rings', svg: optionLinked },
+  { file: 'option-57-noir', name: 'Noir', svg: optionNoir },
+  { file: 'option-58-prism', name: 'Prism', svg: optionPrismLight },
+  { file: 'option-59-prompt-seal', name: 'Prompt Seal', svg: optionSeal },
+  { file: 'option-60-origami-spark', name: 'Origami Spark', svg: optionOrigami },
+  { file: 'option-61-comet', name: 'Comet', svg: optionComet },
+  { file: 'option-62-constellation', name: 'Constellation', svg: optionConstellation },
 ];
 
 const sheet = (list) => `<!doctype html><html><head><style>
@@ -731,7 +930,7 @@ ${['light', 'dark'].map((t) => `<div class="row ${t}">${list.map((o) => `
 
 (async () => {
   for (const o of OPTIONS) fs.writeFileSync(path.join(DIR, `${o.file}.svg`), o.svg);
-  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12, 22), 'preview-ai-ml': OPTIONS.slice(22) };
+  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12, 22), 'preview-ai-ml': OPTIONS.slice(22, 42), 'preview-classy-genai': OPTIONS.slice(42) };
   for (const [name, list] of Object.entries(sheets)) fs.writeFileSync(path.join(DIR, `${name}.html`), sheet(list));
 
   const browser = await chromium.launch();

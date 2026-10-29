@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="nr-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2E2E33"/><stop offset="1" stop-color="#0B0B0D"/></linearGradient>
+    <linearGradient id="nr-gold" x1="140" y1="110" x2="380" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBEBB5"/><stop offset="0.5" stop-color="#E2B65C"/><stop offset="1" stop-color="#B9852F"/></linearGradient>
+    
+    <linearGradient id="nr-sheen" x1="0" y1="96" x2="0" y2="230" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.12)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+  </defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#nr-tile)"/>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#nr-sheen)"/>
+  <rect x="110" y="110" width="292" height="292" rx="76" fill="none" stroke="url(#nr-gold)" stroke-opacity="0.4" stroke-width="4"/>
+  <path d="M256,150 C264.48,207.24 304.76,247.52 362,256 C304.76,264.48 264.48,304.76 256,362 C247.52,304.76 207.24,264.48 150,256 C207.24,247.52 247.52,207.24 256,150Z" fill="url(#nr-gold)"/>
+</svg>

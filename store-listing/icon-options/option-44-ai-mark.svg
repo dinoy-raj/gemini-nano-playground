@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="am-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFBF2"/><stop offset="1" stop-color="#EFE4CF"/></linearGradient>
+    <linearGradient id="am-gold" x1="140" y1="110" x2="380" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBEBB5"/><stop offset="0.5" stop-color="#E2B65C"/><stop offset="1" stop-color="#B9852F"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#am-tile)"/>
+  <g fill="none" stroke="#1C2333" stroke-width="34" stroke-linecap="round">
+    <circle cx="210" cy="302" r="58"/><path d="M268,246V360M338,252V360"/>
+  </g>
+  <path d="M338,136 C341.36,158.68 357.32,174.64 380,178 C357.32,181.36 341.36,197.32 338,220 C334.64,197.32 318.68,181.36 296,178 C318.68,174.64 334.64,158.68 338,136Z" fill="url(#am-gold)"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="rl-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34343A"/><stop offset="1" stop-color="#121215"/></linearGradient>
+    <linearGradient id="rl-rose" x1="140" y1="0" x2="380" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F9D3C2"/><stop offset="1" stop-color="#D98C7A"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#rl-tile)"/>
+  <rect x="146" y="170" width="190" height="28" rx="14" fill="url(#rl-rose)"/>
+  <rect x="146" y="228" width="150" height="28" rx="14" fill="url(#rl-rose)" opacity="0.8"/>
+  <rect x="146" y="286" width="96" height="28" rx="14" fill="url(#rl-rose)" opacity="0.6"/>
+  <path d="M318,268 C322,295 341,314 368,318 C341,322 322,341 318,368 C314,341 295,322 268,318 C295,314 314,295 318,268Z" fill="url(#rl-rose)"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="aa-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFBF2"/><stop offset="1" stop-color="#EFE4CF"/></linearGradient>
+    <linearGradient id="aa-gold" x1="140" y1="110" x2="380" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBEBB5"/><stop offset="0.5" stop-color="#E2B65C"/><stop offset="1" stop-color="#B9852F"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#aa-tile)"/>
+  <g fill="none" stroke="#1C2333" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140,358L198,168L256,358M160,296H236"/>
+    <circle cx="322" cy="314" r="44"/><path d="M366,270V358"/>
+  </g>
+  <path d="M344,144 C347.04,164.52 361.48,178.96 382,182 C361.48,185.04 347.04,199.48 344,220 C340.96,199.48 326.52,185.04 306,182 C326.52,178.96 340.96,164.52 344,144Z" fill="url(#aa-gold)"/>
+</svg>

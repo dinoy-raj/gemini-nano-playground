@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="pl-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22355E"/><stop offset="1" stop-color="#0B1426"/></linearGradient>
+    <linearGradient id="pl-glass" x1="160" y1="150" x2="350" y2="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F1F5FF"/><stop offset="1" stop-color="#A9B8F5"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#pl-tile)"/>
+  <path d="M128,282L222,256" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+  <g stroke-width="14" stroke-linecap="round">
+    <path d="M300,248L386,206" stroke="#F9A8D4"/><path d="M300,256L390,250" stroke="#FCD34D"/><path d="M300,264L386,296" stroke="#67E8F9"/>
+  </g>
+  <path d="M256,156L340,322H172Z" fill="url(#pl-glass)" stroke="url(#pl-glass)" stroke-width="20" stroke-linejoin="round" opacity="0.95"/>
+</svg>

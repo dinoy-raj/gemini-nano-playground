@@ -1,6 +1,6 @@
 # App icon options
 
-Forty-two icon concepts in the style of Google's 2025 icon refresh: chunky rounded shapes,
+Sixty-two icon concepts in the style of Google's 2025 icon refresh: chunky rounded shapes,
 saturated gradients with soft colour blooms, and simple white glyphs.
 
 ![Preview on light and dark](preview.png)
@@ -71,3 +71,31 @@ language ([preview](preview-ai-ml.png)).
 | [40. Learning Loop](option-40-learning-loop.svg) | A blue to orange infinity loop. |
 | [41. Decision Tree](option-41-decision-tree.svg) | Branching green nodes with one leaf lit as the answer. |
 | [42. Spark Orb](option-42-spark-orb.svg) | A glowing indigo, cyan and coral assistant orb. |
+
+## Classy LLM and generative AI marks
+
+Options 43 to 62 say only "LLM" or "generative AI", with few elements and premium palettes
+([preview](preview-classy-genai.png)).
+
+| Option | Idea |
+| --- | --- |
+| [43. Gilded Bubble](option-43-gilded-bubble.svg) | A navy chat bubble with a gold rim and gold sparkle. |
+| [44. ai Mark](option-44-ai-mark.svg) | A lowercase "ai" in ink on ivory, its dot a gold sparkle. |
+| [45. Quill](option-45-quill.svg) | A lilac feather writing: text being generated. |
+| [46. Text Cursor](option-46-text-cursor.svg) | A pearl I-beam typing a sparkle on sapphire. |
+| [47. Rose Lines](option-47-rose-lines.svg) | Rose gold lines resolving into a sparkle on charcoal. |
+| [48. Open Book](option-48-open-book.svg) | An ivory book under a gold sparkle on emerald. |
+| [49. Quote](option-49-quote.svg) | Blush quotation marks on burgundy: language itself. |
+| [50. Spark Ring](option-50-spark-ring.svg) | A champagne gold ring crossed by a long sparkle. |
+| [51. Braces](option-51-braces.svg) | Code braces holding a mint sparkle on graphite. |
+| [52. Next Token](option-52-next-token.svg) | Two typed dots, and the next token is a sparkle. |
+| [53. Aa](option-53-aa.svg) | The type specimen mark in ink and gold on cream. |
+| [54. Ink Drop](option-54-ink-drop.svg) | A deep teal drop of ink with a pearl sparkle. |
+| [55. Dialogue Glass](option-55-dialogue-glass.svg) | Two bubbles, one of frosted lilac glass. |
+| [56. Linked Rings](option-56-linked-rings.svg) | Interlocked sapphire and rose rings: prompt and response. |
+| [57. Noir](option-57-noir.svg) | A black tile with a fine gold border and one gold sparkle. |
+| [58. Prism](option-58-prism.svg) | Light in, colour out: a prompt becoming an answer. |
+| [59. Prompt Seal](option-59-prompt-seal.svg) | An emerald seal with a gold prompt chevron and sparkle. |
+| [60. Origami Spark](option-60-origami-spark.svg) | A folded paper sparkle in rose and peach. |
+| [61. Comet](option-61-comet.svg) | A gold sparkle streaking in on a violet tail. |
+| [62. Constellation](option-62-constellation.svg) | A few stars joined into a thought, on midnight. |

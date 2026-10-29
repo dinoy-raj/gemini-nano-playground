@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="tc-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2747A8"/><stop offset="1" stop-color="#0F1E4D"/></linearGradient>
+    <linearGradient id="tc-pearl" x1="260" y1="170" x2="380" y2="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#BFD0FF"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#tc-tile)"/>
+  <path d="M210,160V352M180,156H240M180,356H240" stroke="#E6ECFF" stroke-width="24" stroke-linecap="round"/>
+  <path d="M316,176 C321.12,210.56 345.44,234.88 380,240 C345.44,245.12 321.12,269.44 316,304 C310.88,269.44 286.56,245.12 252,240 C286.56,234.88 310.88,210.56 316,176Z" fill="url(#tc-pearl)"/>
+</svg>

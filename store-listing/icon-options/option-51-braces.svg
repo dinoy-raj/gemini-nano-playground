@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bc2-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#27313D"/><stop offset="1" stop-color="#0E1319"/></linearGradient>
+    <linearGradient id="bc2-mint" x1="210" y1="200" x2="300" y2="310" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#D1FAE5"/><stop offset="1" stop-color="#5EEAD4"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#bc2-tile)"/>
+  <g fill="none" stroke="#E2E8F0" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M204,150C172,150 166,170 166,200V228C166,248 156,256 138,256C156,256 166,264 166,284V312C166,342 172,362 204,362"/><path d="M204,150C172,150 166,170 166,200V228C166,248 156,256 138,256C156,256 166,264 166,284V312C166,342 172,362 204,362" transform="translate(512 0) scale(-1 1)"/>
+  </g>
+  <path d="M256,202 C260.32,231.16 280.84,251.68 310,256 C280.84,260.32 260.32,280.84 256,310 C251.68,280.84 231.16,260.32 202,256 C231.16,251.68 251.68,231.16 256,202Z" fill="url(#bc2-mint)"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bk-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#16714A"/><stop offset="1" stop-color="#06331F"/></linearGradient>
+    <linearGradient id="bk-gold" x1="140" y1="110" x2="380" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBEBB5"/><stop offset="0.5" stop-color="#E2B65C"/><stop offset="1" stop-color="#B9852F"/></linearGradient></defs>
+  <rect x="96" y="96" width="320" height="320" rx="88" fill="url(#bk-tile)"/>
+  <path d="M256,226C222,202 176,196 138,204V362C176,354 222,360 256,384Z" fill="#FBF3DE"/>
+  <path d="M256,226C290,202 336,196 374,204V362C336,354 290,360 256,384Z" fill="#EAD9B4"/>
+  <path d="M256,118 C259.36,140.68 275.32,156.64 298,160 C275.32,163.36 259.36,179.32 256,202 C252.64,179.32 236.68,163.36 214,160 C236.68,156.64 252.64,140.68 256,118Z" fill="url(#bk-gold)"/>
+</svg>

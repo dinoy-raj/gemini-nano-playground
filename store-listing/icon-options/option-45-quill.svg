@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="qu-feather" x1="380" y1="100" x2="160" y2="380" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F3E8FF"/><stop offset="0.5" stop-color="#C4B5FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <linearGradient id="qu-ink" x1="0" y1="300" x2="0" y2="430" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6D28D9"/><stop offset="1" stop-color="#3B1E54"/></linearGradient></defs>
+  <path d="M384,100C300,110 206,186 176,298L158,372L232,342C334,300 392,208 384,100Z" fill="url(#qu-feather)"/>
+  <path d="M372,116C306,186 232,270 160,378" fill="none" stroke="#5B21B6" stroke-opacity="0.45" stroke-width="10" stroke-linecap="round"/>
+  <path d="M160,378L132,416" stroke="url(#qu-ink)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M190,416H380" stroke="#C4B5FD" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+  <path d="M352,304 C354.88,323.44 368.56,337.12 388,340 C368.56,342.88 354.88,356.56 352,376 C349.12,356.56 335.44,342.88 316,340 C335.44,337.12 349.12,323.44 352,304Z" fill="#8B5CF6"/>
+</svg>
