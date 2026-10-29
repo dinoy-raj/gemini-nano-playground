@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl16-f" x1="96" y1="300" x2="416" y2="388" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3B82F6"/><stop offset="0.5" stop-color="#8B5CF6"/><stop offset="1" stop-color="#EC4899"/></linearGradient>
+    
+    <linearGradient id="gl16-b" x1="96" y1="300" x2="416" y2="388" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#BFDBFE"/><stop offset="1" stop-color="#DDD6FE"/></linearGradient>
+    
+    <radialGradient id="gl16-g">
+      <stop offset="0" stop-color="#FFC21A" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FFC21A" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FFC21A" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl16-hi" x1="0" y1="300" x2="0" y2="410" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl16-c"><path d="M140,300H372A44,44 0 0 1 416,344V344A44,44 0 0 1 372,388H140A44,44 0 0 1 96,344V344A44,44 0 0 1 140,300Z"/></clipPath>
+  </defs>
+  <path d="M128,128H294A32,32 0 0 1 326,160V160A32,32 0 0 1 294,192H128A32,32 0 0 1 96,160V160A32,32 0 0 1 128,128ZM128,214H354A32,32 0 0 1 386,246V246A32,32 0 0 1 354,278H128A32,32 0 0 1 96,246V246A32,32 0 0 1 128,214Z" fill="url(#gl16-b)"/>
+  <path d="M140,300H372A44,44 0 0 1 416,344V344A44,44 0 0 1 372,388H140A44,44 0 0 1 96,344V344A44,44 0 0 1 140,300Z" fill="url(#gl16-f)"/>
+  <g clip-path="url(#gl16-c)">
+    <circle cx="410" cy="300" r="120" fill="url(#gl16-g)"/>
+    <rect x="0" y="0" width="512" height="410" fill="url(#gl16-hi)"/>
+  </g>
+  <path d="M140,344H270" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M354,312 C356.56,329.28 368.72,341.44 386,344 C368.72,346.56 356.56,358.72 354,376 C351.44,358.72 339.28,346.56 322,344 C339.28,341.44 351.44,329.28 354,312Z" fill="#FFFFFF"/>
+</svg>

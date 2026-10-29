@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl4-f" x1="210" y1="136" x2="450" y2="376" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8B5CF6"/><stop offset="0.5" stop-color="#3B82F6"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+    
+    <linearGradient id="gl4-b" x1="210" y1="136" x2="450" y2="376" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C7D2FE"/><stop offset="1" stop-color="#A5B4FC"/></linearGradient>
+    
+    <radialGradient id="gl4-g">
+      <stop offset="0" stop-color="#FF6FB5" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FF6FB5" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FF6FB5" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl4-hi" x1="0" y1="136" x2="0" y2="246" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl4-c"><path d="M330,136 C339.6,200.8 385.2,246.4 450,256 C385.2,265.6 339.6,311.2 330,376 C320.4,311.2 274.8,265.6 210,256 C274.8,246.4 320.4,200.8 330,136Z"/></clipPath>
+  </defs>
+  <path d="M84,256A32,32 0 1 0 148,256A32,32 0 1 0 84,256ZM164,256A32,32 0 1 0 228,256A32,32 0 1 0 164,256Z" fill="url(#gl4-b)"/>
+  <path d="M330,136 C339.6,200.8 385.2,246.4 450,256 C385.2,265.6 339.6,311.2 330,376 C320.4,311.2 274.8,265.6 210,256 C274.8,246.4 320.4,200.8 330,136Z" fill="url(#gl4-f)"/>
+  <g clip-path="url(#gl4-c)">
+    <circle cx="420" cy="150" r="120" fill="url(#gl4-g)"/>
+    <rect x="0" y="0" width="512" height="246" fill="url(#gl4-hi)"/>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl1-f" x1="100" y1="104" x2="412" y2="408" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34D399"/><stop offset="0.5" stop-color="#10B981"/><stop offset="1" stop-color="#0E9F6E"/></linearGradient>
+    
+    <linearGradient id="gl1-b" x1="100" y1="104" x2="412" y2="408" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#BBF7D0"/><stop offset="1" stop-color="#86EFAC"/></linearGradient>
+    
+    <radialGradient id="gl1-g">
+      <stop offset="0" stop-color="#FDE047" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FDE047" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FDE047" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl1-hi" x1="0" y1="104" x2="0" y2="214" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl1-c"><path d="M150,104H362C394,104 412,124 410,156L400,256L410,356C412,388 394,408 362,408H150C118,408 100,388 102,356L112,256L102,156C100,124 118,104 150,104Z"/></clipPath>
+  </defs>
+  <path d="M188,150H324A64,64 0 0 1 388,214V374A64,64 0 0 1 324,438H188A64,64 0 0 1 124,374V214A64,64 0 0 1 188,150Z" fill="url(#gl1-b)"/>
+  <path d="M150,104H362C394,104 412,124 410,156L400,256L410,356C412,388 394,408 362,408H150C118,408 100,388 102,356L112,256L102,156C100,124 118,104 150,104Z" fill="url(#gl1-f)"/>
+  <g clip-path="url(#gl1-c)">
+    <circle cx="400" cy="120" r="170" fill="url(#gl1-g)"/>
+    <rect x="0" y="0" width="512" height="214" fill="url(#gl1-hi)"/>
+  </g>
+  <path d="M264,244V342M330,252V342" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M166,296A48,48 0 1 0 262,296A48,48 0 1 0 166,296Z" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M330,152 C332.72,170.36 345.64,183.28 364,186 C345.64,188.72 332.72,201.64 330,220 C327.28,201.64 314.36,188.72 296,186 C314.36,183.28 327.28,170.36 330,152Z" fill="#FFFFFF"/>
+</svg>

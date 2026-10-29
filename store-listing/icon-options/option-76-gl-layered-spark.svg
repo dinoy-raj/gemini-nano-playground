@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl13-f" x1="66" y1="66" x2="446" y2="446" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2F7BFF"/><stop offset="0.5" stop-color="#22B8CF"/><stop offset="1" stop-color="#12B76A"/></linearGradient>
+    
+    <linearGradient id="gl13-b" x1="66" y1="66" x2="446" y2="446" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#BBF7D0"/><stop offset="1" stop-color="#A5F3FC"/></linearGradient>
+    
+    <radialGradient id="gl13-g">
+      <stop offset="0" stop-color="#FFC21A" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FFC21A" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FFC21A" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl13-hi" x1="0" y1="66" x2="0" y2="176" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl13-c"><path d="M256,66 C275,168.6 343.4,237 446,256 C343.4,275 275,343.4 256,446 C237,343.4 168.6,275 66,256 C168.6,237 237,168.6 256,66Z"/></clipPath>
+  </defs>
+  <path d="M256,106 C271,187 325,241 406,256 C325,271 271,325 256,406 C241,325 187,271 106,256 C187,241 241,187 256,106Z" fill="url(#gl13-b)" transform="rotate(45 256 256)"/>
+  <path d="M256,66 C275,168.6 343.4,237 446,256 C343.4,275 275,343.4 256,446 C237,343.4 168.6,275 66,256 C168.6,237 237,168.6 256,66Z" fill="url(#gl13-f)"/>
+  <g clip-path="url(#gl13-c)">
+    <circle cx="330" cy="330" r="140" fill="url(#gl13-g)"/>
+    <rect x="0" y="0" width="512" height="176" fill="url(#gl13-hi)"/>
+  </g>
+</svg>

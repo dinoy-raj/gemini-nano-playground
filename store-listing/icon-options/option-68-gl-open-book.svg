@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl5-f" x1="128" y1="180" x2="384" y2="392" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFB020"/><stop offset="1" stop-color="#FF7A00"/></linearGradient>
+    
+    <linearGradient id="gl5-b" x1="128" y1="180" x2="384" y2="392" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE7A3"/><stop offset="1" stop-color="#FFC94D"/></linearGradient>
+    
+    <radialGradient id="gl5-g">
+      <stop offset="0" stop-color="#FF8FB8" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FF8FB8" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FF8FB8" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl5-hi" x1="0" y1="180" x2="0" y2="290" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl5-c"><path d="M256,212C292,186 340,180 384,190V372C340,362 292,368 256,392Z"/></clipPath>
+  </defs>
+  <path d="M256,212C220,186 172,180 128,190V372C172,362 220,368 256,392Z" fill="url(#gl5-b)"/>
+  <path d="M256,212C292,186 340,180 384,190V372C340,362 292,368 256,392Z" fill="url(#gl5-f)"/>
+  <g clip-path="url(#gl5-c)">
+    <circle cx="256" cy="320" r="120" fill="url(#gl5-g)"/>
+    <rect x="0" y="0" width="512" height="290" fill="url(#gl5-hi)"/>
+  </g>
+  <path d="M318,232 C321.04,252.52 335.48,266.96 356,270 C335.48,273.04 321.04,287.48 318,308 C314.96,287.48 300.52,273.04 280,270 C300.52,266.96 314.96,252.52 318,232Z" fill="#FFFFFF"/>
+</svg>

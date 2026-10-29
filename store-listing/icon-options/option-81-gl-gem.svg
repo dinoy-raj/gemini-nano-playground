@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl18-f" x1="100" y1="138" x2="412" y2="406" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22D3EE"/><stop offset="0.5" stop-color="#3B82F6"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    
+    <linearGradient id="gl18-b" x1="100" y1="138" x2="412" y2="406" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CFFAFE"/><stop offset="1" stop-color="#C7D2FE"/></linearGradient>
+    
+    <radialGradient id="gl18-g">
+      <stop offset="0" stop-color="#F472B6" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#F472B6" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl18-hi" x1="0" y1="138" x2="0" y2="248" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl18-c"><path d="M167.3,150.7Q180,138 198.0,138.0L314.0,138.0Q332,138 344.7,150.7L399.3,205.3Q412,218 400.5,231.9L267.5,392.1Q256,406 244.5,392.1L111.5,231.9Q100,218 112.7,205.3Z"/></clipPath>
+  </defs>
+  <path d="M167.3,150.7Q180,138 198.0,138.0L314.0,138.0Q332,138 344.7,150.7L399.3,205.3Q412,218 400.5,231.9L267.5,392.1Q256,406 244.5,392.1L111.5,231.9Q100,218 112.7,205.3Z" fill="url(#gl18-b)" transform="rotate(-10 256 270) translate(-22 -12)"/>
+  <path d="M167.3,150.7Q180,138 198.0,138.0L314.0,138.0Q332,138 344.7,150.7L399.3,205.3Q412,218 400.5,231.9L267.5,392.1Q256,406 244.5,392.1L111.5,231.9Q100,218 112.7,205.3Z" fill="url(#gl18-f)"/>
+  <g clip-path="url(#gl18-c)">
+    <circle cx="330" cy="330" r="130" fill="url(#gl18-g)"/>
+    <rect x="0" y="0" width="512" height="248" fill="url(#gl18-hi)"/>
+  </g>
+  <polygon points="186,146 326,146 296,218 216,218" fill="#FFFFFF" opacity="0.32"/>
+  <path d="M256,246 C259.52,269.76 276.24,286.48 300,290 C276.24,293.52 259.52,310.24 256,334 C252.48,310.24 235.76,293.52 212,290 C235.76,286.48 252.48,269.76 256,246Z" fill="#FFFFFF"/>
+</svg>

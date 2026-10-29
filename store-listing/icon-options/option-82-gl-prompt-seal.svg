@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl19-f" x1="106" y1="94" x2="406" y2="394" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34D399"/><stop offset="0.5" stop-color="#12B76A"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+    
+    <linearGradient id="gl19-b" x1="106" y1="94" x2="406" y2="394" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A7F3D0"/><stop offset="1" stop-color="#6EE7B7"/></linearGradient>
+    
+    <radialGradient id="gl19-g">
+      <stop offset="0" stop-color="#FDE047" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FDE047" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FDE047" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl19-hi" x1="0" y1="94" x2="0" y2="204" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl19-c"><path d="M106,244A150,150 0 1 0 406,244A150,150 0 1 0 106,244Z"/></clipPath>
+  </defs>
+  <path d="M106,284A150,150 0 1 0 406,284A150,150 0 1 0 106,284Z" fill="url(#gl19-b)"/>
+  <path d="M106,244A150,150 0 1 0 406,244A150,150 0 1 0 106,244Z" fill="url(#gl19-f)"/>
+  <g clip-path="url(#gl19-c)">
+    <circle cx="380" cy="140" r="150" fill="url(#gl19-g)"/>
+    <rect x="0" y="0" width="512" height="204" fill="url(#gl19-hi)"/>
+  </g>
+  <path d="M200,196L256,244L200,292" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M318,246 C321.2,267.6 336.4,282.8 358,286 C336.4,289.2 321.2,304.4 318,326 C314.8,304.4 299.6,289.2 278,286 C299.6,282.8 314.8,267.6 318,246Z" fill="#FFFFFF"/>
+</svg>

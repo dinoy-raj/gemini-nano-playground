@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl12-f" x1="146" y1="136" x2="346" y2="336" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#60A5FA"/><stop offset="0.5" stop-color="#6366F1"/><stop offset="1" stop-color="#A855F7"/></linearGradient>
+    
+    <linearGradient id="gl12-b" x1="146" y1="136" x2="346" y2="336" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFC21A"/><stop offset="0.5" stop-color="#FF6FB5"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+    
+    <radialGradient id="gl12-g">
+      <stop offset="0" stop-color="#FF6FB5" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FF6FB5" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FF6FB5" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl12-hi" x1="0" y1="136" x2="0" y2="246" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl12-c"><path d="M234.4,159.3Q246,136 257.6,159.3L334.4,312.7Q346,336 320.0,336.0L172.0,336.0Q146,336 157.6,312.7Z"/></clipPath>
+  </defs>
+  <path d="M286.4,251.1Q280,230 300.7,222.7L423.3,179.3Q444,172 444.0,194.0L444.0,318.0Q444,340 423.0,333.6L321.0,302.4Q300,296 293.6,274.9Z" fill="url(#gl12-b)"/>
+  <path d="M234.4,159.3Q246,136 257.6,159.3L334.4,312.7Q346,336 320.0,336.0L172.0,336.0Q146,336 157.6,312.7Z" fill="url(#gl12-f)"/>
+  <g clip-path="url(#gl12-c)">
+    <circle cx="340" cy="300" r="110" fill="url(#gl12-g)"/>
+    <rect x="0" y="0" width="512" height="246" fill="url(#gl12-hi)"/>
+  </g>
+  <path d="M246,236 C249.04,256.52 263.48,270.96 284,274 C263.48,277.04 249.04,291.48 246,312 C242.96,291.48 228.52,277.04 208,274 C228.52,270.96 242.96,256.52 246,236Z" fill="#FFFFFF"/>
+</svg>

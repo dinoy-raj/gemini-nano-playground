@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl9-f" x1="92" y1="210" x2="334" y2="428" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+    
+    <linearGradient id="gl9-b" x1="92" y1="210" x2="334" y2="428" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C4B5FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    
+    <radialGradient id="gl9-g">
+      <stop offset="0" stop-color="#F472B6" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#F472B6" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl9-hi" x1="0" y1="210" x2="0" y2="320" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl9-c"><path d="M154,210H272A62,62 0 0 1 334,272V340A62,62 0 0 1 272,402H170L124,428V390A62,62 0 0 1 92,340V272A62,62 0 0 1 154,210Z"/></clipPath>
+  </defs>
+  <path d="M256,104H366A58,58 0 0 1 424,162V230A58,58 0 0 1 400,277V312L370,288H256A58,58 0 0 1 198,230V162A58,58 0 0 1 256,104Z" fill="url(#gl9-b)"/>
+  <path d="M154,210H272A62,62 0 0 1 334,272V340A62,62 0 0 1 272,402H170L124,428V390A62,62 0 0 1 92,340V272A62,62 0 0 1 154,210Z" fill="url(#gl9-f)" opacity="0.92"/>
+  <g clip-path="url(#gl9-c)">
+    <circle cx="300" cy="230" r="110" fill="url(#gl9-g)"/>
+    <rect x="0" y="0" width="512" height="320" fill="url(#gl9-hi)"/>
+  </g><g fill="#FFFFFF"><circle cx="164" cy="306" r="15"/><circle cx="212" cy="306" r="15"/><circle cx="260" cy="306" r="15"/></g>
+</svg>

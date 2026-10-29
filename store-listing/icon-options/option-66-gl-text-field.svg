@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl3-f" x1="80" y1="170" x2="432" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    
+    <linearGradient id="gl3-b" x1="80" y1="170" x2="432" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE066"/><stop offset="1" stop-color="#FFB020"/></linearGradient>
+    
+    <radialGradient id="gl3-g">
+      <stop offset="0" stop-color="#FF8FC8" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FF8FC8" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FF8FC8" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl3-hi" x1="0" y1="170" x2="0" y2="280" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl3-c"><path d="M136,170H376A56,56 0 0 1 432,226V304A56,56 0 0 1 376,360H136A56,56 0 0 1 80,304V226A56,56 0 0 1 136,170Z"/></clipPath>
+  </defs>
+  <path d="M136,170H376A56,56 0 0 1 432,226V304A56,56 0 0 1 376,360H136A56,56 0 0 1 80,304V226A56,56 0 0 1 136,170Z" fill="url(#gl3-b)" transform="rotate(-8 256 265) translate(0 -40)"/>
+  <path d="M136,170H376A56,56 0 0 1 432,226V304A56,56 0 0 1 376,360H136A56,56 0 0 1 80,304V226A56,56 0 0 1 136,170Z" fill="url(#gl3-f)"/>
+  <g clip-path="url(#gl3-c)">
+    <circle cx="400" cy="180" r="140" fill="url(#gl3-g)"/>
+    <rect x="0" y="0" width="512" height="280" fill="url(#gl3-hi)"/>
+  </g>
+  <path d="M170,216V314M148,212H192M148,318H192" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M296,215 C300,242 319,261 346,265 C319,269 300,288 296,315 C292,288 273,269 246,265 C273,261 292,242 296,215Z" fill="#FFFFFF"/>
+</svg>

@@ -840,6 +840,155 @@ const optionConstellation = svg(`
   <path d="M168,330L226,222L334,178L352,318L252,360Z" fill="none" stroke="#C7D2FE" stroke-opacity="0.45" stroke-width="6" stroke-linejoin="round"/>
   ${stars.map(([x, y, r], i) => `<path d="${sparkle(x, y, r)}" fill="${i === 2 ? 'url(#cn-gold)' : '#E6ECFF'}"/>`).join('')}`);
 
+// Options 63 to 82 follow the project icon guideline (see README) through one builder, so every
+// icon has the same construction: a lighter back layer, a multi-hue front layer, a soft glow
+// clipped to the front, a white top light and at most one white glyph.
+const rrect = (x, y, w, h, r) =>
+  `M${x + r},${y}H${x + w - r}A${r},${r} 0 0 1 ${x + w},${y + r}V${y + h - r}A${r},${r} 0 0 1 ${x + w - r},${y + h}H${x + r}A${r},${r} 0 0 1 ${x},${y + h - r}V${y + r}A${r},${r} 0 0 1 ${x + r},${y}Z`;
+const circ = (cx, cy, r) => `M${cx - r},${cy}A${r},${r} 0 1 0 ${cx + r},${cy}A${r},${r} 0 1 0 ${cx - r},${cy}Z`;
+
+// Polygon with every corner rounded by r.
+function roundPoly(pts, r) {
+  const n = pts.length;
+  return pts.map(([cx, cy], i) => {
+    const [px, py] = pts[(i + n - 1) % n], [nx, ny] = pts[(i + 1) % n];
+    const l1 = Math.hypot(px - cx, py - cy), l2 = Math.hypot(nx - cx, ny - cy);
+    const a = [cx + ((px - cx) * r) / l1, cy + ((py - cy) * r) / l1];
+    const b = [cx + ((nx - cx) * r) / l2, cy + ((ny - cy) * r) / l2];
+    return `${i ? 'L' : 'M'}${a[0].toFixed(1)},${a[1].toFixed(1)}Q${cx},${cy} ${b[0].toFixed(1)},${b[1].toFixed(1)}`;
+  }).join('') + 'Z';
+}
+
+// A comma-shaped quotation mark of radius r.
+const commaPath = (cx, cy, r) => {
+  const k = r / 50;
+  return `${circ(cx, cy, r)}M${cx + r},${cy}C${cx + r},${cy + 84 * k} ${cx - 6 * k},${cy + 124 * k} ${cx - 44 * k},${cy + 132 * k}C${cx - 18 * k},${cy + 104 * k} ${cx - 2 * k},${cy + 78 * k} ${cx},${cy + r}Z`;
+};
+
+function layered(id, o) {
+  const [x1, y1, x2, y2] = o.box || [96, 96, 416, 416];
+  const [glowColor, gx, gy, gr] = o.glow;
+  return svg(`
+  <defs>
+    ${lin(`${id}-f`, x1, y1, x2, y2, ...o.colors)}
+    ${lin(`${id}-b`, x1, y1, x2, y2, ...o.backColors)}
+    ${blob(`${id}-g`, glowColor, 0.95)}
+    ${lin(`${id}-hi`, 0, y1, 0, y1 + 110, 'rgba(255,255,255,0.38)', 'rgba(255,255,255,0)')}
+    <clipPath id="${id}-c"><path d="${o.front}"/></clipPath>
+  </defs>
+  <path d="${o.back}" fill="url(#${id}-b)"${o.backTransform ? ` transform="${o.backTransform}"` : ''}/>
+  <path d="${o.front}" fill="url(#${id}-f)"${o.frontOpacity ? ` opacity="${o.frontOpacity}"` : ''}/>
+  <g clip-path="url(#${id}-c)">
+    <circle cx="${gx}" cy="${gy}" r="${gr}" fill="url(#${id}-g)"/>
+    <rect x="0" y="0" width="512" height="${y1 + 110}" fill="url(#${id}-hi)"/>
+  </g>${o.glyph || ''}`);
+}
+
+const white = (d, w) => `
+  <path d="${d}" fill="none" stroke="#FFFFFF" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const whiteSpark = (cx, cy, r) => `
+  <path d="${sparkle(cx, cy, r)}" fill="#FFFFFF"/>`;
+
+const quill = 'M384,100C300,110 206,186 176,298L158,372L232,342C334,300 392,208 384,100Z';
+const drop = 'M256,92C256,92 382,228 382,310A126,126 0 0 1 130,310C130,228 256,92 256,92Z';
+const gem = roundPoly([[180, 138], [332, 138], [412, 218], [256, 406], [100, 218]], 18);
+const brace2 = 'M206,206C186,206 182,218 182,236V250C182,262 176,268 164,268C176,268 182,274 182,286V300C182,318 186,330 206,330';
+
+const GUIDELINE = [
+  ['63-gl-chat-spark', 'Chat Spark', {
+    front: bubble, back: bubble, backTransform: 'translate(256 230) scale(-0.84 0.84) translate(-256 -300)',
+    box: [80, 112, 432, 414], colors: ['#5AA2FF', '#3B6CFF', '#7B5CFF'], backColors: ['#C7D7FF', '#B4A8FF'],
+    glow: ['#FF7AC6', 430, 130, 180], glyph: whiteSpark(256, 244, 80) }],
+  ['64-gl-ai-tile', 'ai Tile', {
+    front: tile, back: rrect(124, 150, 264, 288, 64), box: [100, 104, 412, 408],
+    colors: ['#34D399', '#10B981', '#0E9F6E'], backColors: ['#BBF7D0', '#86EFAC'],
+    glow: ['#FDE047', 400, 120, 170],
+    glyph: white('M264,244V342M330,252V342', 32) + white(circ(214, 296, 48), 32) + whiteSpark(330, 186, 34) }],
+  ['65-gl-quill', 'Quill', {
+    front: quill, back: quill, backTransform: 'rotate(-20 270 250)', box: [158, 100, 392, 372],
+    colors: ['#C084FC', '#A855F7', '#EC4899'], backColors: ['#F5D0FE', '#E9D5FF'],
+    glow: ['#FDBA74', 190, 340, 120], glyph: white('M360,128C300,190 236,268 176,352', 12) + whiteSpark(306, 214, 34) }],
+  ['66-gl-text-field', 'Text Field', {
+    front: rrect(80, 170, 352, 190, 56), back: rrect(80, 170, 352, 190, 56), backTransform: 'rotate(-8 256 265) translate(0 -40)',
+    box: [80, 170, 432, 360], colors: ['#60A5FA', '#2563EB'], backColors: ['#FFE066', '#FFB020'],
+    glow: ['#FF8FC8', 400, 180, 140], glyph: white('M170,216V314M148,212H192M148,318H192', 22) + whiteSpark(296, 265, 50) }],
+  ['67-gl-next-token', 'Next Token', {
+    front: sparkle(330, 256, 120), back: circ(116, 256, 32) + circ(196, 256, 32), box: [210, 136, 450, 376],
+    colors: ['#8B5CF6', '#3B82F6', '#22D3EE'], backColors: ['#C7D2FE', '#A5B4FC'],
+    glow: ['#FF6FB5', 420, 150, 120] }],
+  ['68-gl-open-book', 'Open Book', {
+    front: 'M256,212C292,186 340,180 384,190V372C340,362 292,368 256,392Z',
+    back: 'M256,212C220,186 172,180 128,190V372C172,362 220,368 256,392Z', box: [128, 180, 384, 392],
+    colors: ['#FFB020', '#FF7A00'], backColors: ['#FFE7A3', '#FFC94D'],
+    glow: ['#FF8FB8', 256, 320, 120], glyph: whiteSpark(318, 270, 38) }],
+  ['69-gl-quote', 'Quote', {
+    front: commaPath(304, 232, 64), back: commaPath(196, 196, 64), box: [240, 168, 368, 400],
+    colors: ['#FF6B6B', '#F03E3E'], backColors: ['#FFD0C2', '#FFB4A2'],
+    glow: ['#FFC21A', 250, 190, 110], glyph: whiteSpark(304, 232, 26) }],
+  ['70-gl-prompt-window', 'Prompt Window', {
+    front: rrect(84, 150, 344, 240, 60), back: rrect(84, 150, 344, 240, 60), backTransform: 'rotate(8 256 270) translate(0 -38)',
+    box: [84, 150, 428, 390], colors: ['#34D399', '#12B76A', '#0E9F6E'], backColors: ['#93C5FD', '#60A5FA'],
+    glow: ['#FDE047', 100, 390, 150], glyph: white('M150,228L206,270L150,312', 30) + whiteSpark(300, 276, 52) }],
+  ['71-gl-code-card', 'Code Card', {
+    front: rrect(96, 150, 320, 236, 60), back: rrect(96, 150, 320, 236, 60), backTransform: 'rotate(-7 256 268) translate(0 -38)',
+    box: [96, 150, 416, 386], colors: ['#A78BFA', '#7C3AED'], backColors: ['#FBCFE8', '#F9A8D4'],
+    glow: ['#22D3EE', 420, 390, 150],
+    glyph: white(brace2, 22) + `<g transform="translate(512 0) scale(-1 1)">${white(brace2, 22)}</g>` + whiteSpark(256, 268, 32) }],
+  ['72-gl-dialogue', 'Dialogue', {
+    front: 'M154,210H272A62,62 0 0 1 334,272V340A62,62 0 0 1 272,402H170L124,428V390A62,62 0 0 1 92,340V272A62,62 0 0 1 154,210Z',
+    back: 'M256,104H366A58,58 0 0 1 424,162V230A58,58 0 0 1 400,277V312L370,288H256A58,58 0 0 1 198,230V162A58,58 0 0 1 256,104Z',
+    box: [92, 210, 334, 428], frontOpacity: 0.92, colors: ['#7DD3FC', '#3B82F6'], backColors: ['#C4B5FD', '#8B5CF6'],
+    glow: ['#F472B6', 300, 230, 110],
+    glyph: `<g fill="#FFFFFF"><circle cx="164" cy="306" r="15"/><circle cx="212" cy="306" r="15"/><circle cx="260" cy="306" r="15"/></g>` }],
+  ['73-gl-spark-doc', 'Spark Doc', {
+    front: doc, back: doc, backTransform: 'translate(30 20)', box: [120, 92, 392, 420],
+    colors: ['#60A5FA', '#4F6BFF', '#8B5CF6'], backColors: ['#DDD6FE', '#C4B5FD'],
+    glow: ['#FF8FC8', 120, 430, 170],
+    glyph: `
+  <path d="M312,92V140A32,32 0 0 0 344,172H392Z" fill="#C7D2FE" stroke="#C7D2FE" stroke-width="10" stroke-linejoin="round"/>` +
+      whiteSpark(200, 250, 40) + white('M176,328H270M176,368H228', 24) }],
+  ['74-gl-ink-drop', 'Ink Drop', {
+    front: drop, back: drop, backTransform: 'translate(256 256) scale(0.78) translate(-170 -270)', box: [130, 92, 382, 436],
+    colors: ['#5EEAD4', '#14B8A6', '#2563EB'], backColors: ['#BAE6FD', '#93C5FD'],
+    glow: ['#A3E635', 150, 410, 150], glyph: whiteSpark(256, 316, 58) }],
+  ['75-gl-prism', 'Prism', {
+    front: roundPoly([[246, 136], [346, 336], [146, 336]], 26),
+    back: roundPoly([[280, 230], [444, 172], [444, 340], [300, 296]], 22), box: [146, 136, 346, 336],
+    colors: ['#60A5FA', '#6366F1', '#A855F7'], backColors: ['#FFC21A', '#FF6FB5', '#22D3EE'],
+    glow: ['#FF6FB5', 340, 300, 110], glyph: whiteSpark(246, 274, 38) }],
+  ['76-gl-layered-spark', 'Layered Spark', {
+    front: sparkle(256, 256, 190, 0.1), back: sparkle(256, 256, 150, 0.1), backTransform: 'rotate(45 256 256)',
+    box: [66, 66, 446, 446], colors: ['#2F7BFF', '#22B8CF', '#12B76A'], backColors: ['#BBF7D0', '#A5F3FC'],
+    glow: ['#FFC21A', 330, 330, 140] }],
+  ['77-gl-spark-badge', 'Spark Badge', {
+    front: circ(256, 240, 150), back: circ(256, 284, 150), box: [106, 90, 406, 390],
+    colors: ['#FF7A59', '#F0384A', '#E11D74'], backColors: ['#FFD0C2', '#FFB199'],
+    glow: ['#FFC46B', 150, 120, 160], glyph: whiteSpark(256, 240, 74) }],
+  ['78-gl-comet', 'Comet', {
+    front: sparkle(334, 186, 88), back: roundPoly([[296, 146], [372, 222], [112, 414]], 20), box: [246, 98, 422, 274],
+    colors: ['#FFC21A', '#FF8A3D', '#FF4D8D'], backColors: ['#FDE68A', '#FBCFE8'],
+    glow: ['#FF6FB5', 296, 232, 90] }],
+  ['79-gl-token-stack', 'Token Stack', {
+    front: rrect(96, 300, 320, 88, 44), back: rrect(96, 128, 230, 64, 32) + rrect(96, 214, 290, 64, 32), box: [96, 300, 416, 388],
+    colors: ['#3B82F6', '#8B5CF6', '#EC4899'], backColors: ['#BFDBFE', '#DDD6FE'],
+    glow: ['#FFC21A', 410, 300, 120], glyph: white('M140,344H270', 26) + whiteSpark(354, 344, 32) }],
+  ['80-gl-aa-tile', 'Aa Tile', {
+    front: tile, back: rrect(124, 150, 264, 288, 64), box: [100, 104, 412, 408],
+    colors: ['#FF8A3D', '#FF4747'], backColors: ['#FFD6A5', '#FFB4A2'],
+    glow: ['#FF6FB5', 410, 420, 160],
+    glyph: white('M150,350L204,182L258,350M172,294H236', 30) + white(circ(316, 312, 40), 30) + white('M356,272V350', 30) }],
+  ['81-gl-gem', 'Gem', {
+    front: gem, back: gem, backTransform: 'rotate(-10 256 270) translate(-22 -12)', box: [100, 138, 412, 406],
+    colors: ['#22D3EE', '#3B82F6', '#8B5CF6'], backColors: ['#CFFAFE', '#C7D2FE'],
+    glow: ['#F472B6', 330, 330, 130],
+    glyph: `
+  <polygon points="186,146 326,146 296,218 216,218" fill="#FFFFFF" opacity="0.32"/>` + whiteSpark(256, 290, 44) }],
+  ['82-gl-prompt-seal', 'Prompt Seal', {
+    front: circ(256, 244, 150), back: circ(256, 284, 150), box: [106, 94, 406, 394],
+    colors: ['#34D399', '#12B76A', '#0D9488'], backColors: ['#A7F3D0', '#6EE7B7'],
+    glow: ['#FDE047', 380, 140, 150], glyph: white('M200,196L256,244L200,292', 32) + whiteSpark(318, 286, 40) }],
+];
+
 const OPTIONS = [
   { file: 'option-1-prompt-bubble', name: 'Prompt Bubble', svg: optionBubble },
   { file: 'option-2-pocket-spark', name: 'Pocket Spark', svg: optionPocket },
@@ -903,6 +1052,7 @@ const OPTIONS = [
   { file: 'option-60-origami-spark', name: 'Origami Spark', svg: optionOrigami },
   { file: 'option-61-comet', name: 'Comet', svg: optionComet },
   { file: 'option-62-constellation', name: 'Constellation', svg: optionConstellation },
+  ...GUIDELINE.map(([file, name, o], i) => ({ file: `option-${file}`, name, svg: layered(`gl${i}`, o) })),
 ];
 
 const sheet = (list) => `<!doctype html><html><head><style>
@@ -930,7 +1080,7 @@ ${['light', 'dark'].map((t) => `<div class="row ${t}">${list.map((o) => `
 
 (async () => {
   for (const o of OPTIONS) fs.writeFileSync(path.join(DIR, `${o.file}.svg`), o.svg);
-  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12, 22), 'preview-ai-ml': OPTIONS.slice(22, 42), 'preview-classy-genai': OPTIONS.slice(42) };
+  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12, 22), 'preview-ai-ml': OPTIONS.slice(22, 42), 'preview-classy-genai': OPTIONS.slice(42, 62), 'preview-guideline': OPTIONS.slice(62) };
   for (const [name, list] of Object.entries(sheets)) fs.writeFileSync(path.join(DIR, `${name}.html`), sheet(list));
 
   const browser = await chromium.launch();

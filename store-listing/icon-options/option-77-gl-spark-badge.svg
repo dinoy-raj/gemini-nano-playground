@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="gl14-f" x1="106" y1="90" x2="406" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF7A59"/><stop offset="0.5" stop-color="#F0384A"/><stop offset="1" stop-color="#E11D74"/></linearGradient>
+    
+    <linearGradient id="gl14-b" x1="106" y1="90" x2="406" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFD0C2"/><stop offset="1" stop-color="#FFB199"/></linearGradient>
+    
+    <radialGradient id="gl14-g">
+      <stop offset="0" stop-color="#FFC46B" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FFC46B" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FFC46B" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="gl14-hi" x1="0" y1="90" x2="0" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.38)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    <clipPath id="gl14-c"><path d="M106,240A150,150 0 1 0 406,240A150,150 0 1 0 106,240Z"/></clipPath>
+  </defs>
+  <path d="M106,284A150,150 0 1 0 406,284A150,150 0 1 0 106,284Z" fill="url(#gl14-b)"/>
+  <path d="M106,240A150,150 0 1 0 406,240A150,150 0 1 0 106,240Z" fill="url(#gl14-f)"/>
+  <g clip-path="url(#gl14-c)">
+    <circle cx="150" cy="120" r="160" fill="url(#gl14-g)"/>
+    <rect x="0" y="0" width="512" height="200" fill="url(#gl14-hi)"/>
+  </g>
+  <path d="M256,166 C261.92,205.96 290.04,234.08 330,240 C290.04,245.92 261.92,274.04 256,314 C250.08,274.04 221.96,245.92 182,240 C221.96,234.08 250.08,205.96 256,166Z" fill="#FFFFFF"/>
+</svg>

@@ -1,6 +1,6 @@
 # App icon options
 
-Sixty-two icon concepts in the style of Google's 2025 icon refresh: chunky rounded shapes,
+Eighty-two icon concepts in the style of Google's 2025 icon refresh: chunky rounded shapes,
 saturated gradients with soft colour blooms, and simple white glyphs.
 
 ![Preview on light and dark](preview.png)
@@ -99,3 +99,49 @@ Options 43 to 62 say only "LLM" or "generative AI", with few elements and premiu
 | [60. Origami Spark](option-60-origami-spark.svg) | A folded paper sparkle in rose and peach. |
 | [61. Comet](option-61-comet.svg) | A gold sparkle streaking in on a violet tail. |
 | [62. Constellation](option-62-constellation.svg) | A few stars joined into a thought, on midnight. |
+
+## Icon design guideline
+
+Taken from Google's 2025 icon refresh: gradients over flat colour, and depth from layers.
+
+1. **One object, no container.** A chunky, rounded, freestanding object that fills about 70%
+   of the canvas. No dark tiles, outlines or thin strokes; the smallest stroke is 22/512.
+2. **Two layers.** A back layer that peeks out from behind the front one, offset, tilted or
+   rotated (like Slides, Tasks or Docs). It uses a pale tint of a neighbouring hue.
+3. **Multi-hue front.** The front layer blends 2 or 3 neighbouring hues, top-left to
+   bottom-right, never one flat colour.
+4. **Glow where things meet.** A soft bloom of a contrasting hue (pink, yellow, cyan),
+   clipped inside the front layer near where it meets the back layer (like Meet or Keep).
+5. **Top light.** A white highlight fading down from the top of the front layer.
+6. **One white glyph.** A single white mark with rounded caps (sparkle, chevron, letters);
+   it may sit off-centre (like Docs or Sheets).
+7. **Google-family palette.** Saturated blue, red, yellow and green, with violet, pink and
+   cyan as blend accents. No black or gold.
+8. **Works on light and dark.** Check every icon on white and black and at 48 px.
+
+Options 63 to 82 are the LLM and generative AI ideas rebuilt strictly to this guideline. They
+all come from one builder, `layered()` in `generate.cjs`
+([preview](preview-guideline.png)).
+
+| Option | Back layer | Front layer and glyph |
+| --- | --- | --- |
+| [63. Chat Spark](option-63-gl-chat-spark.svg) | Lavender mirrored bubble | Blue to violet bubble, sparkle |
+| [64. ai Tile](option-64-gl-ai-tile.svg) | Mint tile peeking below | Green tile, "ai" with sparkle dot |
+| [65. Quill](option-65-gl-quill.svg) | Pale rotated feather | Violet to pink feather, sparkle |
+| [66. Text Field](option-66-gl-text-field.svg) | Tilted yellow card | Blue field, I-beam and sparkle |
+| [67. Next Token](option-67-gl-next-token.svg) | Two pale typed dots | Violet to cyan sparkle |
+| [68. Open Book](option-68-gl-open-book.svg) | Pale yellow left page | Orange right page, sparkle |
+| [69. Quote](option-69-gl-quote.svg) | Peach quote mark | Red quote mark, sparkle |
+| [70. Prompt Window](option-70-gl-prompt-window.svg) | Tilted blue card | Green window, chevron and sparkle |
+| [71. Code Card](option-71-gl-code-card.svg) | Tilted pink card | Violet card, braces and sparkle |
+| [72. Dialogue](option-72-gl-dialogue.svg) | Violet bubble | Translucent blue bubble, typing dots |
+| [73. Spark Doc](option-73-gl-spark-doc.svg) | Offset lavender page | Blue to violet page, fold, lines, sparkle |
+| [74. Ink Drop](option-74-gl-ink-drop.svg) | Smaller pale blue drop | Teal to blue drop, sparkle |
+| [75. Prism](option-75-gl-prism.svg) | Spectrum beam | Blue to violet prism, sparkle |
+| [76. Layered Spark](option-76-gl-layered-spark.svg) | Pale sparkle turned 45° | Blue to green sparkle |
+| [77. Spark Badge](option-77-gl-spark-badge.svg) | Peach disc peeking below | Coral to magenta disc, sparkle |
+| [78. Comet](option-78-gl-comet.svg) | Pale tail | Yellow to pink sparkle |
+| [79. Token Stack](option-79-gl-token-stack.svg) | Two pale token rows | Blue to pink token, line and sparkle |
+| [80. Aa Tile](option-80-gl-aa-tile.svg) | Peach tile peeking below | Orange to red tile, "Aa" |
+| [81. Gem](option-81-gl-gem.svg) | Pale tilted gem | Cyan to violet gem, sparkle |
+| [82. Prompt Seal](option-82-gl-prompt-seal.svg) | Mint disc peeking below | Green to teal disc, chevron and sparkle |
