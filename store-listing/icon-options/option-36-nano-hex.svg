@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="hx" x1="100" y1="90" x2="412" y2="422" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDE047"/><stop offset="0.5" stop-color="#F59E0B"/><stop offset="1" stop-color="#EA580C"/></linearGradient>
+    
+    <radialGradient id="hx-glow">
+      <stop offset="0" stop-color="#FFF7AE" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#FFF7AE" stop-opacity="0.405"/>
+      <stop offset="1" stop-color="#FFF7AE" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="hx-clip"><polygon points="256.0,98.0 392.8,177.0 392.8,335.0 256.0,414.0 119.2,335.0 119.2,177.0"/></clipPath>
+  </defs>
+  <polygon points="256.0,98.0 392.8,177.0 392.8,335.0 256.0,414.0 119.2,335.0 119.2,177.0" fill="url(#hx)" stroke="url(#hx)" stroke-width="40" stroke-linejoin="round"/>
+  <g clip-path="url(#hx-clip)"><circle cx="200" cy="150" r="170" fill="url(#hx-glow)"/></g>
+  <polygon points="256.0,164.0 335.7,210.0 335.7,302.0 256.0,348.0 176.3,302.0 176.3,210.0" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="20" stroke-linejoin="round"/>
+  <path d="M256,212 C259.52,235.76 276.24,252.48 300,256 C276.24,259.52 259.52,276.24 256,300 C252.48,276.24 235.76,259.52 212,256 C235.76,252.48 252.48,235.76 256,212Z" fill="#FFFFFF"/>
+</svg>

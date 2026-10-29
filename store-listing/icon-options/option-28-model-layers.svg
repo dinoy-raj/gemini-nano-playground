@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="ly-1" x1="120" y1="0" x2="392" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0F766E"/><stop offset="1" stop-color="#115E59"/></linearGradient>
+    
+    <linearGradient id="ly-2" x1="120" y1="0" x2="392" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#14B8A6"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+    
+    <linearGradient id="ly-3" x1="120" y1="0" x2="392" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#99F6E4"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient>
+  </defs>
+  <path d="M256,272L392,338L256,404L120,338Z" fill="url(#ly-1)" stroke="url(#ly-1)" stroke-width="32" stroke-linejoin="round"/>
+  <path d="M256,190L392,256L256,322L120,256Z" fill="url(#ly-2)" stroke="url(#ly-2)" stroke-width="32" stroke-linejoin="round"/>
+  <path d="M256,108L392,174L256,240L120,174Z" fill="url(#ly-3)" stroke="url(#ly-3)" stroke-width="32" stroke-linejoin="round"/>
+  <path d="M256,136 C259.04,156.52 273.48,170.96 294,174 C273.48,177.04 259.04,191.48 256,212 C252.96,191.48 238.52,177.04 218,174 C238.52,170.96 252.96,156.52 256,136Z" fill="#FFFFFF"/>
+</svg>

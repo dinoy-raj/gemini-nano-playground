@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="bc-chip" x1="120" y1="120" x2="392" y2="392" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3B4BC8"/><stop offset="1" stop-color="#1E1B4B"/></linearGradient>
+    
+    <linearGradient id="bc-bolt" x1="180" y1="130" x2="330" y2="380" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFF3A3"/><stop offset="1" stop-color="#FFC21A"/></linearGradient>
+  </defs>
+  <g fill="#A5B4FC">
+    <rect x="188" y="84" width="36" height="52" rx="18"/><rect x="188" y="376" width="36" height="52" rx="18"/>
+    <rect x="84" y="188" width="52" height="36" rx="18"/><rect x="376" y="188" width="52" height="36" rx="18"/>
+    <rect x="238" y="84" width="36" height="52" rx="18"/><rect x="238" y="376" width="36" height="52" rx="18"/>
+    <rect x="84" y="238" width="52" height="36" rx="18"/><rect x="376" y="238" width="52" height="36" rx="18"/>
+    <rect x="288" y="84" width="36" height="52" rx="18"/><rect x="288" y="376" width="36" height="52" rx="18"/>
+    <rect x="84" y="288" width="52" height="36" rx="18"/><rect x="376" y="288" width="52" height="36" rx="18"/>
+  </g>
+  <rect x="120" y="120" width="272" height="272" rx="56" fill="url(#bc-chip)"/>
+  <path d="M278,144L184,276H250L232,368L330,232H264Z" fill="url(#bc-bolt)" stroke="url(#bc-bolt)" stroke-width="14" stroke-linejoin="round"/>
+</svg>

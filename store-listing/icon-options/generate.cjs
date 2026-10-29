@@ -422,6 +422,245 @@ const optionPrism = svg(`
     </g>
   </g>`);
 
+// Options 23 to 42 are AI, ML and "nano" metaphors drawn in the same gradient language.
+
+// 23. Neural Net (cyan to blue): a tiny three-layer network whose output node is a sparkle.
+const nnIn = [[128, 160], [128, 256], [128, 352]], nnMid = [[256, 208], [256, 304]], nnOut = [384, 256];
+const nnEdges = [...nnIn.flatMap((a) => nnMid.map((b) => [a, b])), ...nnMid.map((a) => [a, nnOut])];
+const optionNeural = svg(`
+  <defs>
+    ${lin('nn-edge', 128, 0, 384, 0, '#A5F3FC', '#93C5FD', '#C4B5FD')}
+    ${lin('nn-in', 0, 120, 0, 390, '#67E8F9', '#06B6D4')}
+    ${lin('nn-mid', 0, 170, 0, 340, '#60A5FA', '#2563EB')}
+    ${lin('nn-out', 336, 208, 432, 304, '#A78BFA', '#7C3AED')}
+  </defs>
+  <g stroke="url(#nn-edge)" stroke-width="16" stroke-linecap="round">${nnEdges
+    .map(([[x1, y1], [x2, y2]]) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`).join('')}</g>
+  ${nnIn.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="34" fill="url(#nn-in)"/>`).join('')}
+  ${nnMid.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="38" fill="url(#nn-mid)"/>`).join('')}
+  <circle cx="${nnOut[0]}" cy="${nnOut[1]}" r="54" fill="url(#nn-out)"/>
+  <path d="${sparkle(nnOut[0], nnOut[1], 30)}" fill="#FFFFFF"/>`);
+
+// 24. Brain Spark (rose and coral): two bumpy lobes with a sparkle of insight.
+const lobe = [[196, 182, 76], [158, 268, 76], [204, 340, 70], [226, 254, 64]];
+const optionBrain = svg(`
+  <defs>
+    ${lin('br-l', 90, 110, 250, 410, '#FDA4AF', '#F43F5E')}
+    ${lin('br-r', 262, 110, 422, 410, '#FDBA74', '#FB7185')}
+  </defs>
+  <g fill="url(#br-l)">${lobe.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g>
+  <g fill="url(#br-r)">${lobe.map(([x, y, r]) => `<circle cx="${524 - x}" cy="${y}" r="${r}"/>`).join('')}</g>
+  <path d="M156,250C176,230 206,236 214,256M338,196C320,214 320,240 340,256" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="14" stroke-linecap="round"/>
+  <path d="${sparkle(344, 292, 46)}" fill="#FFFFFF"/>`);
+
+// 25. Nano Atom (violet, cyan and pink): nano-scale orbits around a glowing core.
+const optionAtom = svg(`
+  <defs>
+    ${lin('at-core', 216, 216, 296, 296, '#FDBA74', '#F472B6')}
+  </defs>
+  <g fill="none" stroke-width="22" opacity="0.92">
+    <ellipse cx="256" cy="256" rx="186" ry="70" stroke="#22D3EE"/>
+    <ellipse cx="256" cy="256" rx="186" ry="70" stroke="#A78BFA" transform="rotate(60 256 256)"/>
+    <ellipse cx="256" cy="256" rx="186" ry="70" stroke="#F472B6" transform="rotate(120 256 256)"/>
+  </g>
+  <circle cx="256" cy="256" r="50" fill="url(#at-core)"/>
+  <path d="${sparkle(256, 256, 28)}" fill="#FFFFFF"/>`);
+
+// 26. Token Blocks (Google colours): a prompt broken into tokens, the next token is a sparkle.
+const tokens = [
+  [96, 146, 124, '#4285F4'], [234, 146, 92, '#EA4335'], [340, 146, 76, '#FBBC04'],
+  [96, 228, 84, '#34A853'], [194, 228, 160, '#A142F4'],
+  [96, 310, 150, '#4285F4'],
+];
+const optionTokens = svg(`
+  <defs>${lin('tk-sheen', 0, 140, 0, 370, 'rgba(255,255,255,0.3)', 'rgba(255,255,255,0)')}</defs>
+  ${tokens.map(([x, y, w, c]) => `<rect x="${x}" y="${y}" width="${w}" height="58" rx="29" fill="${c}"/>`).join('')}
+  <path d="${sparkle(324, 339, 58)}" fill="#FBBC04"/>`);
+
+// 27. Attention Grid (violet heatmap): a 3x3 attention map with the strongest cell lit.
+const heat = ['#DDD6FE', '#A78BFA', '#EDE9FE', '#8B5CF6', '#5B21B6', '#A78BFA', '#EDE9FE', '#C4B5FD', '#7C3AED'];
+const optionAttention = svg(`
+  ${heat.map((c, i) => `<rect x="${104 + (i % 3) * 106}" y="${104 + Math.floor(i / 3) * 106}" width="92" height="92" rx="26" fill="${c}"/>`).join('')}
+  <path d="${sparkle(256, 256, 34)}" fill="#FFFFFF"/>`);
+
+// 28. Model Layers (teal): stacked layers of a model, the top one carrying the sparkle.
+const plate = (cy) => `M256,${cy - 66}L392,${cy}L256,${cy + 66}L120,${cy}Z`;
+const optionLayers = svg(`
+  <defs>
+    ${lin('ly-1', 120, 0, 392, 0, '#0F766E', '#115E59')}
+    ${lin('ly-2', 120, 0, 392, 0, '#14B8A6', '#0D9488')}
+    ${lin('ly-3', 120, 0, 392, 0, '#99F6E4', '#2DD4BF')}
+  </defs>
+  <path d="${plate(338)}" fill="url(#ly-1)" stroke="url(#ly-1)" stroke-width="32" stroke-linejoin="round"/>
+  <path d="${plate(256)}" fill="url(#ly-2)" stroke="url(#ly-2)" stroke-width="32" stroke-linejoin="round"/>
+  <path d="${plate(174)}" fill="url(#ly-3)" stroke="url(#ly-3)" stroke-width="32" stroke-linejoin="round"/>
+  <path d="${sparkle(256, 174, 38)}" fill="#FFFFFF"/>`);
+
+// 29. Nano Dot (orange to pink): a tiny core with ripples, small model with a big reach.
+const optionDot = svg(`
+  <defs>${lin('dt', 120, 120, 392, 392, '#FFB347', '#FF5E8A')}</defs>
+  <circle cx="256" cy="256" r="176" fill="none" stroke="url(#dt)" stroke-width="18" opacity="0.3"/>
+  <circle cx="256" cy="256" r="124" fill="none" stroke="url(#dt)" stroke-width="22" opacity="0.6"/>
+  <circle cx="256" cy="256" r="66" fill="url(#dt)"/>
+  <path d="${sparkle(256, 256, 30)}" fill="#FFFFFF"/>
+  <path d="${sparkle(380, 130, 30)}" fill="#FF7A6B"/>`);
+
+// 30. Loss Curve (navy and lime): a training curve settling into a sparkle.
+const optionLoss = svg(`
+  <defs>
+    ${lin('ls-tile', 96, 96, 416, 416, '#1E293B', '#0B1220')}
+    ${lin('ls-curve', 140, 0, 350, 0, '#38BDF8', '#A3E635')}
+  </defs>
+  <rect x="96" y="96" width="320" height="320" rx="84" fill="url(#ls-tile)"/>
+  <path d="M146,154V354H366" fill="none" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M170,150C200,270 250,312 328,318" fill="none" stroke="url(#ls-curve)" stroke-width="28" stroke-linecap="round"/>
+  <path d="${sparkle(336, 316, 40)}" fill="#D9F99D"/>`);
+
+// 31. Embedding Space (periwinkle): clusters of points in vector space.
+const dots = [
+  [180, 196, 22, '#3B82F6'], [216, 168, 16, '#3B82F6'], [206, 226, 14, '#60A5FA'],
+  [322, 196, 20, '#EC4899'], [350, 236, 16, '#F472B6'], [300, 230, 13, '#EC4899'],
+  [236, 326, 22, '#10B981'], [280, 352, 16, '#34D399'], [214, 362, 12, '#10B981'],
+];
+const optionEmbed = svg(`
+  <defs>${lin('em-disc', 90, 90, 422, 422, '#EEF2FF', '#A5B4FC')}</defs>
+  <circle cx="256" cy="256" r="172" fill="url(#em-disc)"/>
+  ${dots.map(([x, y, r, c]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`).join('')}
+  <path d="${sparkle(352, 330, 34)}" fill="#6366F1"/>`);
+
+// 32. Friendly Bot (sky blue): a robot head with a sparkle antenna.
+const optionBot = svg(`
+  <defs>
+    ${lin('bo-head', 112, 160, 400, 400, '#7DB8FF', '#2563EB')}
+    ${lin('bo-tip', 220, 60, 292, 132, '#FFE58A', '#FFB020')}
+  </defs>
+  <path d="M256,170V112" stroke="#2563EB" stroke-width="18" stroke-linecap="round"/>
+  <rect x="80" y="246" width="40" height="84" rx="20" fill="#93C5FD"/>
+  <rect x="392" y="246" width="40" height="84" rx="20" fill="#93C5FD"/>
+  <rect x="108" y="160" width="296" height="246" rx="84" fill="url(#bo-head)"/>
+  <rect x="148" y="214" width="216" height="140" rx="58" fill="#0B1B3F"/>
+  <rect x="192" y="252" width="36" height="58" rx="18" fill="#67E8F9"/>
+  <rect x="284" y="252" width="36" height="58" rx="18" fill="#67E8F9"/>
+  <path d="${sparkle(256, 100, 42)}" fill="url(#bo-tip)"/>`);
+
+// 33. Magic Wand (deep purple and gold): a wand casting sparkles.
+const optionWand = svg(`
+  <defs>
+    ${lin('wa-stick', 140, 390, 320, 210, '#4C1D95', '#8B5CF6')}
+    ${lin('wa-gold', 300, 100, 420, 240, '#FEF08A', '#F59E0B')}
+  </defs>
+  <path d="M146,388L304,230" stroke="url(#wa-stick)" stroke-width="46" stroke-linecap="round"/>
+  <path d="M276,258L304,230" stroke="#FFFFFF" stroke-width="46" stroke-linecap="round" opacity="0.9"/>
+  <path d="${sparkle(352, 178, 74)}" fill="url(#wa-gold)"/>
+  <path d="${sparkle(186, 160, 30)}" fill="#C4B5FD"/>
+  <path d="${sparkle(410, 320, 26)}" fill="#FBBF24"/>`);
+
+// 34. Vision Eye (aqua to indigo): multimodal sight, with a sparkle pupil.
+const optionEye = svg(`
+  <defs>
+    ${lin('ey-base', 80, 160, 432, 352, '#2DD4BF', '#3B82F6', '#6366F1')}
+    ${lin('ey-pupil', 210, 210, 302, 302, '#A78BFA', '#4F46E5')}
+  </defs>
+  <path d="M78,256C150,140 362,140 434,256C362,372 150,372 78,256Z" fill="url(#ey-base)" stroke="url(#ey-base)" stroke-width="20" stroke-linejoin="round"/>
+  <circle cx="256" cy="256" r="80" fill="#FFFFFF"/>
+  <path d="${sparkle(256, 256, 60)}" fill="url(#ey-pupil)"/>`);
+
+// 35. Voice Wave (pink to orange): speech in and out, with a small sparkle.
+const bars = [[124, 110], [190, 210], [256, 290], [322, 190], [388, 120]];
+const optionWave = svg(`
+  <defs>${lin('wv', 0, 100, 0, 412, '#FF7AB6', '#FF6A3D', '#FFB23D')}</defs>
+  ${bars.map(([x, h]) => `<rect x="${x - 25}" y="${256 - h / 2}" width="50" height="${h}" rx="25" fill="url(#wv)"/>`).join('')}
+  <path d="${sparkle(400, 120, 34)}" fill="#FF6A3D"/>`);
+
+// 36. Nano Hex (amber honeycomb): a nanotech cell with a sparkle core.
+const hex = (r) => [0, 1, 2, 3, 4, 5].map((k) => {
+  const a = (Math.PI / 3) * k - Math.PI / 2;
+  return `${(256 + r * Math.cos(a)).toFixed(1)},${(256 + r * Math.sin(a)).toFixed(1)}`;
+}).join(' ');
+const optionHex = svg(`
+  <defs>
+    ${lin('hx', 100, 90, 412, 422, '#FDE047', '#F59E0B', '#EA580C')}
+    ${blob('hx-glow', '#FFF7AE', 0.9)}
+    <clipPath id="hx-clip"><polygon points="${hex(158)}"/></clipPath>
+  </defs>
+  <polygon points="${hex(158)}" fill="url(#hx)" stroke="url(#hx)" stroke-width="40" stroke-linejoin="round"/>
+  <g clip-path="url(#hx-clip)"><circle cx="200" cy="150" r="170" fill="url(#hx-glow)"/></g>
+  <polygon points="${hex(92)}" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="20" stroke-linejoin="round"/>
+  <path d="${sparkle(256, 256, 44)}" fill="#FFFFFF"/>`);
+
+// 37. Molecule (green, teal and blue): bonded atoms, nano-scale building blocks.
+const atoms = [[262, 172, 82, 'mo-a'], [166, 330, 66, 'mo-b'], [348, 336, 56, 'mo-c']];
+const optionMolecule = svg(`
+  <defs>
+    ${lin('mo-a', 180, 90, 344, 254, '#5EEAD4', '#0D9488')}
+    ${lin('mo-b', 100, 264, 232, 396, '#86EFAC', '#16A34A')}
+    ${lin('mo-c', 292, 280, 404, 392, '#93C5FD', '#2563EB')}
+    ${blob('mo-hi', '#FFFFFF', 0.6)}
+  </defs>
+  <path d="M262,172L166,330M262,172L348,336M166,330L348,336" stroke="#CBD5E1" stroke-width="28" stroke-linecap="round"/>
+  ${atoms.map(([x, y, r, g]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#${g})"/><circle cx="${x - r * 0.35}" cy="${y - r * 0.35}" r="${r * 0.6}" fill="url(#mo-hi)"/>`).join('')}
+  <path d="${sparkle(262, 172, 36)}" fill="#FFFFFF"/>`);
+
+// 38. Crystal Gem (ice cyan to violet): a faceted gem, compressed intelligence.
+const facets = [
+  ['96,214 178,134 218,214', '#A5F3FC'], ['178,134 334,134 294,214 218,214', '#E0F2FE'], ['334,134 416,214 294,214', '#C4B5FD'],
+  ['96,214 218,214 256,410', '#22D3EE'], ['218,214 294,214 256,410', '#60A5FA'], ['294,214 416,214 256,410', '#8B5CF6'],
+];
+const optionGem = svg(`
+  <g stroke-linejoin="round" stroke-width="10">${facets.map(([pts, c]) => `<polygon points="${pts}" fill="${c}" stroke="${c}"/>`).join('')}</g>
+  <path d="${sparkle(244, 172, 26)}" fill="#FFFFFF"/>`);
+
+// 39. Bolt Chip (midnight and yellow): fast on-device inference.
+const optionBolt = svg(`
+  <defs>
+    ${lin('bc-chip', 120, 120, 392, 392, '#3B4BC8', '#1E1B4B')}
+    ${lin('bc-bolt', 180, 130, 330, 380, '#FFF3A3', '#FFC21A')}
+  </defs>
+  <g fill="#A5B4FC">${[188, 238, 288].map((p) => `
+    <rect x="${p}" y="84" width="36" height="52" rx="18"/><rect x="${p}" y="376" width="36" height="52" rx="18"/>
+    <rect x="84" y="${p}" width="52" height="36" rx="18"/><rect x="376" y="${p}" width="52" height="36" rx="18"/>`).join('')}
+  </g>
+  <rect x="120" y="120" width="272" height="272" rx="56" fill="url(#bc-chip)"/>
+  <path d="M278,144L184,276H250L232,368L330,232H264Z" fill="url(#bc-bolt)" stroke="url(#bc-bolt)" stroke-width="14" stroke-linejoin="round"/>`);
+
+// 40. Learning Loop (blue to orange): an infinity loop, the model keeps learning.
+const optionLoop = svg(`
+  <defs>${lin('lp', 96, 0, 416, 0, '#3B82F6', '#A855F7', '#EC4899', '#F97316')}</defs>
+  <path d="M256,256C212,190 112,180 112,256C112,332 212,322 256,256C300,190 400,180 400,256C400,332 300,322 256,256Z" fill="none" stroke="url(#lp)" stroke-width="58" stroke-linejoin="round"/>
+  <path d="${sparkle(400, 150, 32)}" fill="#F97316"/>`);
+
+// 41. Decision Tree (forest to lime): branching nodes, one leaf lit as the answer.
+const tree = { root: [256, 136, 42], mid: [[172, 252, 36], [340, 252, 36]], leaf: [[120, 370, 30], [222, 370, 30], [300, 370, 30], [392, 370, 30]] };
+const optionTree = svg(`
+  <defs>
+    ${lin('tr-root', 210, 90, 300, 180, '#22C55E', '#15803D')}
+    ${lin('tr-mid', 0, 210, 0, 290, '#4ADE80', '#16A34A')}
+    ${lin('tr-leaf', 0, 336, 0, 400, '#D9F99D', '#84CC16')}
+  </defs>
+  <path d="M256,136L172,252M256,136L340,252M172,252L120,370M172,252L222,370M340,252L300,370M340,252L392,370" stroke="#BBF7D0" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="${tree.root[0]}" cy="${tree.root[1]}" r="${tree.root[2]}" fill="url(#tr-root)"/>
+  ${tree.mid.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#tr-mid)"/>`).join('')}
+  ${tree.leaf.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#tr-leaf)"/>`).join('')}
+  <circle cx="392" cy="370" r="40" fill="#16A34A"/>
+  <path d="${sparkle(392, 370, 24)}" fill="#FFFFFF"/>`);
+
+// 42. Spark Orb (indigo, cyan and coral): a glowing assistant orb.
+const optionOrb = svg(`
+  <defs>
+    ${soft('ob-soft', 36)}
+    ${lin('ob-base', 86, 86, 426, 426, '#6366F1', '#8B5CF6', '#EC4899')}
+    <clipPath id="ob-clip"><circle cx="256" cy="256" r="170"/></clipPath>
+  </defs>
+  <circle cx="256" cy="256" r="170" fill="url(#ob-base)"/>
+  <g clip-path="url(#ob-clip)">
+    <g filter="url(#ob-soft)">
+      <circle cx="160" cy="170" r="110" fill="#22D3EE"/>
+      <circle cx="360" cy="370" r="120" fill="#FB923C"/>
+    </g>
+    <ellipse cx="200" cy="150" rx="90" ry="44" fill="#FFFFFF" opacity="0.35" transform="rotate(-30 200 150)"/>
+  </g>
+  <path d="${sparkle(256, 256, 72)}" fill="#FFFFFF"/>`);
+
 const OPTIONS = [
   { file: 'option-1-prompt-bubble', name: 'Prompt Bubble', svg: optionBubble },
   { file: 'option-2-pocket-spark', name: 'Pocket Spark', svg: optionPocket },
@@ -445,6 +684,26 @@ const OPTIONS = [
   { file: 'option-20-idea-spark', name: 'Idea Spark', svg: optionBulb },
   { file: 'option-21-send-badge', name: 'Send Badge', svg: optionBadge },
   { file: 'option-22-play-prism', name: 'Play Prism', svg: optionPrism },
+  { file: 'option-23-neural-net', name: 'Neural Net', svg: optionNeural },
+  { file: 'option-24-brain-spark', name: 'Brain Spark', svg: optionBrain },
+  { file: 'option-25-nano-atom', name: 'Nano Atom', svg: optionAtom },
+  { file: 'option-26-token-blocks', name: 'Token Blocks', svg: optionTokens },
+  { file: 'option-27-attention-grid', name: 'Attention Grid', svg: optionAttention },
+  { file: 'option-28-model-layers', name: 'Model Layers', svg: optionLayers },
+  { file: 'option-29-nano-dot', name: 'Nano Dot', svg: optionDot },
+  { file: 'option-30-loss-curve', name: 'Loss Curve', svg: optionLoss },
+  { file: 'option-31-embedding-space', name: 'Embedding Space', svg: optionEmbed },
+  { file: 'option-32-friendly-bot', name: 'Friendly Bot', svg: optionBot },
+  { file: 'option-33-magic-wand', name: 'Magic Wand', svg: optionWand },
+  { file: 'option-34-vision-eye', name: 'Vision Eye', svg: optionEye },
+  { file: 'option-35-voice-wave', name: 'Voice Wave', svg: optionWave },
+  { file: 'option-36-nano-hex', name: 'Nano Hex', svg: optionHex },
+  { file: 'option-37-molecule', name: 'Molecule', svg: optionMolecule },
+  { file: 'option-38-crystal-gem', name: 'Crystal Gem', svg: optionGem },
+  { file: 'option-39-bolt-chip', name: 'Bolt Chip', svg: optionBolt },
+  { file: 'option-40-learning-loop', name: 'Learning Loop', svg: optionLoop },
+  { file: 'option-41-decision-tree', name: 'Decision Tree', svg: optionTree },
+  { file: 'option-42-spark-orb', name: 'Spark Orb', svg: optionOrb },
 ];
 
 const sheet = (list) => `<!doctype html><html><head><style>
@@ -472,7 +731,7 @@ ${['light', 'dark'].map((t) => `<div class="row ${t}">${list.map((o) => `
 
 (async () => {
   for (const o of OPTIONS) fs.writeFileSync(path.join(DIR, `${o.file}.svg`), o.svg);
-  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12) };
+  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12, 22), 'preview-ai-ml': OPTIONS.slice(22) };
   for (const [name, list] of Object.entries(sheets)) fs.writeFileSync(path.join(DIR, `${name}.html`), sheet(list));
 
   const browser = await chromium.launch();

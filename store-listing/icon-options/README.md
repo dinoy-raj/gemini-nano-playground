@@ -1,6 +1,6 @@
 # App icon options
 
-Twenty-two icon concepts in the style of Google's 2025 icon refresh: chunky rounded shapes,
+Forty-two icon concepts in the style of Google's 2025 icon refresh: chunky rounded shapes,
 saturated gradients with soft colour blooms, and simple white glyphs.
 
 ![Preview on light and dark](preview.png)
@@ -43,3 +43,31 @@ inside circle and squircle launcher masks.
 # needs Node and Playwright with Chromium
 NODE_PATH=$(npm root -g) node store-listing/icon-options/generate.cjs
 ```
+
+## AI, ML and nano concepts
+
+Options 23 to 42 are AI, machine learning and "nano" metaphors drawn in the same gradient
+language ([preview](preview-ai-ml.png)).
+
+| Option | Idea |
+| --- | --- |
+| [23. Neural Net](option-23-neural-net.svg) | A tiny three-layer network whose output node is a sparkle. |
+| [24. Brain Spark](option-24-brain-spark.svg) | Two rose and coral lobes with a sparkle of insight. |
+| [25. Nano Atom](option-25-nano-atom.svg) | Three coloured orbits around a glowing core. |
+| [26. Token Blocks](option-26-token-blocks.svg) | A prompt split into Google-coloured tokens; the next token is a sparkle. |
+| [27. Attention Grid](option-27-attention-grid.svg) | A violet 3x3 attention heatmap with the strongest cell lit. |
+| [28. Model Layers](option-28-model-layers.svg) | Stacked teal model layers, the top one carrying the sparkle. |
+| [29. Nano Dot](option-29-nano-dot.svg) | A tiny core with ripples: small model, big reach. |
+| [30. Loss Curve](option-30-loss-curve.svg) | A training curve settling into a sparkle on a navy tile. |
+| [31. Embedding Space](option-31-embedding-space.svg) | Coloured clusters of points in vector space. |
+| [32. Friendly Bot](option-32-friendly-bot.svg) | A robot head with a gold sparkle antenna. |
+| [33. Magic Wand](option-33-magic-wand.svg) | A purple wand casting gold sparkles. |
+| [34. Vision Eye](option-34-vision-eye.svg) | An aqua to indigo eye with a sparkle pupil. |
+| [35. Voice Wave](option-35-voice-wave.svg) | Pink to orange audio bars. |
+| [36. Nano Hex](option-36-nano-hex.svg) | An amber nanotech cell with a sparkle core. |
+| [37. Molecule](option-37-molecule.svg) | Three bonded atoms in green, teal and blue. |
+| [38. Crystal Gem](option-38-crystal-gem.svg) | A faceted cyan to violet gem. |
+| [39. Bolt Chip](option-39-bolt-chip.svg) | A midnight chip with a yellow bolt: fast on-device inference. |
+| [40. Learning Loop](option-40-learning-loop.svg) | A blue to orange infinity loop. |
+| [41. Decision Tree](option-41-decision-tree.svg) | Branching green nodes with one leaf lit as the answer. |
+| [42. Spark Orb](option-42-spark-orb.svg) | A glowing indigo, cyan and coral assistant orb. |

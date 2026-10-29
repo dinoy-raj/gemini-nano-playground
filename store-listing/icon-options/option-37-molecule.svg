@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="mo-a" x1="180" y1="90" x2="344" y2="254" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+    
+    <linearGradient id="mo-b" x1="100" y1="264" x2="232" y2="396" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#86EFAC"/><stop offset="1" stop-color="#16A34A"/></linearGradient>
+    
+    <linearGradient id="mo-c" x1="292" y1="280" x2="404" y2="392" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    
+    <radialGradient id="mo-hi">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="0.6" stop-color="#FFFFFF" stop-opacity="0.27"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path d="M262,172L166,330M262,172L348,336M166,330L348,336" stroke="#CBD5E1" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="262" cy="172" r="82" fill="url(#mo-a)"/><circle cx="233.3" cy="143.3" r="49.199999999999996" fill="url(#mo-hi)"/><circle cx="166" cy="330" r="66" fill="url(#mo-b)"/><circle cx="142.9" cy="306.9" r="39.6" fill="url(#mo-hi)"/><circle cx="348" cy="336" r="56" fill="url(#mo-c)"/><circle cx="328.4" cy="316.4" r="33.6" fill="url(#mo-hi)"/>
+  <path d="M262,136 C264.88,155.44 278.56,169.12 298,172 C278.56,174.88 264.88,188.56 262,208 C259.12,188.56 245.44,174.88 226,172 C245.44,169.12 259.12,155.44 262,136Z" fill="#FFFFFF"/>
+</svg>

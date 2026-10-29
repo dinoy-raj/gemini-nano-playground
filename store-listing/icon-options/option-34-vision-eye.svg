@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="ey-base" x1="80" y1="160" x2="432" y2="352" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2DD4BF"/><stop offset="0.5" stop-color="#3B82F6"/><stop offset="1" stop-color="#6366F1"/></linearGradient>
+    
+    <linearGradient id="ey-pupil" x1="210" y1="210" x2="302" y2="302" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#4F46E5"/></linearGradient>
+  </defs>
+  <path d="M78,256C150,140 362,140 434,256C362,372 150,372 78,256Z" fill="url(#ey-base)" stroke="url(#ey-base)" stroke-width="20" stroke-linejoin="round"/>
+  <circle cx="256" cy="256" r="80" fill="#FFFFFF"/>
+  <path d="M256,196 C260.8,228.4 283.6,251.2 316,256 C283.6,260.8 260.8,283.6 256,316 C251.2,283.6 228.4,260.8 196,256 C228.4,251.2 251.2,228.4 256,196Z" fill="url(#ey-pupil)"/>
+</svg>

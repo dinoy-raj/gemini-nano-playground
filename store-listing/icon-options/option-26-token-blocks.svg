@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="tk-sheen" x1="0" y1="140" x2="0" y2="370" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.3)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
+  <rect x="96" y="146" width="124" height="58" rx="29" fill="#4285F4"/><rect x="234" y="146" width="92" height="58" rx="29" fill="#EA4335"/><rect x="340" y="146" width="76" height="58" rx="29" fill="#FBBC04"/><rect x="96" y="228" width="84" height="58" rx="29" fill="#34A853"/><rect x="194" y="228" width="160" height="58" rx="29" fill="#A142F4"/><rect x="96" y="310" width="150" height="58" rx="29" fill="#4285F4"/>
+  <path d="M324,281 C328.64,312.32 350.68,334.36 382,339 C350.68,343.64 328.64,365.68 324,397 C319.36,365.68 297.32,343.64 266,339 C297.32,334.36 319.36,312.32 324,281Z" fill="#FBBC04"/>
+</svg>

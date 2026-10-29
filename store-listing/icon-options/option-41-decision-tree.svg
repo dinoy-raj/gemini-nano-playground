@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="tr-root" x1="210" y1="90" x2="300" y2="180" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22C55E"/><stop offset="1" stop-color="#15803D"/></linearGradient>
+    
+    <linearGradient id="tr-mid" x1="0" y1="210" x2="0" y2="290" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/></linearGradient>
+    
+    <linearGradient id="tr-leaf" x1="0" y1="336" x2="0" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#D9F99D"/><stop offset="1" stop-color="#84CC16"/></linearGradient>
+  </defs>
+  <path d="M256,136L172,252M256,136L340,252M172,252L120,370M172,252L222,370M340,252L300,370M340,252L392,370" stroke="#BBF7D0" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="256" cy="136" r="42" fill="url(#tr-root)"/>
+  <circle cx="172" cy="252" r="36" fill="url(#tr-mid)"/><circle cx="340" cy="252" r="36" fill="url(#tr-mid)"/>
+  <circle cx="120" cy="370" r="30" fill="url(#tr-leaf)"/><circle cx="222" cy="370" r="30" fill="url(#tr-leaf)"/><circle cx="300" cy="370" r="30" fill="url(#tr-leaf)"/><circle cx="392" cy="370" r="30" fill="url(#tr-leaf)"/>
+  <circle cx="392" cy="370" r="40" fill="#16A34A"/>
+  <path d="M392,346 C393.92,358.96 403.04,368.08 416,370 C403.04,371.92 393.92,381.04 392,394 C390.08,381.04 380.96,371.92 368,370 C380.96,368.08 390.08,358.96 392,346Z" fill="#FFFFFF"/>
+</svg>

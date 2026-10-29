@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="ls-tile" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1E293B"/><stop offset="1" stop-color="#0B1220"/></linearGradient>
+    
+    <linearGradient id="ls-curve" x1="140" y1="0" x2="350" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#A3E635"/></linearGradient>
+  </defs>
+  <rect x="96" y="96" width="320" height="320" rx="84" fill="url(#ls-tile)"/>
+  <path d="M146,154V354H366" fill="none" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M170,150C200,270 250,312 328,318" fill="none" stroke="url(#ls-curve)" stroke-width="28" stroke-linecap="round"/>
+  <path d="M336,276 C339.2,297.6 354.4,312.8 376,316 C354.4,319.2 339.2,334.4 336,356 C332.8,334.4 317.6,319.2 296,316 C317.6,312.8 332.8,297.6 336,276Z" fill="#D9F99D"/>
+</svg>

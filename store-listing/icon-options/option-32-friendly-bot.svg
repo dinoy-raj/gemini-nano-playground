@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="bo-head" x1="112" y1="160" x2="400" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7DB8FF"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    
+    <linearGradient id="bo-tip" x1="220" y1="60" x2="292" y2="132" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE58A"/><stop offset="1" stop-color="#FFB020"/></linearGradient>
+  </defs>
+  <path d="M256,170V112" stroke="#2563EB" stroke-width="18" stroke-linecap="round"/>
+  <rect x="80" y="246" width="40" height="84" rx="20" fill="#93C5FD"/>
+  <rect x="392" y="246" width="40" height="84" rx="20" fill="#93C5FD"/>
+  <rect x="108" y="160" width="296" height="246" rx="84" fill="url(#bo-head)"/>
+  <rect x="148" y="214" width="216" height="140" rx="58" fill="#0B1B3F"/>
+  <rect x="192" y="252" width="36" height="58" rx="18" fill="#67E8F9"/>
+  <rect x="284" y="252" width="36" height="58" rx="18" fill="#67E8F9"/>
+  <path d="M256,58 C259.36,80.68 275.32,96.64 298,100 C275.32,103.36 259.36,119.32 256,142 C252.64,119.32 236.68,103.36 214,100 C236.68,96.64 252.64,80.68 256,58Z" fill="url(#bo-tip)"/>
+</svg>

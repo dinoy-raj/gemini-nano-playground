@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <filter id="ob-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="36"/></filter>
+    
+    <linearGradient id="ob-base" x1="86" y1="86" x2="426" y2="426" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6366F1"/><stop offset="0.5" stop-color="#8B5CF6"/><stop offset="1" stop-color="#EC4899"/></linearGradient>
+    <clipPath id="ob-clip"><circle cx="256" cy="256" r="170"/></clipPath>
+  </defs>
+  <circle cx="256" cy="256" r="170" fill="url(#ob-base)"/>
+  <g clip-path="url(#ob-clip)">
+    <g filter="url(#ob-soft)">
+      <circle cx="160" cy="170" r="110" fill="#22D3EE"/>
+      <circle cx="360" cy="370" r="120" fill="#FB923C"/>
+    </g>
+    <ellipse cx="200" cy="150" rx="90" ry="44" fill="#FFFFFF" opacity="0.35" transform="rotate(-30 200 150)"/>
+  </g>
+  <path d="M256,184 C261.76,222.88 289.12,250.24 328,256 C289.12,261.76 261.76,289.12 256,328 C250.24,289.12 222.88,261.76 184,256 C222.88,250.24 250.24,222.88 256,184Z" fill="#FFFFFF"/>
+</svg>

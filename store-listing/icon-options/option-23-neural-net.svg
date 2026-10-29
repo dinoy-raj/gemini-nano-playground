@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="nn-edge" x1="128" y1="0" x2="384" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A5F3FC"/><stop offset="0.5" stop-color="#93C5FD"/><stop offset="1" stop-color="#C4B5FD"/></linearGradient>
+    
+    <linearGradient id="nn-in" x1="0" y1="120" x2="0" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#67E8F9"/><stop offset="1" stop-color="#06B6D4"/></linearGradient>
+    
+    <linearGradient id="nn-mid" x1="0" y1="170" x2="0" y2="340" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    
+    <linearGradient id="nn-out" x1="336" y1="208" x2="432" y2="304" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>
+  </defs>
+  <g stroke="url(#nn-edge)" stroke-width="16" stroke-linecap="round"><line x1="128" y1="160" x2="256" y2="208"/><line x1="128" y1="160" x2="256" y2="304"/><line x1="128" y1="256" x2="256" y2="208"/><line x1="128" y1="256" x2="256" y2="304"/><line x1="128" y1="352" x2="256" y2="208"/><line x1="128" y1="352" x2="256" y2="304"/><line x1="256" y1="208" x2="384" y2="256"/><line x1="256" y1="304" x2="384" y2="256"/></g>
+  <circle cx="128" cy="160" r="34" fill="url(#nn-in)"/><circle cx="128" cy="256" r="34" fill="url(#nn-in)"/><circle cx="128" cy="352" r="34" fill="url(#nn-in)"/>
+  <circle cx="256" cy="208" r="38" fill="url(#nn-mid)"/><circle cx="256" cy="304" r="38" fill="url(#nn-mid)"/>
+  <circle cx="384" cy="256" r="54" fill="url(#nn-out)"/>
+  <path d="M384,226 C386.4,242.2 397.8,253.6 414,256 C397.8,258.4 386.4,269.8 384,286 C381.6,269.8 370.2,258.4 354,256 C370.2,253.6 381.6,242.2 384,226Z" fill="#FFFFFF"/>
+</svg>

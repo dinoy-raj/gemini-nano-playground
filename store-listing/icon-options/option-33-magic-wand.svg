@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="wa-stick" x1="140" y1="390" x2="320" y2="210" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4C1D95"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    
+    <linearGradient id="wa-gold" x1="300" y1="100" x2="420" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FEF08A"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+  </defs>
+  <path d="M146,388L304,230" stroke="url(#wa-stick)" stroke-width="46" stroke-linecap="round"/>
+  <path d="M276,258L304,230" stroke="#FFFFFF" stroke-width="46" stroke-linecap="round" opacity="0.9"/>
+  <path d="M352,104 C357.92,143.96 386.04,172.08 426,178 C386.04,183.92 357.92,212.04 352,252 C346.08,212.04 317.96,183.92 278,178 C317.96,172.08 346.08,143.96 352,104Z" fill="url(#wa-gold)"/>
+  <path d="M186,130 C188.4,146.2 199.8,157.6 216,160 C199.8,162.4 188.4,173.8 186,190 C183.6,173.8 172.2,162.4 156,160 C172.2,157.6 183.6,146.2 186,130Z" fill="#C4B5FD"/>
+  <path d="M410,294 C412.08,308.04 421.96,317.92 436,320 C421.96,322.08 412.08,331.96 410,346 C407.92,331.96 398.04,322.08 384,320 C398.04,317.92 407.92,308.04 410,294Z" fill="#FBBF24"/>
+</svg>

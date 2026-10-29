@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="br-l" x1="90" y1="110" x2="250" y2="410" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDA4AF"/><stop offset="1" stop-color="#F43F5E"/></linearGradient>
+    
+    <linearGradient id="br-r" x1="262" y1="110" x2="422" y2="410" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDBA74"/><stop offset="1" stop-color="#FB7185"/></linearGradient>
+  </defs>
+  <g fill="url(#br-l)"><circle cx="196" cy="182" r="76"/><circle cx="158" cy="268" r="76"/><circle cx="204" cy="340" r="70"/><circle cx="226" cy="254" r="64"/></g>
+  <g fill="url(#br-r)"><circle cx="328" cy="182" r="76"/><circle cx="366" cy="268" r="76"/><circle cx="320" cy="340" r="70"/><circle cx="298" cy="254" r="64"/></g>
+  <path d="M156,250C176,230 206,236 214,256M338,196C320,214 320,240 340,256" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="14" stroke-linecap="round"/>
+  <path d="M344,246 C347.68,270.84 365.16,288.32 390,292 C365.16,295.68 347.68,313.16 344,338 C340.32,313.16 322.84,295.68 298,292 C322.84,288.32 340.32,270.84 344,246Z" fill="#FFFFFF"/>
+</svg>

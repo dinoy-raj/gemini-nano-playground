@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="em-disc" x1="90" y1="90" x2="422" y2="422" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EEF2FF"/><stop offset="1" stop-color="#A5B4FC"/></linearGradient></defs>
+  <circle cx="256" cy="256" r="172" fill="url(#em-disc)"/>
+  <circle cx="180" cy="196" r="22" fill="#3B82F6"/><circle cx="216" cy="168" r="16" fill="#3B82F6"/><circle cx="206" cy="226" r="14" fill="#60A5FA"/><circle cx="322" cy="196" r="20" fill="#EC4899"/><circle cx="350" cy="236" r="16" fill="#F472B6"/><circle cx="300" cy="230" r="13" fill="#EC4899"/><circle cx="236" cy="326" r="22" fill="#10B981"/><circle cx="280" cy="352" r="16" fill="#34D399"/><circle cx="214" cy="362" r="12" fill="#10B981"/>
+  <path d="M352,296 C354.72,314.36 367.64,327.28 386,330 C367.64,332.72 354.72,345.64 352,364 C349.28,345.64 336.36,332.72 318,330 C336.36,327.28 349.28,314.36 352,296Z" fill="#6366F1"/>
+</svg>
