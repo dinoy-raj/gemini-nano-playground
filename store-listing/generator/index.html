@@ -33,25 +33,30 @@
   .caret { display: inline-block; vertical-align: text-bottom; margin-left: 2px; border-radius: 2px; }
 
   /* ------------------------------------------------ marketing canvas */
+  /* Expressive store style: a bold colour field per frame, oversized white type with a pill
+     highlight, a big device bleeding off the edge and the icon's tilted back card behind it. */
   #strip { position: relative; overflow: hidden; }
   .frame { position: absolute; top: 0; overflow: hidden; }
   .bg { position: absolute; inset: 0; }
-  .blob { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .blob { position: absolute; border-radius: 50%; filter: blur(110px); }
+  .slab { position: absolute; background: rgba(255, 255, 255, .13); }
   .spark { position: absolute; }
-  .tag { display: inline-flex; align-items: center; gap: .4em; padding: .42em 1em; border-radius: 99px; background: #ffffffcc;
-         border: 2px solid #DCE0FF; color: #4338CA; font-weight: 650; letter-spacing: .01em; }
-  .title { color: var(--ink); font-weight: 820; letter-spacing: -0.035em; line-height: 1.0; }
-  .title em { font-style: normal; background: linear-gradient(90deg, var(--brand1), var(--brand2) 55%, var(--brand3));
-              -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .04em; }
-  .sub { color: var(--ink2); font-weight: 450; line-height: 1.3; letter-spacing: -0.005em; }
-  .device { position: absolute; background: #0C0B11; box-shadow: 0 0 0 3px #34324A, 0 60px 120px -20px rgba(40, 30, 120, .45), 0 20px 40px rgba(40, 30, 120, .2); }
+  .tag { display: inline-flex; align-items: center; gap: .5em; padding: .4em 1.05em .4em .45em; border-radius: 99px;
+         background: rgba(255, 255, 255, .18); border: 2px solid rgba(255, 255, 255, .38); color: #fff; font-weight: 650; letter-spacing: .01em; }
+  .tag img { width: 1.6em; height: 1.6em; border-radius: 30%; background: #F8F9FF; }
+  .title { color: #fff; font-weight: 820; letter-spacing: -0.03em; line-height: 1.04; text-wrap: balance; }
+  .title em { font-style: normal; background: #fff; color: var(--ink); border-radius: .26em; padding: 0 .16em; white-space: nowrap;
+              -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .sub { color: rgba(255, 255, 255, .88); font-weight: 450; line-height: 1.3; letter-spacing: -0.005em; }
+  .device { position: absolute; background: #0C0B11; box-shadow: 0 0 0 3px rgba(255, 255, 255, .22), 0 70px 140px -20px rgba(8, 20, 40, .55), 0 20px 40px rgba(8, 20, 40, .25); }
   .device .cam { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 50%; background: #000; z-index: 3; box-shadow: inset 0 0 0 2px #1d1c28; }
-  .chip { position: relative; display: inline-flex; align-items: center; background: #fff; color: var(--ink); font-weight: 650; white-space: nowrap;
-          box-shadow: 0 24px 60px -10px rgba(48, 40, 140, .28), 0 4px 12px rgba(48, 40, 140, .08); z-index: 10; letter-spacing: -0.01em; }
-  .chip .ic { display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff;
-              background: linear-gradient(135deg, var(--brand1), var(--brand2)); flex-shrink: 0; }
-  .card { position: relative; z-index: 10; box-shadow: 0 30px 80px -10px rgba(30, 20, 90, .45); }
-  .win { position: absolute; background: #1D1B22; box-shadow: 0 0 0 1px #3a3846, 0 60px 120px -20px rgba(40, 30, 120, .45); overflow: hidden; }
+  .backcard { position: absolute; border-radius: 9%/6%; background: linear-gradient(135deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, .12)); }
+  .chip { position: relative; display: inline-flex; align-items: center; background: #fff; color: #10172A; font-weight: 680; white-space: nowrap;
+          box-shadow: 0 28px 60px -12px rgba(8, 20, 40, .4), 0 4px 12px rgba(8, 20, 40, .1); z-index: 10; letter-spacing: -0.01em; }
+  .chip .ic { display: flex; align-items: center; justify-content: center; border-radius: 30%; color: #fff;
+              background: linear-gradient(135deg, var(--a), var(--b)); flex-shrink: 0; }
+  .card { position: relative; z-index: 10; box-shadow: 0 30px 80px -10px rgba(8, 20, 40, .55); }
+  .win { position: absolute; background: #1D1B22; box-shadow: 0 0 0 2px rgba(255, 255, 255, .22), 0 70px 140px -20px rgba(8, 20, 40, .55); overflow: hidden; }
   .win .bar { display: flex; align-items: center; background: #26242C; color: #E6E0E9; }
 </style>
 </head>
@@ -63,47 +68,61 @@
 const params = new URLSearchParams(location.search);
 const MODE = params.get('mode') || 'phone';
 const LAUNCHER = '../../app/src/main/ic_launcher-playstore.png';
-const PLAY_ICON = '../../fastlane/metadata/android/en-US/images/icon.png';
+const ICON_ART = '../icon/icon.svg';
 
-const sparkSvg = (id, opacity = 1) => `<svg viewBox="0 0 100 100" width="100%" height="100%" style="opacity:${opacity}">
-  <defs><linearGradient id="g${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B6CFF"/><stop offset=".6" stop-color="#8B5CF6"/><stop offset="1" stop-color="#D16BD8"/></linearGradient></defs>
-  <path d="${SHAPES.sparkle4}" fill="url(#g${id})"/></svg>`;
+// One colour field per frame, taken from the app icon: green window, blue card, yellow glow,
+// plus neighbouring hues. a/b = gradient, glow = soft bloom, ink = highlight text colour.
+const THEMES = [
+  { a: '#22CE82', b: '#0A8C5A', glow: '#FDE047', ink: '#0A7A4E' },
+  { a: '#4C8DFF', b: '#1E55DC', glow: '#FF8FC8', ink: '#1D4ED8' },
+  { a: '#8F6EFF', b: '#5634E0', glow: '#5EE7F5', ink: '#4C2FD1' },
+  { a: '#FF9D42', b: '#F0522B', glow: '#FFE066', ink: '#D9461C' },
+  { a: '#1CC4B1', b: '#0A7487', glow: '#C6F36B', ink: '#0A6878' },
+  { a: '#2B3A78', b: '#0D1433', glow: '#34D399', ink: '#1E2A5A' },
+  { a: '#FF6B9B', b: '#DB2D69', glow: '#FFC46B', ink: '#C21D58' },
+  { a: '#20C47A', b: '#1E63DA', glow: '#FDE047', ink: '#0E7A50' },
+];
+const theme = (i) => THEMES[i % THEMES.length];
+const vars = (t) => `--a:${t.a};--b:${t.b};--ink:${t.ink}`;
 
-// Continuous background across all frames, so the set reads as one panorama in the store.
+const sparkSvg = (opacity = 1) => `<svg viewBox="0 0 100 100" width="100%" height="100%" style="opacity:${opacity}">
+  <path d="${SHAPES.sparkle4}" fill="#fff"/></svg>`;
+
+// Colour fields side by side, with glows and translucent back cards crossing the seams so the
+// set still reads as one panorama in the store.
 function background(W, H, n) {
-  const total = W * n;
-  let html = `<div class="bg" style="width:${total}px;height:${H}px;background:linear-gradient(180deg,#F7F8FF 0%,#ECEEFF 100%)">`;
-  const blobs = ['#B9C4FF', '#D6C6FF', '#FBD3F1', '#AFCBFF', '#C9B8FF'];
-  const big = Math.max(W, H);
-  for (let i = 0; i < n * 2 + 1; i++) {
-    const x = (i / 2) * W - big * 0.25 + (i % 3) * W * 0.08;
-    const y = (i % 2 ? 0.62 : 0.1) * H;
-    html += `<div class="blob" style="left:${x}px;top:${y}px;width:${big * 0.5}px;height:${big * 0.5}px;background:${blobs[i % blobs.length]};opacity:.75"></div>`;
+  const big = Math.max(W, H), wide = W > H;
+  let html = `<div class="bg" style="width:${W * n}px;height:${H}px">`;
+  for (let i = 0; i < n; i++) {
+    const t = theme(i);
+    html += `<div style="position:absolute;left:${i * W}px;top:0;width:${W + 2}px;height:${H}px;background:linear-gradient(${wide ? 120 : 165}deg,${t.a},${t.b})"></div>`;
   }
-  // sparkles straddling the seams between frames (kept clear of the copy)
-  const wide = W > H;
+  for (let i = 0; i < n; i++) {
+    const t = theme(i), s = big * 0.55;
+    const x = i * W + (wide ? 0.62 : 0.15) * W - s / 2, y = (wide ? 0.85 : 0.88) * H - s / 2;
+    html += `<div class="blob" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;background:${t.glow};opacity:.55"></div>`;
+  }
   for (let i = 1; i < n; i++) {
-    const s = (wide ? 0.2 : (i % 2 ? 0.17 : 0.11)) * Math.min(W, H);
-    const y = (wide ? 0.88 : (i % 2 ? 0.78 : 0.42)) * H - s / 2;
-    html += `<div class="spark" style="left:${i * W - s / 2}px;top:${y}px;width:${s}px;height:${s}px">${sparkSvg('s' + i, .9)}</div>`;
-    const s2 = s * 0.35;
-    const x2 = wide ? i * W - s / 2 - s2 * 0.4 : i * W - s / 2 + s * 0.9;
-    html += `<div class="spark" style="left:${x2}px;top:${y - s2 * 0.6}px;width:${s2}px;height:${s2}px">${sparkSvg('t' + i, .55)}</div>`;
+    const w = (wide ? 0.34 : 0.62) * W, h = (wide ? 0.62 : 0.3) * H;
+    const y = (wide ? (i % 2 ? 0.62 : -0.18) : (i % 2 ? 0.08 : 0.7)) * H;
+    html += `<div class="slab" style="left:${i * W - w / 2}px;top:${y}px;width:${w}px;height:${h}px;border-radius:${Math.min(w, h) * 0.22}px;transform:rotate(${i % 2 ? 8 : -8}deg)"></div>`;
+    const sp = 0.08 * Math.min(W, H) * (wide ? 1.4 : 1);
+    html += `<div class="spark" style="left:${i * W - sp / 2}px;top:${(wide ? (i % 2 ? 0.12 : 0.8) : (i % 2 ? 0.62 : 0.36)) * H}px;width:${sp}px;height:${sp}px">${sparkSvg(.85)}</div>`;
   }
   return html + '</div>';
 }
 
 function chip(c, fs) {
   const f = c.small ? fs * 0.86 : fs;
-  return `<div class="chip" style="font-size:${f}px;gap:${f * 0.5}px;padding:${f * 0.42}px ${f * 0.85}px ${f * 0.42}px ${f * 0.42}px;border-radius:${f * 2}px">
-    <span class="ic" style="width:${f * 1.7}px;height:${f * 1.7}px"><span class="ms" style="font-size:${f}px">${c.icon}</span></span>${c.text}</div>`;
+  return `<div class="chip" style="font-size:${f}px;gap:${f * 0.5}px;padding:${f * 0.42}px ${f * 0.9}px ${f * 0.42}px ${f * 0.42}px;border-radius:${f * 0.75}px">
+    <span class="ic" style="width:${f * 1.75}px;height:${f * 1.75}px"><span class="ms" style="font-size:${f * 1.02}px">${c.icon}</span></span>${c.text}</div>`;
 }
 
 function statsCard(sc, fs) {
   const cells = sc.values.map(([v, u, l]) => `<div class="col" style="align-items:flex-start;gap:${fs * 0.2}px">
-      <div style="color:#D0BCFF;font-size:${fs * 1.9}px;font-weight:750;letter-spacing:-0.03em;line-height:1">${v}<span style="font-size:${fs * 0.9}px;font-weight:600;margin-left:4px">${u}</span></div>
-      <div style="color:#CAC4D0;font-size:${fs * 0.72}px;font-weight:500">${l}</div></div>`).join(`<div style="width:2px;align-self:stretch;background:#3a3846"></div>`);
-  return `<div class="card row" style="background:#211F26;border-radius:${fs * 1.2}px;padding:${fs * 0.9}px ${fs * 1.1}px;gap:${fs * 0.9}px;border:2px solid #4a4458">${cells}</div>`;
+      <div style="color:var(--ink);font-size:${fs * 1.9}px;font-weight:780;letter-spacing:-0.03em;line-height:1">${v}<span style="font-size:${fs * 0.9}px;font-weight:600;margin-left:4px">${u}</span></div>
+      <div style="color:#5B6474;font-size:${fs * 0.72}px;font-weight:550">${l}</div></div>`).join(`<div style="width:2px;align-self:stretch;background:#E5E8F0"></div>`);
+  return `<div class="card row" style="background:#fff;border-radius:${fs * 1.1}px;padding:${fs * 0.9}px ${fs * 1.1}px;gap:${fs * 0.9}px">${cells}</div>`;
 }
 
 function shareCard(fs) {
@@ -133,6 +152,11 @@ function decorate(sc, fs, dev, W, outL, outR) {
   return html;
 }
 
+// The icon motif: a translucent card tilted behind the device.
+function backCard(box, tilt, dx, dy) {
+  return `<div class="backcard" style="left:${box.x + dx}px;top:${box.y + dy}px;width:${box.w}px;height:${box.h}px;transform:rotate(${tilt}deg)"></div>`;
+}
+
 function device(sc, x, y, wDp, hDp, dp, bezel, radius, tilt = 0, camSize = 0) {
   const w = wDp * dp + bezel * 2, h = hDp * dp + bezel * 2;
   return {
@@ -147,64 +171,69 @@ function device(sc, x, y, wDp, hDp, dp, bezel, radius, tilt = 0, camSize = 0) {
 function textBlock(sc, o) {
   const chips = o.chips ? `<div style="display:flex;flex-wrap:wrap;gap:${o.sub * 0.5}px;margin-top:${o.sub * 1.3}px">${o.chips.map(c => chip({ ...c, small: false }, o.sub * 0.8)).join('')}</div>` : '';
   return `<div style="position:absolute;left:${o.x}px;top:${o.y}px;width:${o.w}px;text-align:${o.align};${o.vcenter ? 'transform:translateY(-50%)' : ''}">
-    <div class="tag" style="font-size:${o.tag}px"><span class="ms" style="font-size:${o.tag * 1.05}px;color:#6366F1">auto_awesome</span>${sc.tag}</div>
-    <div class="title" style="font-size:${o.title}px;margin-top:${o.title * 0.32}px">${(o.wide && sc.titleWide) || sc.title}</div>
-    <div class="sub" style="font-size:${o.sub}px;margin-top:${o.sub * 0.75}px;${o.align === 'center' ? 'padding:0 ' + o.sub * 1.2 + 'px' : ''}">${sc.sub}</div>${chips}</div>`;
+    <div class="tag" style="font-size:${o.tag}px"><img src="${ICON_ART}">${sc.tag}</div>
+    <div class="title" style="font-size:${o.title}px;margin-top:${o.title * 0.3}px">${(o.wide && sc.titleWide) || sc.title}</div>
+    <div class="sub" style="font-size:${o.sub}px;margin-top:${o.sub * 0.7}px;${o.align === 'center' ? 'padding:0 ' + o.sub * 0.8 + 'px' : ''}">${sc.sub}</div>${chips}</div>`;
 }
 
 // ------------------------------------------------------------------ layouts
 function phoneFrame(sc, i) {
-  const W = 1080, H = 1920, dp = 1.48, bezel = 14;
+  const W = 1080, H = 1920, dp = 1.6, bezel = 14;
   const wDp = 412, hDp = 915;
   const dw = wDp * dp + bezel * 2;
-  const d = device(sc, (W - dw) / 2, 552, wDp, hDp, dp, bezel, 76, sc.tilt || 0, 13 * dp);
-  return `<div class="frame" style="left:${i * W}px;width:${W}px;height:${H}px">
-    ${textBlock(sc, { x: 70, y: 96, w: W - 140, align: 'center', tag: 30, title: 102, sub: 36 })}
-    ${d.html}${decorate(sc, 30, d.box, W, 140, 140)}</div>`;
+  const tilt = sc.tilt ?? (i % 2 ? 3 : -3);
+  const d = device(sc, (W - dw) / 2, 740, wDp, hDp, dp, bezel, 80, tilt, 13 * dp);
+  return `<div class="frame" style="left:${i * W}px;width:${W}px;height:${H}px;${vars(theme(i))}">
+    ${textBlock(sc, { x: 60, y: 104, w: W - 120, align: 'center', tag: 30, title: 100, sub: 36 })}
+    ${backCard(d.box, tilt + (i % 2 ? -9 : 9), i % 2 ? -60 : 60, -46)}
+    ${d.html}${decorate(sc, 32, d.box, W, 120, 120)}</div>`;
 }
 
 function tabletFrame(sc, i, big) {
   const W = 1920, H = 1080;
-  const [wDp, hDp, dp] = big ? [1280, 800, 0.82] : [960, 600, 1.05];
+  const [wDp, hDp, dp] = big ? [1280, 800, 0.86] : [960, 600, 1.15];
   const bezel = 24, dw = wDp * dp + bezel * 2, dh = hDp * dp + bezel * 2;
-  const d = device(sc, W - dw - 70, (H - dh) / 2 + 20, wDp, hDp, dp, bezel, 44, 0, 10 * dp);
-
-  return `<div class="frame" style="left:${i * W}px;width:${W}px;height:${H}px">
-    ${textBlock(sc, { x: 100, y: H / 2, w: 600, align: 'left', tag: 24, title: 78, sub: 29, vcenter: true, wide: true, chips: sc.chips })}
+  const d = device(sc, W - dw + 40, (H - dh) / 2 + 70, wDp, hDp, dp, bezel, 48, -2, 10 * dp);
+  return `<div class="frame" style="left:${i * W}px;width:${W}px;height:${H}px;${vars(theme(i))}">
+    ${textBlock(sc, { x: 100, y: H / 2, w: 640, align: 'left', tag: 24, title: 84, sub: 30, vcenter: true, wide: true, chips: sc.chips })}
+    ${backCard(d.box, 6, 40, -60)}
     ${d.html}${decorate({ ...sc, chips: [], statsCard: sc.statsCard && { ...sc.statsCard, y: 0.6 }, shareCard: sc.shareCard && { side: 'l', y: 0.5 } }, 24, d.box, W, 90, 0)}</div>`;
 }
 
 function desktopFrame(sc, i) {
-  const W = 1920, H = 1080, dp = 1.0, wDp = 520, hDp = 860, bar = 40;
+  const W = 1920, H = 1080, dp = 1.0, wDp = 540, hDp = 900, bar = 40;
   const ww = wDp * dp, wh = hDp * dp + bar;
-  const x = 1160, y = (H - wh) / 2;
-  const win = `<div class="win" style="left:${x}px;top:${y}px;width:${ww}px;height:${wh}px;border-radius:14px">
+  const x = 1130, y = (H - wh) / 2 + 40;
+  const win = `<div class="win" style="left:${x}px;top:${y}px;width:${ww}px;height:${wh}px;border-radius:16px">
     <div class="bar" style="height:${bar}px;padding:0 14px;gap:10px;font-size:14px">
-      <img src="${LAUNCHER}" style="width:20px;height:20px;border-radius:50%">Nano Prompt Ground<span style="flex:1"></span>
+      <img src="${LAUNCHER}" style="width:20px;height:20px;border-radius:30%">Nano Prompt Ground<span style="flex:1"></span>
       ${['remove', 'crop_square', 'close'].map(n => `<span class="ms" style="font-size:18px;color:#CAC4D0;margin-left:14px">${n}</span>`).join('')}</div>
     ${appScreen({ ...sc.app }, wDp, hDp, dp, { noBars: true })}</div>`;
   const box = { x, y, w: ww, h: wh };
-
-  return `<div class="frame" style="left:${i * W}px;width:${W}px;height:${H}px">
-    ${textBlock(sc, { x: 110, y: H / 2, w: 700, align: 'left', tag: 24, title: 84, sub: 30, vcenter: true, wide: true })}
+  return `<div class="frame" style="left:${i * W}px;width:${W}px;height:${H}px;${vars(theme(i))}">
+    ${textBlock(sc, { x: 110, y: H / 2, w: 720, align: 'left', tag: 24, title: 88, sub: 30, vcenter: true, wide: true })}
+    ${backCard(box, 7, 50, -50)}
     ${win}${decorate({ ...sc, chips: (sc.chips || []).map(c => ({ ...c, y: Math.max(c.y, 0.08) })) }, 24, box, W, 150, 130)}</div>`;
 }
 
 function featureGraphic() {
-  const W = 1024, H = 500;
+  const W = 1024, H = 500, t = THEMES[0];
   const sc = SCENES[0];
-  const dp = 0.82, bezel = 9, wDp = 412, hDp = 915;
-  const d = device(sc, 640, 60, wDp, hDp, dp, bezel, 44, -8, 13 * dp);
-  return `<div class="frame" style="left:0;width:${W}px;height:${H}px">
-    ${background(W, H, 1)}
-    <div class="spark" style="left:520px;top:300px;width:120px;height:120px">${sparkSvg('f1', .9)}</div>
-    <div class="spark" style="left:600px;top:40px;width:46px;height:46px">${sparkSvg('f2', .6)}</div>
-    <div style="position:absolute;left:72px;top:50%;transform:translateY(-50%);width:520px">
-      <div class="row" style="gap:18px"><img src="${PLAY_ICON}" style="width:84px;height:84px;border-radius:22px;box-shadow:0 12px 30px rgba(48,40,140,.25)">
-        <div class="title" style="font-size:44px;line-height:1.05">Nano Prompt<br>Ground</div></div>
-      <div class="title" style="font-size:50px;margin-top:30px;line-height:1.05">Gemini Nano,<br><em>on your phone</em></div>
-      <div class="sub" style="font-size:22px;margin-top:16px">Private, offline AI. No API key needed.</div>
+  const dp = 0.86, bezel = 9, wDp = 412, hDp = 915;
+  const d = device(sc, 640, 70, wDp, hDp, dp, bezel, 46, -8, 13 * dp);
+  return `<div class="frame" style="left:0;width:${W}px;height:${H}px;${vars(t)}">
+    <div class="bg" style="background:linear-gradient(120deg,${t.a},${t.b})"></div>
+    <div class="blob" style="left:-120px;top:260px;width:420px;height:420px;background:${t.glow};opacity:.6"></div>
+    <div class="blob" style="left:700px;top:-200px;width:420px;height:420px;background:#60A5FA;opacity:.55"></div>
+    <div class="slab" style="left:560px;top:-60px;width:300px;height:260px;border-radius:60px;transform:rotate(-10deg)"></div>
+    <div class="spark" style="left:576px;top:330px;width:70px;height:70px">${sparkSvg(.9)}</div>
+    <div style="position:absolute;left:72px;top:50%;transform:translateY(-50%);width:540px">
+      <div class="row" style="gap:18px"><img src="${LAUNCHER}" style="width:88px;height:88px;border-radius:26px;box-shadow:0 14px 34px rgba(8,20,40,.3)">
+        <div class="title" style="font-size:40px;line-height:1.05">Nano Prompt<br>Ground</div></div>
+      <div class="title" style="font-size:56px;margin-top:28px">Gemini Nano,<br><em>on your phone</em></div>
+      <div class="sub" style="font-size:22px;margin-top:18px">Private, offline AI. No API key needed.</div>
     </div>
+    ${backCard(d.box, -1, 40, -30)}
     ${d.html}</div>`;
 }
 
