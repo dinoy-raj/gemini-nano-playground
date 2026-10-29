@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="ti-base" x1="0" y1="104" x2="0" y2="408" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5B95FF"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient>
+    
+    <linearGradient id="ti-band" x1="102" y1="0" x2="410" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C9D6FF"/><stop offset="0.5" stop-color="#B4A8FF"/><stop offset="1" stop-color="#9BC0FF"/></linearGradient>
+    
+    <radialGradient id="ti-pink">
+      <stop offset="0" stop-color="#F7A8FF" stop-opacity="0.7"/>
+      <stop offset="0.6" stop-color="#F7A8FF" stop-opacity="0.315"/>
+      <stop offset="1" stop-color="#F7A8FF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="ti-clip"><path d="M150,104H362C394,104 412,124 410,156L400,256L410,356C412,388 394,408 362,408H150C118,408 100,388 102,356L112,256L102,156C100,124 118,104 150,104Z"/></clipPath>
+  </defs>
+  <path d="M150,104H362C394,104 412,124 410,156L400,256L410,356C412,388 394,408 362,408H150C118,408 100,388 102,356L112,256L102,156C100,124 118,104 150,104Z" fill="url(#ti-base)"/>
+  <g clip-path="url(#ti-clip)">
+    <rect x="96" y="96" width="320" height="76" fill="url(#ti-band)"/>
+    <rect x="96" y="160" width="320" height="16" fill="#2F6BFF" opacity="0.18"/>
+    <circle cx="400" cy="420" r="150" fill="url(#ti-pink)"/>
+  </g>
+  <path d="M196,350V222L316,346V218" fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

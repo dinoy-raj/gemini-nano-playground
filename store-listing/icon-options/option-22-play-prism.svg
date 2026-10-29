@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <filter id="pr-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+    <mask id="pr-mask"><path d="M168,128L168,384L390,256Z" fill="none" stroke="#FFFFFF" stroke-width="84" stroke-linejoin="round"/></mask>
+  </defs>
+  <g mask="url(#pr-mask)">
+    <rect width="512" height="512" fill="#2F7BFF"/>
+    <g filter="url(#pr-soft)">
+      <circle cx="160" cy="120" r="120" fill="#12B76A"/>
+      <circle cx="160" cy="400" r="130" fill="#2F7BFF"/>
+      <circle cx="410" cy="256" r="120" fill="#FFC21A"/>
+      <circle cx="290" cy="340" r="60" fill="#E879F9"/>
+    </g>
+  </g>
+</svg>

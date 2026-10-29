@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="sl-back" x1="0" y1="150" x2="0" y2="380" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#FF9EC7"/></linearGradient>
+    
+    <linearGradient id="sl-front" x1="104" y1="170" x2="408" y2="366" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    
+    <linearGradient id="sl-top" x1="0" y1="170" x2="0" y2="230" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgba(255,255,255,0.35)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient>
+  </defs>
+  <path d="M144,170H368A40,40 0 0 1 408,210V326A40,40 0 0 1 368,366H144A40,40 0 0 1 104,326V210A40,40 0 0 1 144,170Z" fill="url(#sl-back)" transform="rotate(-8 256 268) translate(0 -36)"/>
+  <path d="M144,170H368A40,40 0 0 1 408,210V326A40,40 0 0 1 368,366H144A40,40 0 0 1 104,326V210A40,40 0 0 1 144,170Z" fill="url(#sl-front)"/>
+  <path d="M144,170H368A40,40 0 0 1 408,210V326A40,40 0 0 1 368,366H144A40,40 0 0 1 104,326V210A40,40 0 0 1 144,170Z" fill="url(#sl-top)"/>
+  <g fill="#FFFFFF"><circle cx="196" cy="268" r="20"/><circle cx="256" cy="268" r="20" opacity="0.85"/><circle cx="316" cy="268" r="20" opacity="0.65"/></g>
+</svg>

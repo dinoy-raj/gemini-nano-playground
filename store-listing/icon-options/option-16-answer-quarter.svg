@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="qu-bubble" x1="90" y1="196" x2="310" y2="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9F7AEA"/><stop offset="1" stop-color="#6D4AFF"/></linearGradient>
+    
+    <linearGradient id="qu-quarter" x1="290" y1="80" x2="440" y2="250" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFD166"/><stop offset="0.5" stop-color="#FF8A3D"/><stop offset="1" stop-color="#FF5C8A"/></linearGradient>
+  </defs>
+  <path d="M150,196H252A58,58 0 0 1 310,254V340A58,58 0 0 1 252,398H170L120,430A8,8 0 0 1 108,423V392A58,58 0 0 1 92,354V254A58,58 0 0 1 150,196Z" fill="url(#qu-bubble)"/>
+  <path d="M282,82A160,160 0 0 1 442,242H306A24,24 0 0 1 282,218Z" fill="url(#qu-quarter)" opacity="0.94"/>
+  <g fill="#FFFFFF"><circle cx="160" cy="300" r="15"/><circle cx="204" cy="300" r="15"/><circle cx="248" cy="300" r="15"/></g>
+</svg>

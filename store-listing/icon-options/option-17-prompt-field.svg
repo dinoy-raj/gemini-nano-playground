@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="fi-base" x1="72" y1="150" x2="340" y2="362" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE14D"/><stop offset="1" stop-color="#FFC400"/></linearGradient>
+    
+    <linearGradient id="fi-wedge" x1="354" y1="180" x2="446" y2="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFB300"/><stop offset="1" stop-color="#FF8F00"/></linearGradient>
+    
+    <radialGradient id="fi-pink">
+      <stop offset="0" stop-color="#FF8FC8" stop-opacity="0.95"/>
+      <stop offset="0.6" stop-color="#FF8FC8" stop-opacity="0.4275"/>
+      <stop offset="1" stop-color="#FF8FC8" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="fi-clip"><path d="M116,150H296A44,44 0 0 1 340,194V318A44,44 0 0 1 296,362H116A44,44 0 0 1 72,318V194A44,44 0 0 1 116,150Z"/></clipPath>
+  </defs>
+  <path d="M356,232L424,186C434,180 446,186 446,198V314C446,326 434,332 424,326L356,280Z" fill="url(#fi-wedge)" stroke="url(#fi-wedge)" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M116,150H296A44,44 0 0 1 340,194V318A44,44 0 0 1 296,362H116A44,44 0 0 1 72,318V194A44,44 0 0 1 116,150Z" fill="url(#fi-base)"/>
+  <g clip-path="url(#fi-clip)"><circle cx="350" cy="256" r="120" fill="url(#fi-pink)"/></g>
+  <rect x="110" y="292" width="104" height="30" rx="15" fill="#FFFFFF"/>
+  <rect x="226" y="292" width="10" height="30" rx="5" fill="#FFFFFF" opacity="0.8"/>
+</svg>

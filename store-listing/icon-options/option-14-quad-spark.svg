@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <filter id="q-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+    <clipPath id="q-clip"><path d="M256,80 C273.6,175.04 336.96000000000004,238.4 432,256 C336.96000000000004,273.6 273.6,336.96000000000004 256,432 C238.4,336.96000000000004 175.04,273.6 80,256 C175.04,238.4 238.4,175.04 256,80Z"/></clipPath>
+  </defs>
+  <g clip-path="url(#q-clip)">
+    <g filter="url(#q-soft)">
+      <path d="M0,0H512L256,256Z" fill="#FF4747"/>
+      <path d="M512,0V512L256,256Z" fill="#2F7BFF"/>
+      <path d="M512,512H0L256,256Z" fill="#12B76A"/>
+      <path d="M0,512V0L256,256Z" fill="#FFC21A"/>
+    </g>
+  </g>
+</svg>

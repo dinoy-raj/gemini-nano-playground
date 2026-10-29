@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    
+    <linearGradient id="bu-glass" x1="0" y1="96" x2="0" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#FFC61A"/></linearGradient>
+    
+    <linearGradient id="bu-base" x1="0" y1="330" x2="0" y2="432" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFA41B"/><stop offset="1" stop-color="#FF7A00"/></linearGradient>
+    
+    <radialGradient id="bu-pink">
+      <stop offset="0" stop-color="#FF8FB8" stop-opacity="1"/>
+      <stop offset="0.6" stop-color="#FF8FB8" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FF8FB8" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="bu-clip"><circle cx="256" cy="226" r="134"/></clipPath>
+  </defs>
+  <rect x="200" y="300" width="112" height="132" rx="56" fill="url(#bu-base)"/>
+  <circle cx="256" cy="226" r="134" fill="url(#bu-glass)"/>
+  <g clip-path="url(#bu-clip)"><circle cx="256" cy="350" r="120" fill="url(#bu-pink)"/></g>
+  <path d="M256,256 C259.52,279.76 276.24,296.48 300,300 C276.24,303.52 259.52,320.24 256,344 C252.48,320.24 235.76,303.52 212,300 C235.76,296.48 252.48,279.76 256,256Z" fill="#FFFFFF"/>
+</svg>

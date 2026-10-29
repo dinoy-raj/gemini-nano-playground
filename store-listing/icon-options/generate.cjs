@@ -269,6 +269,159 @@ const optionStream = svg(`
   <rect x="106" y="310" width="140" height="56" rx="28" fill="url(#st-3)"/>
   <path d="${sparkle(320, 338, 62)}" fill="url(#st-spark)"/>`);
 
+// Options 13 to 22 follow Google's 2025 icon language closely: hue shifts inside one shape
+// (Gmail, the G), coloured glows where parts meet (Meet, Keep, Drive), lighter layers and
+// folds (Docs, Calendar, Tasks), tilted stacks (Slides) and two-part forms (Voice, Meet).
+const soft = (id, sd) =>
+  `<filter id="${id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${sd}"/></filter>`;
+
+// 13. Nano N (Gmail M): one chunky stroke whose colour flows blue to violet to pink to orange.
+const nStroke = 'M140,392V136L372,376V120';
+const optionMonogram = svg(`
+  <defs>
+    ${soft('n-soft', 34)}
+    <mask id="n-mask"><path d="${nStroke}" fill="none" stroke="#FFFFFF" stroke-width="80" stroke-linecap="round" stroke-linejoin="round"/></mask>
+  </defs>
+  <g mask="url(#n-mask)">
+    <rect width="512" height="512" fill="#8B5CF6"/>
+    <g filter="url(#n-soft)">
+      <circle cx="130" cy="330" r="130" fill="#2F7BFF"/>
+      <circle cx="140" cy="130" r="70" fill="#7CC4FF"/>
+      <circle cx="250" cy="250" r="70" fill="#8B5CF6"/>
+      <circle cx="372" cy="140" r="90" fill="#FFB020"/>
+      <circle cx="372" cy="360" r="110" fill="#FF4D8D"/>
+    </g>
+  </g>`);
+
+// 14. Quad Spark (the G): a big sparkle whose four arms each carry a Google colour, blended at the core.
+const optionQuad = svg(`
+  <defs>
+    ${soft('q-soft', 30)}
+    <clipPath id="q-clip"><path d="${sparkle(256, 256, 176, 0.1)}"/></clipPath>
+  </defs>
+  <g clip-path="url(#q-clip)">
+    <g filter="url(#q-soft)">
+      <path d="M0,0H512L256,256Z" fill="#FF4747"/>
+      <path d="M512,0V512L256,256Z" fill="#2F7BFF"/>
+      <path d="M512,512H0L256,256Z" fill="#12B76A"/>
+      <path d="M0,512V0L256,256Z" fill="#FFC21A"/>
+    </g>
+  </g>`);
+
+// 15. Nano Tile (Calendar): a pinched tile with a lighter top band and a big white N.
+const tile = 'M150,104H362C394,104 412,124 410,156L400,256L410,356C412,388 394,408 362,408H150C118,408 100,388 102,356L112,256L102,156C100,124 118,104 150,104Z';
+const optionTile = svg(`
+  <defs>
+    ${lin('ti-base', 0, 104, 0, 408, '#5B95FF', '#2F6BFF')}
+    ${lin('ti-band', 102, 0, 410, 0, '#C9D6FF', '#B4A8FF', '#9BC0FF')}
+    ${blob('ti-pink', '#F7A8FF', 0.7)}
+    <clipPath id="ti-clip"><path d="${tile}"/></clipPath>
+  </defs>
+  <path d="${tile}" fill="url(#ti-base)"/>
+  <g clip-path="url(#ti-clip)">
+    <rect x="96" y="96" width="320" height="76" fill="url(#ti-band)"/>
+    <rect x="96" y="160" width="320" height="16" fill="#2F6BFF" opacity="0.18"/>
+    <circle cx="400" cy="420" r="150" fill="url(#ti-pink)"/>
+  </g>
+  <path d="M196,350V222L316,346V218" fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>`);
+
+// 16. Answer Quarter (Voice): a speech bubble with a quarter circle laid over its corner.
+const optionQuarter = svg(`
+  <defs>
+    ${lin('qu-bubble', 90, 196, 310, 420, '#9F7AEA', '#6D4AFF')}
+    ${lin('qu-quarter', 290, 80, 440, 250, '#FFD166', '#FF8A3D', '#FF5C8A')}
+  </defs>
+  <path d="M150,196H252A58,58 0 0 1 310,254V340A58,58 0 0 1 252,398H170L120,430A8,8 0 0 1 108,423V392A58,58 0 0 1 92,354V254A58,58 0 0 1 150,196Z" fill="url(#qu-bubble)"/>
+  <path d="M282,82A160,160 0 0 1 442,242H306A24,24 0 0 1 282,218Z" fill="url(#qu-quarter)" opacity="0.94"/>
+  <g fill="#FFFFFF"><circle cx="160" cy="300" r="15"/><circle cx="204" cy="300" r="15"/><circle cx="248" cy="300" r="15"/></g>`);
+
+// 17. Prompt Field (Meet): an input box with a send wedge, and a pink glow where they meet.
+const field = 'M116,150H296A44,44 0 0 1 340,194V318A44,44 0 0 1 296,362H116A44,44 0 0 1 72,318V194A44,44 0 0 1 116,150Z';
+const optionField = svg(`
+  <defs>
+    ${lin('fi-base', 72, 150, 340, 362, '#FFE14D', '#FFC400')}
+    ${lin('fi-wedge', 354, 180, 446, 330, '#FFB300', '#FF8F00')}
+    ${blob('fi-pink', '#FF8FC8', 0.95)}
+    <clipPath id="fi-clip"><path d="${field}"/></clipPath>
+  </defs>
+  <path d="M356,232L424,186C434,180 446,186 446,198V314C446,326 434,332 424,326L356,280Z" fill="url(#fi-wedge)" stroke="url(#fi-wedge)" stroke-width="12" stroke-linejoin="round"/>
+  <path d="${field}" fill="url(#fi-base)"/>
+  <g clip-path="url(#fi-clip)"><circle cx="350" cy="256" r="120" fill="url(#fi-pink)"/></g>
+  <rect x="110" y="292" width="104" height="30" rx="15" fill="#FFFFFF"/>
+  <rect x="226" y="292" width="10" height="30" rx="5" fill="#FFFFFF" opacity="0.8"/>`);
+
+// 18. Prompt Doc (Docs): a page with a lighter folded corner and short lines low on the left.
+const doc = 'M164,92H312L392,172V376A44,44 0 0 1 348,420H164A44,44 0 0 1 120,376V136A44,44 0 0 1 164,92Z';
+const optionDoc = svg(`
+  <defs>
+    ${lin('d-base', 0, 92, 0, 420, '#16C47F', '#0EA968')}
+    ${blob('d-glow', '#8FE3FF', 0.95)}
+    ${lin('d-fold', 312, 92, 392, 172, '#C8F7DC', '#7EE2B0')}
+    <clipPath id="d-clip"><path d="${doc}"/></clipPath>
+  </defs>
+  <path d="${doc}" fill="url(#d-base)"/>
+  <g clip-path="url(#d-clip)"><circle cx="120" cy="430" r="170" fill="url(#d-glow)"/></g>
+  <path d="M312,92V140A32,32 0 0 0 344,172H392Z" fill="url(#d-fold)" stroke="url(#d-fold)" stroke-width="10" stroke-linejoin="round"/>
+  <path d="${sparkle(200, 250, 40)}" fill="#FFFFFF"/>
+  <rect x="164" y="316" width="118" height="24" rx="12" fill="#FFFFFF"/>
+  <rect x="164" y="356" width="76" height="24" rx="12" fill="#FFFFFF"/>`);
+
+// 19. Typing Stack (Slides): a tilted back card under a straight front card, with typing dots.
+const slide = 'M144,170H368A40,40 0 0 1 408,210V326A40,40 0 0 1 368,366H144A40,40 0 0 1 104,326V210A40,40 0 0 1 144,170Z';
+const optionStack = svg(`
+  <defs>
+    ${lin('sl-back', 0, 150, 0, 380, '#7DD3FC', '#FF9EC7')}
+    ${lin('sl-front', 104, 170, 408, 366, '#38BDF8', '#2563EB')}
+    ${lin('sl-top', 0, 170, 0, 230, 'rgba(255,255,255,0.35)', 'rgba(255,255,255,0)')}
+  </defs>
+  <path d="${slide}" fill="url(#sl-back)" transform="rotate(-8 256 268) translate(0 -36)"/>
+  <path d="${slide}" fill="url(#sl-front)"/>
+  <path d="${slide}" fill="url(#sl-top)"/>
+  <g fill="#FFFFFF"><circle cx="196" cy="268" r="20"/><circle cx="256" cy="268" r="20" opacity="0.85"/><circle cx="316" cy="268" r="20" opacity="0.65"/></g>`);
+
+// 20. Idea Spark (Keep): a bulb with a pink glow at its neck and a sparkle for the filament.
+const optionBulb = svg(`
+  <defs>
+    ${lin('bu-glass', 0, 96, 0, 360, '#FFE45C', '#FFC61A')}
+    ${lin('bu-base', 0, 330, 0, 432, '#FFA41B', '#FF7A00')}
+    ${blob('bu-pink', '#FF8FB8', 1)}
+    <clipPath id="bu-clip"><circle cx="256" cy="226" r="134"/></clipPath>
+  </defs>
+  <rect x="200" y="300" width="112" height="132" rx="56" fill="url(#bu-base)"/>
+  <circle cx="256" cy="226" r="134" fill="url(#bu-glass)"/>
+  <g clip-path="url(#bu-clip)"><circle cx="256" cy="350" r="120" fill="url(#bu-pink)"/></g>
+  <path d="${sparkle(256, 300, 44)}" fill="#FFFFFF"/>`);
+
+// 21. Send Badge (Tasks): a disc on a lighter layer that peeks out below, with a send arrow.
+const optionBadge = svg(`
+  <defs>
+    ${lin('ba-under', 0, 140, 0, 440, '#FFD0C2', '#FFB199')}
+    ${lin('ba-disc', 110, 96, 402, 392, '#FF7A59', '#F0384A')}
+    ${blob('ba-glow', '#FFC46B', 0.8)}
+    <clipPath id="ba-clip"><circle cx="256" cy="244" r="148"/></clipPath>
+  </defs>
+  <circle cx="256" cy="286" r="148" fill="url(#ba-under)"/>
+  <circle cx="256" cy="244" r="148" fill="url(#ba-disc)"/>
+  <g clip-path="url(#ba-clip)"><circle cx="150" cy="120" r="150" fill="url(#ba-glow)"/></g>
+  <path d="M256,318V178M190,240L256,174L322,240" fill="none" stroke="#FFFFFF" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>`);
+
+// 22. Play Prism (Drive): a play triangle built from one thick band whose colours blend at the corners.
+const prism = 'M168,128L168,384L390,256Z';
+const optionPrism = svg(`
+  <defs>
+    ${soft('pr-soft', 30)}
+    <mask id="pr-mask"><path d="${prism}" fill="none" stroke="#FFFFFF" stroke-width="84" stroke-linejoin="round"/></mask>
+  </defs>
+  <g mask="url(#pr-mask)">
+    <rect width="512" height="512" fill="#2F7BFF"/>
+    <g filter="url(#pr-soft)">
+      <circle cx="160" cy="120" r="120" fill="#12B76A"/>
+      <circle cx="160" cy="400" r="130" fill="#2F7BFF"/>
+      <circle cx="410" cy="256" r="120" fill="#FFC21A"/>
+      <circle cx="290" cy="340" r="60" fill="#E879F9"/>
+    </g>
+  </g>`);
+
 const OPTIONS = [
   { file: 'option-1-prompt-bubble', name: 'Prompt Bubble', svg: optionBubble },
   { file: 'option-2-pocket-spark', name: 'Pocket Spark', svg: optionPocket },
@@ -282,9 +435,19 @@ const OPTIONS = [
   { file: 'option-10-night-orbit', name: 'Night Orbit', svg: optionOrbit },
   { file: 'option-11-graphite-pebble', name: 'Graphite Pebble', svg: optionPebble },
   { file: 'option-12-stream-lines', name: 'Stream Lines', svg: optionStream },
+  { file: 'option-13-nano-n', name: 'Nano N', svg: optionMonogram },
+  { file: 'option-14-quad-spark', name: 'Quad Spark', svg: optionQuad },
+  { file: 'option-15-nano-tile', name: 'Nano Tile', svg: optionTile },
+  { file: 'option-16-answer-quarter', name: 'Answer Quarter', svg: optionQuarter },
+  { file: 'option-17-prompt-field', name: 'Prompt Field', svg: optionField },
+  { file: 'option-18-prompt-doc', name: 'Prompt Doc', svg: optionDoc },
+  { file: 'option-19-typing-stack', name: 'Typing Stack', svg: optionStack },
+  { file: 'option-20-idea-spark', name: 'Idea Spark', svg: optionBulb },
+  { file: 'option-21-send-badge', name: 'Send Badge', svg: optionBadge },
+  { file: 'option-22-play-prism', name: 'Play Prism', svg: optionPrism },
 ];
 
-const sheet = () => `<!doctype html><html><head><style>
+const sheet = (list) => `<!doctype html><html><head><style>
   body { margin: 0; font-family: 'Google Sans', Roboto, Arial, sans-serif; }
   .row { display: grid; grid-template-columns: repeat(4, 220px); justify-content: center; gap: 56px 70px; padding: 64px 60px; }
   .light { background: #FFFFFF; color: #1F1F1F; }
@@ -299,7 +462,7 @@ const sheet = () => `<!doctype html><html><head><style>
   .circle { border-radius: 50%; } .squircle { border-radius: 30%; }
   .label { font-size: 22px; font-weight: 500; }
 </style></head><body>
-${['light', 'dark'].map((t) => `<div class="row ${t}">${OPTIONS.map((o) => `
+${['light', 'dark'].map((t) => `<div class="row ${t}">${list.map((o) => `
   <div class="cell">
     <img class="big" src="${o.file}.svg">
     <div class="launch"><div class="circle"><img src="${o.file}.svg"></div><div class="squircle"><img src="${o.file}.svg"></div></div>
@@ -309,7 +472,8 @@ ${['light', 'dark'].map((t) => `<div class="row ${t}">${OPTIONS.map((o) => `
 
 (async () => {
   for (const o of OPTIONS) fs.writeFileSync(path.join(DIR, `${o.file}.svg`), o.svg);
-  fs.writeFileSync(path.join(DIR, 'preview.html'), sheet());
+  const sheets = { preview: OPTIONS, 'preview-google-style': OPTIONS.slice(12) };
+  for (const [name, list] of Object.entries(sheets)) fs.writeFileSync(path.join(DIR, `${name}.html`), sheet(list));
 
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 512, height: 512 } });
@@ -318,7 +482,9 @@ ${['light', 'dark'].map((t) => `<div class="row ${t}">${OPTIONS.map((o) => `
     await page.screenshot({ path: path.join(DIR, `${o.file}.png`), omitBackground: true });
   }
   await page.setViewportSize({ width: 1300, height: 400 });
-  await page.goto('file://' + path.join(DIR, 'preview.html'));
-  await page.screenshot({ path: path.join(DIR, 'preview.png'), fullPage: true });
+  for (const name of Object.keys(sheets)) {
+    await page.goto('file://' + path.join(DIR, `${name}.html`));
+    await page.screenshot({ path: path.join(DIR, `${name}.png`), fullPage: true });
+  }
   await browser.close();
 })();
