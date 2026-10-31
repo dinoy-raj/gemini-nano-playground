@@ -13,13 +13,14 @@
 <style>
   @font-face { font-family: 'Google Sans Flex'; font-weight: 1 1000; font-display: block; src: url(fonts/GoogleSansFlex-latin.woff2) format('woff2'); }
   @font-face { font-family: 'Material Symbols Rounded'; font-weight: 100 700; font-display: block; src: url(fonts/MaterialSymbolsRounded.woff2) format('woff2'); }
-  /* M3 light scheme, purple seed (#6750A4) */
+  /* M3 light scheme generated with material-color-utilities from the icon:
+     primary = green window #12B76A, secondary = blue card #60A5FA, tertiary = yellow glow #FDE047 */
   :root {
-    --primary: #6750A4; --on-primary: #FFFFFF; --pc: #EADDFF; --on-pc: #21005D; --on-pc-v: #4F378B;
-    --sc: #E8DEF8; --on-sc: #1D192B; --on-sc-v: #4A4458;
-    --tertiary: #7D5260; --tc: #FFD8E4; --on-tc: #31111D; --on-tc-v: #633B48;
-    --surface: #FEF7FF; --s-low: #F7F2FA; --s-c: #F3EDF7; --s-high: #ECE6F0; --s-highest: #E6E0E9;
-    --on-s: #1D1B20; --on-s-v: #49454F; --outline: #79747E; --outline-v: #CAC4D0;
+    --primary: #006D3C; --on-primary: #FFFFFF; --pc: #70FDA7; --pc-wash: #C2FFD1; --on-pc: #00210E; --on-pc-v: #00522C;
+    --secondary: #0060AC; --sc: #D4E3FF; --sc-wash: #E6EEFF; --on-sc: #001C39; --on-sc-v: #004883;
+    --tertiary: #6D5E00; --tc: #FFE24C; --tc-wash: #FFF1B9; --on-tc: #211B00; --on-tc-v: #524600;
+    --surface: #F8FAF5; --s-low: #F3F4EF; --s-c: #EDEEE9; --s-high: #E7E9E4; --s-highest: #E1E3DE;
+    --on-s: #191C19; --on-s-v: #414942; --outline: #717971; --outline-v: #C0C9BF;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
@@ -40,7 +41,7 @@
   .chip.outlined { border: 2px solid var(--outline-v); color: var(--on-s-v); background: var(--surface); }
   .chip.outlined .ms { color: var(--primary); }
   .chip.tonal { background: var(--sc); color: var(--on-sc); }
-  .chip.tonal .ms { color: var(--primary); }
+  .chip.tonal .ms { color: var(--secondary); }
   /* switch */
   .switch { position: relative; width: 104px; height: 64px; border-radius: 32px; flex: none; }
   .switch .thumb { position: absolute; top: 50%; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -63,12 +64,12 @@
 <div id="root" data-composition-id="root" data-start="0" data-duration="28" data-track-index="0" data-width="1920" data-height="1080">
 
   <!-- background stack: the hero shape and shape-shaped wipes -->
-  <div class="sbox" id="hero" style="left:580px;top:160px;width:760px;height:760px"><svg class="shape" viewBox="0 0 100 100"><path data-morph="hero" style="fill:var(--pc)"/></svg></div>
+  <div class="sbox" id="hero" style="left:580px;top:160px;width:760px;height:760px"><svg class="shape" viewBox="0 0 100 100"><path data-morph="hero" style="fill:var(--pc-wash)"/></svg></div>
   <div class="sbox wipe" id="wS3" style="--c:var(--surface)"></div>
-  <div class="sbox wipe" id="wS4" style="--c:var(--tc)"></div>
-  <div class="sbox wipe" id="wS5" style="--c:var(--sc)"></div>
+  <div class="sbox wipe" id="wS4" style="--c:var(--tc-wash)"></div>
+  <div class="sbox wipe" id="wS5" style="--c:var(--sc-wash)"></div>
   <div class="sbox wipe" id="wS6" style="--c:var(--surface)"></div>
-  <div class="sbox wipe" id="wS7" style="--c:var(--pc)"></div>
+  <div class="sbox wipe" id="wS7" style="--c:var(--pc-wash)"></div>
 
   <!-- 1 · Headline -->
   <div class="scene" id="s1">
@@ -125,13 +126,13 @@
   <!-- 4 · Speed -->
   <div class="scene" id="s4">
     <div class="abs" style="left:150px;top:300px;width:760px">
-      <div class="chip" style="border:2px solid rgba(49,17,29,.25);color:var(--on-tc-v)" id="s4chip"><span class="ms">timer</span>Inference time</div>
+      <div class="chip" style="border:2px solid rgba(33,27,0,.25);color:var(--on-tc-v)" id="s4chip"><span class="ms">timer</span>Inference time</div>
       <div class="display" style="font-size:110px;color:var(--on-tc);margin-top:36px" id="s4h">From prompt to poem.</div>
       <div style="font-size:38px;line-height:1.35;color:var(--on-tc-v);margin-top:30px" id="s4p">Measured on your phone after every answer. No round trip to a server.</div>
     </div>
     <div class="sbox" id="bigShape" style="left:960px;top:130px;width:820px;height:820px">
-      <svg class="shape" viewBox="0 0 100 100"><path data-morph="big" style="fill:var(--tertiary)"/></svg>
-      <div class="inner" style="display:flex;align-items:baseline;gap:10px;color:var(--tc)"><span id="bigNum" class="display" style="font-size:270px;font-variant-numeric:tabular-nums">0</span><span style="font-size:90px;font-weight:700">ms</span></div>
+      <svg class="shape" viewBox="0 0 100 100"><path data-morph="big" style="fill:var(--primary)"/></svg>
+      <div class="inner" style="display:flex;align-items:baseline;gap:10px;color:var(--pc)"><span id="bigNum" class="display" style="font-size:270px;font-variant-numeric:tabular-nums">0</span><span style="font-size:90px;font-weight:700">ms</span></div>
     </div>
   </div>
 
@@ -163,7 +164,7 @@
     <div class="sbox" id="endShape" style="left:760px;top:70px;width:400px;height:400px"><svg class="shape" viewBox="0 0 100 100"><path data-morph="endShape" style="fill:var(--surface)"/></svg><div class="inner" id="endIcon" style="width:290px;height:290px"></div></div>
     <div class="abs cx display" style="top:500px;font-size:120px;color:var(--on-pc)" id="endName">Nano Prompt Ground</div>
     <div class="abs cx" style="top:648px;font-size:44px;color:var(--on-pc-v)" id="endSub">Private, offline AI. Right on your phone.</div>
-    <div class="abs cx" style="top:745px"><div id="fab" style="display:flex;align-items:center;gap:20px;height:110px;padding:0 50px 0 40px;border-radius:32px;background:var(--primary);color:var(--on-primary);font-size:42px;font-weight:650;box-shadow:0 8px 20px rgba(103,80,164,.3)"><span class="ms" style="font-size:56px">play_arrow</span>Free on Google Play</div></div>
+    <div class="abs cx" style="top:745px"><div id="fab" style="display:flex;align-items:center;gap:20px;height:110px;padding:0 50px 0 40px;border-radius:32px;background:var(--primary);color:var(--on-primary);font-size:42px;font-weight:650;box-shadow:0 8px 20px rgba(0,109,60,.3)"><span class="ms" style="font-size:56px">play_arrow</span>Free on Google Play</div></div>
     <div class="abs cx" style="top:885px;gap:18px" id="perks">
       <div class="chip outlined" style="height:60px;font-size:26px"><span class="ms" style="font-size:30px">check_circle</span>No account</div>
       <div class="chip outlined" style="height:60px;font-size:26px"><span class="ms" style="font-size:30px">check_circle</span>No API key</div>

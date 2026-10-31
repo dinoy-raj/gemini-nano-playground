@@ -51,7 +51,8 @@ Open `generator/index.html?mode=phone` in a browser to preview a set as one pano
 ## Promo video
 
 `promo-video/out/nano-prompt-ground-promo.mp4` is a 28-second 1920 x 1080 motion-graphics film (30 fps, no audio)
-in Material 3 Expressive style: a light tonal scheme from the app's purple seed, Google Sans Flex with animated weight,
+in Material 3 Expressive style: a light tonal scheme generated with material-color-utilities from the icon
+(primary = green window #12B76A, secondary = blue card #60A5FA, tertiary = yellow glow #FDE047), Google Sans Flex with animated weight,
 the expressive shape library (cookie, sunny, clover, gem, soft burst…) morphing frame by frame with spring overshoot,
 shape-shaped transitions, and real M3 components: chips, switches, a search-style prompt field, the morphing loading
 indicator, cards and an extended FAB.
