@@ -1,8 +1,10 @@
-"""Original soundtrack + sound effects for the promo film, synthesised from scratch with numpy.
+"""Original deep house soundtrack + sound effects for the promo film, synthesised from scratch with numpy.
 
-120 BPM in C major, beat grid offset 0.1 s so the downbeats land on the film's scene cuts
-(3.6, 12.6, 16.1, 20.1, 24.1). Chords cycle IV-V-iii-vi (F, G, Em, Am) and resolve to Cmaj9 on the
-end card. Effects (whooshes, typing, taps, switches, pops, chimes) follow the timeline in index.html.
+Happy, restless, lounge-y deep house at 112 BPM: soft round four-on-the-floor kick, swung 16th hats,
+offbeat open hats, claps on 2 and 4, FM electric-piano chord stabs (Dm9 - G13 - Cmaj9 - Am9), a syncopated
+sub bass pumped by the kick, a pluck hook with a dotted-8th echo, room reverb and light vinyl crackle.
+Beat 0 lands on the first scene cut (3.6 s); Nano "thinks" over a two-beat breakdown and the end card
+resolves on Cmaj9. Effects (whooshes, typing, taps, switches, pops, chimes) follow the timeline in index.html.
 
 Usage: python3 store-listing/promo-video/music.py [out.wav]
 """
@@ -15,107 +17,137 @@ import numpy as np
 SR = 44100
 LENGTH = 28.0
 N = int(SR * LENGTH)
-BEAT = 0.5
-T0 = 0.1  # grid offset
-rng = np.random.default_rng(7)
+BPM = 112
+BEAT = 60 / BPM
+STEP = BEAT / 4
+SWING = 0.22 * STEP  # late offbeat 16ths
+DROP = 3.6           # time of beat 0
+rng = np.random.default_rng(11)
 
-L = np.zeros(N)
-R = np.zeros(N)
-duck_src = np.zeros(N)  # kick envelope used for sidechain ducking
+
+def beat_t(k):
+    return DROP + k * BEAT
+
+
+def step_t(k, s):
+    return beat_t(k) + s * STEP + (SWING if s % 2 else 0)
+
+
+dry = np.zeros((2, N))
+verb = np.zeros((2, N))  # reverb send
+side = np.zeros(N)       # kick envelope for sidechain
+
+
+def place(start, sig, gain=1.0, pan=0.0, send=0.0, key=False, duck=True):
+    i = int(round(start * SR))
+    if i >= N or i + len(sig) <= 0:
+        return
+    if i < 0:
+        sig, i = sig[-i:], 0
+    sig = sig[: N - i] * gain
+    lg, rg = np.sqrt(0.5 * (1 - pan)), np.sqrt(0.5 * (1 + pan))
+    tgt = dry if duck else nodk
+    tgt[0, i:i + len(sig)] += sig * lg
+    tgt[1, i:i + len(sig)] += sig * rg
+    if send:
+        verb[0, i:i + len(sig)] += sig * lg * send
+        verb[1, i:i + len(sig)] += sig * rg * send
+    if key:
+        side[i:i + len(sig)] += np.abs(sig)
+
+
+nodk = np.zeros((2, N))  # elements that should not pump (kick, hats, fx)
 
 
 def midi(n):
     return 440.0 * 2 ** ((n - 69) / 12)
 
 
-def place(buf, start, sig, gain=1.0, pan=0.0, side=None):
-    """Mix a mono signal into the stereo bus at `start` seconds."""
-    i = int(start * SR)
-    if i >= N:
-        return
-    sig = sig[: N - i] * gain
-    lg, rg = np.sqrt(0.5 * (1 - pan)), np.sqrt(0.5 * (1 + pan))
-    buf[0][i:i + len(sig)] += sig * lg
-    buf[1][i:i + len(sig)] += sig * rg
-    if side is not None:
-        side[i:i + len(sig)] += np.abs(sig)
-
-
 def t_axis(dur):
     return np.arange(int(dur * SR)) / SR
 
 
-def shaped_noise(dur, lo, hi, tilt=0.0):
-    """Band-limited noise made in the frequency domain (no IIR filters needed)."""
-    n = int(dur * SR)
+def shaped_noise(dur, lo, hi):
+    n = max(2, int(dur * SR))
     spec = np.fft.rfft(rng.standard_normal(n))
     f = np.fft.rfftfreq(n, 1 / SR)
-    mask = ((f >= lo) & (f <= hi)).astype(float)
-    if tilt:
-        mask *= (np.maximum(f, 1) / 1000.0) ** tilt
-    out = np.fft.irfft(spec * mask, n)
+    out = np.fft.irfft(spec * ((f >= lo) & (f <= hi)), n)
     return out / (np.max(np.abs(out)) + 1e-9)
 
 
 # ---------------------------------------------------------------- instruments
-def pluck(freq, dur=0.45):
+def epiano(freq, dur, bright=1.0):
+    """FM electric piano: tine attack that mellows, slight tremolo."""
+    t = t_axis(dur + 0.5)
+    index = bright * (1.1 * np.exp(-t / 0.25) + 0.15)
+    mod = index * np.sin(2 * np.pi * freq * t)
+    s = np.sin(2 * np.pi * freq * t + mod)
+    s += 0.18 * bright * np.sin(2 * np.pi * freq * 7.1 * t) * np.exp(-t / 0.02)  # tine click
+    env = np.exp(-t / 1.6) * np.minimum(1, t / 0.004)
+    env *= np.clip((dur + 0.5 - t) / 0.5, 0, 1) * np.where(t > dur, np.exp(-(t - dur) / 0.08), 1)
+    return s * env * (1 + 0.08 * np.sin(2 * np.pi * 5.2 * t))
+
+
+def pad(freq, dur):
     t = t_axis(dur)
-    s = (np.sin(2 * np.pi * freq * t) * np.exp(-t / 0.14)
-         + 0.35 * np.sin(2 * np.pi * 2 * freq * t) * np.exp(-t / 0.06)
-         + 0.12 * np.sin(2 * np.pi * 4.02 * freq * t) * np.exp(-t / 0.025))
-    return s * np.minimum(1, t / 0.003)
+    s = sum((1 / k ** 2) * np.sin(2 * np.pi * freq * k * t + k) for k in range(1, 5))
+    s += 0.6 * np.sin(2 * np.pi * freq * 1.003 * t)
+    return s * np.clip(np.minimum(t / 0.6, (dur - t) / 0.8), 0, 1)
 
 
-def bell(freq, dur=1.6):
+def sub(freq, dur):
     t = t_axis(dur)
-    s = sum(a * np.sin(2 * np.pi * freq * r * t) * np.exp(-t / d)
-            for r, a, d in [(1, 1, .7), (2.76, .35, .25), (5.4, .18, .1), (8.93, .08, .05)])
-    return s * np.minimum(1, t / 0.002)
-
-
-def pad_note(freq, dur, detune=0.0):
-    t = t_axis(dur)
-    f = freq * (1 + detune)
-    s = sum((1 / k ** 1.6) * np.sin(2 * np.pi * f * k * t + k) for k in range(1, 7))
-    s += 0.5 * np.sin(2 * np.pi * f * 1.004 * t)
-    env = np.minimum(1, t / 0.5) * np.minimum(1, (dur - t) / 0.7)
-    return s * np.clip(env, 0, 1) * (0.9 + 0.1 * np.sin(2 * np.pi * 0.3 * t))
-
-
-def bass(freq, dur=0.45):
-    t = t_axis(dur)
-    s = np.sin(2 * np.pi * freq * t) + 0.35 * np.sin(2 * np.pi * 2 * freq * t)
-    s = np.tanh(1.6 * s) * np.exp(-t / 0.35) * np.minimum(1, t / 0.004)
-    return s
+    s = np.sin(2 * np.pi * freq * t) + 0.22 * np.sin(2 * np.pi * 2 * freq * t) + 0.06 * np.sin(2 * np.pi * 3 * freq * t)
+    env = np.minimum(1, t / 0.006) * np.clip((dur - t) / 0.03, 0, 1)
+    return np.tanh(1.3 * s) * env
 
 
 def kick():
-    t = t_axis(0.45)
-    f = 46 + 110 * np.exp(-t / 0.035)
-    phase = 2 * np.pi * np.cumsum(f) / SR
-    return np.sin(phase) * np.exp(-t / 0.22) + 0.25 * shaped_noise(0.45, 1500, 6000) * np.exp(-t / 0.004)
+    t = t_axis(0.5)
+    f = 48 + 70 * np.exp(-t / 0.03)
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.26) * np.minimum(1, t / 0.001)
 
 
 def clap():
-    t = t_axis(0.3)
-    n = shaped_noise(0.3, 900, 5000)
-    env = sum(np.exp(-np.maximum(0, t - o) / 0.012) * (t >= o) for o in (0, .011, .022)) * 0.5
-    env += np.exp(-t / 0.09) * (t >= .03)
-    return n * env
+    t = t_axis(0.35)
+    env = sum(np.exp(-np.maximum(0, t - o) / 0.01) * (t >= o) for o in (0, .009, .019)) * 0.45
+    env += np.exp(-np.maximum(0, t - .025) / 0.1) * (t >= .025)
+    return shaped_noise(0.35, 1000, 6000) * env
 
 
-def hat(open_=False):
-    t = t_axis(0.25)
-    return shaped_noise(0.25, 7000, 16000) * np.exp(-t / (0.08 if open_ else 0.025))
+def hat(decay):
+    t = t_axis(decay * 6)
+    return shaped_noise(decay * 6, 7500, 17000) * np.exp(-t / decay)
 
 
-def whoosh(dur=0.8, rise=True):
+def shaker():
+    t = t_axis(0.09)
+    return shaped_noise(0.09, 5000, 14000) * np.sin(np.pi * np.clip(t / 0.09, 0, 1)) ** 2
+
+
+def rim():
+    t = t_axis(0.08)
+    return (0.6 * np.sin(2 * np.pi * 1700 * t) + shaped_noise(0.08, 2000, 8000) * 0.5) * np.exp(-t / 0.012)
+
+
+def pluck(freq, dur=0.5):
+    t = t_axis(dur)
+    s = np.sin(2 * np.pi * freq * t + 0.8 * np.exp(-t / 0.05) * np.sin(2 * np.pi * 2 * freq * t))
+    return s * np.exp(-t / 0.16) * np.minimum(1, t / 0.002)
+
+
+def bell(freq, dur=1.4):
+    t = t_axis(dur)
+    s = sum(a * np.sin(2 * np.pi * freq * r * t) * np.exp(-t / d) for r, a, d in [(1, 1, .6), (2.76, .3, .2), (5.4, .12, .08)])
+    return s * np.minimum(1, t / 0.002)
+
+
+def whoosh(dur, rise=True):
     t = t_axis(dur)
     k = t / dur
-    lo, hi = shaped_noise(dur, 200, 1500), shaped_noise(dur, 1500, 9000)
+    lo, hi = shaped_noise(dur, 200, 1500), shaped_noise(dur, 1500, 8000)
     mix = k if rise else 1 - k
-    env = np.sin(np.pi * np.clip(k, 0, 1)) ** 1.5
-    return (lo * (1 - mix) + hi * mix) * env
+    return (lo * (1 - mix) + hi * mix) * np.sin(np.pi * np.clip(k, 0, 1)) ** 1.5
 
 
 def blip(f0, f1, dur=0.09):
@@ -126,127 +158,146 @@ def blip(f0, f1, dur=0.09):
 
 def tick():
     t = t_axis(0.03)
-    return shaped_noise(0.03, 3000, 12000) * np.exp(-t / 0.006) + 0.3 * np.sin(2 * np.pi * 2400 * t) * np.exp(-t / 0.004)
+    return shaped_noise(0.03, 3000, 11000) * np.exp(-t / 0.006)
 
 
-# ---------------------------------------------------------------- arrangement
-CHORDS = {  # (bass root, chord tones)
-    'F': (41, [53, 57, 60, 64]), 'G': (43, [55, 59, 62, 64]),
-    'Em': (40, [52, 55, 59, 62]), 'Am': (45, [57, 60, 64, 67]),
-    'C': (36, [48, 52, 55, 59, 62]),
-}
-PROG = ['F', 'G', 'Em', 'Am']
-END = 24.1
-bus = (L, R)
+# ---------------------------------------------------------------- arrangement (beat grid)
+CHORDS = [  # (sub root, rootless EP voicing)
+    (38, [53, 57, 60, 64]),  # Dm9
+    (31, [53, 59, 64, 69]),  # G13
+    (36, [52, 55, 59, 62]),  # Cmaj9
+    (33, [55, 59, 60, 64]),  # Am9
+]
+CMAJ9 = (36, [52, 55, 59, 62, 67])
+END_BEAT = 38                     # 23.96 s: end card
+BREAK = (10, 12)                  # Nano thinks: 8.96 - 10.03 s
+FIRST = -8                        # intro bar starts just before 0 s
+EP_RHYTHM = [(0, 3), (3, 2), (6, 3), (10, 2), (12, 3)]       # (16th step, length in steps) per bar
+BASS = [(0, 0, 3), (3, 0, 1), (6, 12, 1), (8, 0, 2), (11, 7, 1), (14, 10, 2)]  # (step, interval, len)
+HOOK = [  # per bar of the 4-bar cycle: (16th step, midi)
+    [(2, 76), (4, 74), (6, 72), (10, 74)],
+    [(2, 74), (4, 71), (7, 67), (12, 69)],
+    [(2, 76), (4, 79), (6, 76), (10, 74), (12, 72)],
+    [(2, 72), (6, 69), (8, 67), (12, 69)],
+]
 
 
-def bar_chord(b):
-    return PROG[b % 4]
+def in_break(k):
+    return BREAK[0] <= k < BREAK[1]
 
 
-def drums_on(t):
-    return 3.6 <= t < END and not (8.6 <= t < 10.1)
+for k in range(FIRST, END_BEAT):
+    bar, beat_in_bar = divmod(k, 4)
+    root, voicing = CHORDS[bar % 4]
+    intro = k < 0
+    # drums
+    if not intro and not in_break(k) and not (END_BEAT - 2 <= k < END_BEAT):
+        place(beat_t(k), kick(), 0.6, key=True, duck=False)
+    if not intro and not in_break(k):
+        place(step_t(k, 2), hat(0.045), 0.11, pan=0.2, send=0.1, duck=False)  # offbeat open hat
+        if beat_in_bar in (1, 3) and k >= 4:
+            place(beat_t(k), clap(), 0.26, pan=-0.05, send=0.35, duck=False)
+        if k >= 8 and beat_in_bar == 3:
+            place(step_t(k, 3), rim(), 0.08, pan=-0.3, send=0.2, duck=False)
+    for s in range(4):  # swung shaker / closed hats, accented
+        vel = (0.05 if s % 2 else 0.035) * (0.55 if intro or in_break(k) else 1)
+        place(step_t(k, s), shaker() if s % 2 else hat(0.012), vel, pan=0.35, duck=False)
+    if beat_in_bar:
+        continue
+    # once per bar: EP stabs, pad, bass, hook
+    t_bar = beat_t(k)
+    bright = 0.35 + 0.65 * min(1, max(0, (t_bar + 0.6) / 4.2))  # intro "filter" opens up
+    for step, length in EP_RHYTHM:
+        for i, n in enumerate(voicing):
+            place(step_t(k, step), epiano(midi(n), length * STEP * 0.9, bright), 0.07, pan=-0.25 + 0.17 * i, send=0.3)
+    for n in voicing[:3]:
+        place(t_bar, pad(midi(n - 12), 4 * BEAT + 0.4), 0.025, pan=0, send=0.2)
+    if not intro:
+        for step, interval, length in BASS:
+            at = k + step / 4
+            if in_break(int(at)) or at >= END_BEAT:
+                continue
+            place(step_t(k, step), sub(midi(root + interval), length * STEP * 0.92), 0.3)
+    if k >= 16:  # hook from the speed scene on, with a dotted-8th echo
+        for step, n in HOOK[bar % 4]:
+            t = step_t(k, step)
+            if t >= beat_t(END_BEAT) - 0.05:
+                continue
+            for e, g in enumerate((0.075, 0.035, 0.016)):
+                place(t + e * 3 * STEP, pluck(midi(n)), g, pan=(0.25, -0.35, 0.35)[e], send=0.35)
 
+# end card: resolve on Cmaj9 and ride the groove out
+t_end = beat_t(END_BEAT)
+place(t_end - 2 * BEAT, whoosh(2 * BEAT, True), 0.12, duck=False)
+root, voicing = CMAJ9
+for i, n in enumerate(voicing):
+    place(t_end, epiano(midi(n), 2.2), 0.08, pan=-0.3 + 0.15 * i, send=0.45)
+    place(t_end, pad(midi(n - 12), 4.0), 0.03, send=0.3)
+place(t_end, sub(midi(root), 1.5), 0.32)
+for i, n in enumerate([72, 76, 79, 83]):
+    place(t_end + 0.55 + i * STEP * 2, bell(midi(n)), 0.04, pan=-0.2 + 0.13 * i, send=0.5, duck=False)
+for k in range(END_BEAT, END_BEAT + 8):
+    if beat_t(k) >= LENGTH:
+        break
+    place(beat_t(k), kick(), 0.55, key=True, duck=False)
+    place(step_t(k, 2), hat(0.045), 0.1, pan=0.2, send=0.1, duck=False)
+    for s in range(4):
+        place(step_t(k, s), shaker() if s % 2 else hat(0.012), 0.04 if s % 2 else 0.03, pan=0.35, duck=False)
 
-ARP = [0, 2, 4, 1, 3, 2, 4, 3]
-LEAD = {  # bar index within the 4-bar cycle -> (16th step, midi)
-    0: [(0, 81), (4, 84), (6, 79), (10, 76)],
-    1: [(0, 79), (4, 83), (6, 86), (12, 84)],
-    2: [(0, 83), (4, 79), (6, 76), (10, 79)],
-    3: [(0, 76), (4, 79), (6, 81), (12, 84)],
-}
-
-bars = int((END - T0) / 2)
-for b in range(bars):
-    start = T0 + b * 2.0
-    name = bar_chord(b)
-    root, tones = CHORDS[name]
-    # pad, slightly wider in stereo
-    for i, n in enumerate(tones):
-        place(bus, start, pad_note(midi(n), 2.3, detune=0.002), 0.045, pan=-0.35)
-        place(bus, start, pad_note(midi(n), 2.3, detune=-0.002), 0.045, pan=0.35)
-    # arpeggio in 16ths (filtered down in the intro by lowering level)
-    arp_tones = [n + 12 for n in tones[:4]] + [tones[0] + 24]
-    for s in range(16):
-        t = start + s * BEAT / 4
-        if t >= END:
-            break
-        lvl = 0.05 if t < 3.6 else (0.07 if 8.6 <= t < 10.1 else 0.085)
-        place(bus, t, pluck(midi(arp_tones[ARP[s % 8]])), lvl, pan=(-0.45 if s % 2 else 0.45))
-    if start >= 3.6 - 1e-6:
-        # bass: root on 1, the "and" of 2, and 3
-        for off in (0, 0.75, 1.0, 1.5):
-            place(bus, start + off, bass(midi(root)), 0.22 if off in (0, 1.0) else 0.14)
-    for beat in range(4):
-        t = start + beat * BEAT
-        if drums_on(t):
-            place(bus, t, kick(), 0.55, side=duck_src)
-            place(bus, t + BEAT / 2, hat(open_=beat == 3), 0.06, pan=0.25)
-            if t >= 12.6 and beat in (1, 3):
-                place(bus, t, clap(), 0.16, pan=-0.1)
-        if 3.6 <= t < END and not drums_on(t):
-            place(bus, t + BEAT / 2, hat(), 0.03, pan=0.25)  # keep a pulse while Nano thinks
-    # lead bell motif from the speed scene on
-    if 12.5 <= start < END - 0.1:
-        for step, n in LEAD[b % 4]:
-            place(bus, start + step * BEAT / 4, bell(midi(n)), 0.06, pan=0.15)
-
-# snare-roll build into the end card
-for i in range(16):
-    t = END - 1.0 + i * (1.0 / 16)
-    place(bus, t, clap(), 0.03 + 0.1 * i / 16, pan=-0.1)
-place(bus, END - 2.0, whoosh(2.0, True), 0.13)
-
-# end: resolve to Cmaj9 with a final hit
-root, tones = CHORDS['C']
-place(bus, END, kick(), 0.6, side=duck_src)
-place(bus, END, bass(midi(root), 1.6), 0.25)
-for n in tones:
-    place(bus, END, pad_note(midi(n), 3.9), 0.06, pan=-0.3)
-    place(bus, END, pad_note(midi(n + 12), 3.9, 0.002), 0.035, pan=0.3)
-for i, n in enumerate([72, 76, 79, 83, 86]):
-    place(bus, END + 0.6 + i * 0.12, bell(midi(n), 2.0), 0.05, pan=(-0.3 + 0.15 * i))
-
-# intro riser into the first drop
-place(bus, 2.2, whoosh(1.4, True), 0.12)
+# intro riser + vinyl crackle bed
+place(DROP - 1.4, whoosh(1.4, True), 0.12, duck=False)
+crackle = np.zeros(N)
+pops = rng.random(N) < 18 / SR
+crackle[pops] = rng.standard_normal(pops.sum()) * 0.5
+crackle = np.convolve(crackle, np.exp(-np.arange(40) / 6), mode='same') + 0.004 * shaped_noise(LENGTH, 2000, 9000)
+nodk += 0.05 * crackle
 
 # ---------------------------------------------------------------- sound effects (follow index.html)
-for t in (5.45, 12.3, 15.65, 19.85, 23.65):  # shape wipes
-    place(bus, t, whoosh(0.9, True), 0.16)
-place(bus, 3.1, whoosh(0.7, True), 0.14)  # hero shape fills the screen
-for t, pitch in ((4.2, 900), (4.5, 900), (4.8, 1200)):  # switches
-    place(bus, t, blip(pitch, pitch * 0.8, 0.05), 0.12)
-    place(bus, t + 0.03, tick(), 0.12)
+for t in (5.45, 12.3, 15.65, 19.85, 23.65):
+    place(t, whoosh(0.9, True), 0.11, duck=False)
+place(3.1, whoosh(0.6, True), 0.09, duck=False)
+for t, pitch in ((4.2, 900), (4.5, 900), (4.8, 1200)):
+    place(t, blip(pitch, pitch * 0.8, 0.05), 0.09, duck=False)
+    place(t + 0.03, tick(), 0.09, duck=False)
 query = 'Write a haiku about coffee on a rainy Monday'
-for i in range(len(query)):  # typing
-    t = 6.3 + i * (1.7 / len(query))
-    place(bus, t, tick(), 0.05 + 0.03 * rng.random(), pan=0.1 * rng.standard_normal())
-place(bus, 8.5, blip(500, 950, 0.12), 0.2)  # tap on send
+for i in range(len(query)):
+    place(6.3 + i * (1.7 / len(query)), tick(), 0.035 + 0.025 * rng.random(), pan=0.1 * rng.standard_normal(), duck=False)
+place(8.5, blip(500, 950, 0.12), 0.15, duck=False)
 for i in range(4):
-    place(bus, 6.6 + i * 0.08, blip(700 + 120 * i, 1100 + 120 * i, 0.06), 0.06)  # chips pop in
-for i in range(4):
-    place(bus, 11.6 + i * 0.09, blip(800 + 100 * i, 1300 + 100 * i, 0.06), 0.06)  # stat chips
-for i, n in enumerate([84, 88, 91]):  # answer card opens
-    place(bus, 10.05 + i * 0.07, bell(midi(n), 1.2), 0.035)
-for i in range(6):  # privacy packets absorbed by the lock
-    place(bus, 17.9 + i * 0.32, blip(1200, 600, 0.07), 0.05, pan=-0.1)
-for i in range(6):  # feature cards
-    place(bus, 20.75 + i * 0.09, blip(600 + 80 * i, 1000 + 80 * i, 0.06), 0.05)
-place(bus, 25.45, blip(400, 800, 0.15), 0.12)  # FAB
+    place(6.6 + i * 0.08, blip(700 + 120 * i, 1100 + 120 * i, 0.06), 0.045, duck=False)
+    place(11.6 + i * 0.09, blip(800 + 100 * i, 1300 + 100 * i, 0.06), 0.045, duck=False)
+for i, n in enumerate([84, 88, 91]):
+    place(10.05 + i * 0.07, bell(midi(n), 1.0), 0.03, send=0.4, duck=False)
+for i in range(6):
+    place(17.9 + i * 0.32, blip(1200, 600, 0.07), 0.035, pan=-0.1, duck=False)
+    place(20.75 + i * 0.09, blip(600 + 80 * i, 1000 + 80 * i, 0.06), 0.035, duck=False)
+place(25.45, blip(400, 800, 0.15), 0.09, duck=False)
 
 # ---------------------------------------------------------------- mix
-env = np.convolve(duck_src, np.ones(int(0.02 * SR)) / (0.02 * SR), mode='same')
-env = np.clip(env / (env.max() + 1e-9), 0, 1)
-release = np.exp(-np.arange(int(0.18 * SR)) / (0.06 * SR))
-env = np.convolve(env, release / release.sum() * 6, mode='full')[:N]
-duck = 1 - 0.3 * np.clip(env, 0, 1)
-mix = np.stack([L, R]) * duck
+def fft_convolve(x, ir):
+    n = 1 << int(np.ceil(np.log2(len(x) + len(ir))))
+    return np.fft.irfft(np.fft.rfft(x, n) * np.fft.rfft(ir, n), n)[: len(x)]
+
+
+ir_t = t_axis(1.8)
+for ch in (0, 1):  # decorrelated room reverb per channel
+    ir = shaped_noise(1.8, 250, 7000) * np.exp(-ir_t / 0.38)
+    ir[: int(0.012 * SR)] = 0  # pre-delay
+    ir /= np.sqrt(np.sum(ir ** 2))
+    dry[ch] += 0.55 * fft_convolve(verb[ch], ir)
+
+env = np.convolve(side, np.ones(int(0.015 * SR)) / (0.015 * SR), mode='same')
+env = np.clip(env / (np.percentile(env[env > 0], 99) + 1e-9), 0, 1)
+release = np.exp(-np.arange(int(0.3 * SR)) / (0.09 * SR))
+env = np.clip(np.convolve(env, release / release.max(), mode='full')[:N], 0, 1)
+mix = dry * (1 - 0.45 * env) + nodk
 fade = np.ones(N)
-fi = int(26.4 * SR)
-fade[fi:] = np.linspace(1, 0, N - fi) ** 1.5
-fade[: int(0.05 * SR)] = np.linspace(0, 1, int(0.05 * SR))
+fi = int(26.2 * SR)
+fade[fi:] = np.linspace(1, 0, N - fi) ** 1.6
+fade[: int(0.08 * SR)] = np.linspace(0, 1, int(0.08 * SR))
 mix *= fade
-mix = np.tanh(mix * 1.4) / np.tanh(1.4)
+mix -= mix.mean(axis=1, keepdims=True)
+mix = np.tanh(mix / np.max(np.abs(mix)) * 1.15) / np.tanh(1.15)
 mix *= 0.89 / np.max(np.abs(mix))  # peak at -1 dBFS
 
 out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent / 'out' / 'soundtrack.wav'

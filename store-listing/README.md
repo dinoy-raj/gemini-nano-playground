@@ -70,9 +70,11 @@ by frame and pipes every frame into FFmpeg, so no frame is dropped.
 NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs
 ```
 
-The soundtrack is synthesised from scratch by `promo-video/music.py` (numpy only, nothing sampled or licensed):
-120 BPM in C major on a grid that puts downbeats on the scene cuts, F-G-Em-Am resolving to Cmaj9 on the end card,
-a breakdown while Nano is thinking, plus whooshes, typing, taps, switch clicks and chimes timed to the animation.
+The soundtrack is an original deep house track synthesised from scratch by `promo-video/music.py` (numpy only,
+nothing sampled or licensed), in the vein of happy, restless lounge/soft house: 112 BPM, soft four-on-the-floor kick,
+swung hats, claps on 2 and 4, FM electric-piano stabs on Dm9-G13-Cmaj9-Am9, a pumping sub bass, a pluck hook with a
+dotted-8th echo, room reverb and vinyl crackle. The first drop lands on the first scene cut, the groove breaks down
+while Nano is thinking and resolves on Cmaj9 at the end card; whooshes, typing, taps, switch clicks and chimes are timed to the animation.
 `render.cjs` runs it and muxes the result as AAC; run `python3 store-listing/promo-video/music.py` alone to just rebuild the WAV.
 
 Open `promo-video/index.html#play` in a browser to preview it live.
