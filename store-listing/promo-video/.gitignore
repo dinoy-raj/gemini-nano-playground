@@ -1,3 +1,4 @@
 fonts/
-out/frame-*.png
+out/frame*.png
 out/*.wav
+out/log-*.txt

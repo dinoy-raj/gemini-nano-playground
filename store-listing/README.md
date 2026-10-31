@@ -77,4 +77,24 @@ dotted-8th echo, room reverb and vinyl crackle. The first drop lands on the firs
 while Nano is thinking and resolves on Cmaj9 at the end card; whooshes, typing, taps, switch clicks and chimes are timed to the animation.
 `render.cjs` runs it and muxes the result as AAC; run `python3 store-listing/promo-video/music.py` alone to just rebuild the WAV.
 
+### Typeface variants
+
+The same film is also rendered in Helvetica and in Gilroy Bold:
+
+| File | Typeface |
+| --- | --- |
+| `out/nano-prompt-ground-promo.mp4` | Google Sans Flex (variable, animated weight) |
+| `out/nano-prompt-ground-promo-helvetica.mp4` | Helvetica: Bold headlines, Regular body |
+| `out/nano-prompt-ground-promo-gilroy.mp4` | Gilroy Bold throughout |
+
+```bash
+NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs --font helvetica
+NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs --font gilroy
+```
+
+Helvetica and Gilroy are commercial fonts and are not in the repo. The renderer uses the real fonts when they are installed
+(`local()`) or dropped into `promo-video/fonts/` as `Helvetica.otf` / `Helvetica-Bold.otf` / `Gilroy-Bold.otf`
+(`.ttf` also works, and `.woff2` for Gilroy). Otherwise it falls back to FreeSans (a free Helvetica-metric clone) and
+Plus Jakarta Sans Bold (a free geometric look-alike for Gilroy). Static fonts can't animate weight, so these variants pin it.
+
 Open `promo-video/index.html#play` in a browser to preview it live.

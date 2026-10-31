@@ -59,6 +59,24 @@
   .card b { display: block; font-size: 35px; font-weight: 700; letter-spacing: -.015em; }
   .card span.d { display: block; font-size: 25px; color: var(--on-s-v); margin-top: 8px; line-height: 1.25; }
 </style>
+<script>
+// Optional typeface variants: index.html?font=helvetica or ?font=gilroy. Static fonts can't animate weight,
+// so the variants pin weights. Real Helvetica / Gilroy Bold are used when installed or dropped into fonts/;
+// otherwise FreeSans (Helvetica-metric clone) and Plus Jakarta Sans Bold stand in.
+const FONT_CSS = {
+  helvetica: `
+    @font-face { font-family: 'Promo Sans'; font-weight: 400; src: local('Helvetica Neue'), local('HelveticaNeue'), local('Helvetica'), url(fonts/Helvetica.otf), url(fonts/Helvetica.ttf), local('FreeSans'); }
+    @font-face { font-family: 'Promo Sans'; font-weight: 700; src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Helvetica Bold'), local('Helvetica-Bold'), url(fonts/Helvetica-Bold.otf), url(fonts/Helvetica-Bold.ttf), local('FreeSans Bold'), local('FreeSansBold'); }
+    #root, #root *:not(.ms) { font-family: 'Promo Sans', Helvetica, Arial, sans-serif; }
+    #root .display, #root .display *, #root .chip, #root .card b, #root #fab { font-weight: 700 !important; }
+    #haiku span, #root .item .lbl, #root .card span.d { font-weight: 400 !important; }`,
+  gilroy: `
+    @font-face { font-family: 'Promo Sans'; font-weight: 700; src: local('Gilroy Bold'), local('Gilroy-Bold'), url(fonts/Gilroy-Bold.otf), url(fonts/Gilroy-Bold.ttf), url(fonts/Gilroy-Bold.woff2), url(fonts/PlusJakartaSans-latin.woff2); }
+    #root, #root *:not(.ms) { font-family: 'Promo Sans', sans-serif; font-weight: 700 !important; }`,
+};
+const FONT_VARIANT = FONT_CSS[new URLSearchParams(location.search).get('font')];
+if (FONT_VARIANT) document.write(`<style>${FONT_VARIANT}</style>`);
+</script>
 </head>
 <body>
 <div id="root" data-composition-id="root" data-start="0" data-duration="28" data-track-index="0" data-width="1920" data-height="1080">

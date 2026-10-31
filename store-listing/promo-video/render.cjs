@@ -1,6 +1,6 @@
 // Renders index.html to an MP4: seeks the HyperFrames timeline frame by frame with Playwright
 // and pipes the frames into FFmpeg, so no frame is dropped.
-// Usage (from repo root): NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs [out.mp4] [--frames 0,90,300]
+// Usage (from repo root): NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs [out.mp4] [--frames 0,90,300] [--font helvetica|gilroy]
 const path = require('path');
 const fs = require('fs');
 const { spawn, execFileSync } = require('child_process');
@@ -10,11 +10,14 @@ const FPS = 30, W = 1920, H = 1080;
 const DIR = __dirname;
 const args = process.argv.slice(2);
 const stills = args.includes('--frames') ? args[args.indexOf('--frames') + 1].split(',').map(Number) : null;
-const OUT = path.resolve(args.find(a => a.endsWith('.mp4')) || path.join(DIR, 'out/nano-prompt-ground-promo.mp4'));
+const FONT = args.includes('--font') ? args[args.indexOf('--font') + 1] : '';
+const SUFFIX = FONT ? '-' + FONT : '';
+const OUT = path.resolve(args.find(a => a.endsWith('.mp4')) || path.join(DIR, `out/nano-prompt-ground-promo${SUFFIX}.mp4`));
 
 // Fonts are fetched once (Chromium can't always reach Google Fonts directly) and kept out of Git.
 const FONTS = {
   'GoogleSansFlex-latin.woff2': ['Google+Sans+Flex:opsz,wght@6..144,1..1000', '/* latin */'],
+  'PlusJakartaSans-latin.woff2': ['Plus+Jakarta+Sans:wght@200..800', '/* latin */'],  // free Gilroy stand-in
   'MaterialSymbolsRounded.woff2': ['Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200', ''],
 };
 function ensureFonts() {
@@ -35,7 +38,7 @@ function ensureFonts() {
   ensureFonts();
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: W, height: H } });
-  await page.goto('file://' + path.join(DIR, 'index.html'), { waitUntil: 'load' });
+  await page.goto('file://' + path.join(DIR, 'index.html') + (FONT ? `?font=${FONT}` : ''), { waitUntil: 'load' });
   await page.evaluate(() => window.__ready);
   const duration = await page.evaluate(() => window.__timelines.root.duration());
   const frames = stills || Array.from({ length: Math.round(duration * FPS) }, (_, i) => i);
@@ -53,7 +56,7 @@ function ensureFonts() {
   for (const [n, f] of frames.entries()) {
     await page.evaluate(t => window.__seek(t), f / FPS);
     const png = await page.screenshot({ type: 'png' });
-    if (stills) fs.writeFileSync(path.join(DIR, `out/frame-${String(f).padStart(4, '0')}.png`), png);
+    if (stills) fs.writeFileSync(path.join(DIR, `out/frame${SUFFIX}-${String(f).padStart(4, '0')}.png`), png);
     else if (!ffmpeg.stdin.write(png)) await new Promise(r => ffmpeg.stdin.once('drain', r));
     if (!stills && n % 60 === 0) process.stdout.write(`\rframe ${n}/${frames.length}`);
   }
