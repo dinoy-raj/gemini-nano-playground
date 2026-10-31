@@ -50,21 +50,22 @@ Open `generator/index.html?mode=phone` in a browser to preview a set as one pano
 
 ## Promo video
 
-`promo-video/out/nano-prompt-ground-promo.mp4` is a 28-second 1920 x 1080 motion-graphics film (30 fps, no audio),
-with its own look rather than the store screenshots': an obsidian stage, silver type, one mint accent glow,
-mono microcopy, orbit rings, a travelling spark, light sweeps and blur reveals. No phone mockup; the product is shown as
-a glass prompt composer, a token-by-token streamed answer and live HUD readouts.
+`promo-video/out/nano-prompt-ground-promo.mp4` is a 28-second 1920 x 1080 motion-graphics film (30 fps, no audio)
+in Material 3 Expressive style: a light tonal scheme from the app's purple seed, Google Sans Flex with animated weight,
+the expressive shape library (cookie, sunny, clover, gem, soft burst…) morphing frame by frame with spring overshoot,
+shape-shaped transitions, and real M3 components: chips, switches, a search-style prompt field, the morphing loading
+indicator, cards and an extended FAB.
 
-Scenes: kinetic headline ("Your phone thinks offline.") → no-signal HUD → prompt typed and sent → haiku streams in with
-inference stats → 612 ms speed beat → "Your words stay yours." (packets blocked before the cloud) → feature list → end card.
+Scenes: "Your phone thinks offline." → quick settings switch off Wi-Fi and data → prompt typed and sent → loading
+indicator → haiku streams into a card with stat chips → 612 ms speed beat → "Your words stay yours." → feature cards → end card.
 
-It is a HyperFrames composition in the [Null Motion](https://github.com/blixvip/NullMotion) template format, built from
-the motion vocabulary of its templates (kinetic headline, prompt composer, chat sim, blur reveal, connector list):
-`promo-video/index.html` holds one paused GSAP timeline (`window.__timelines.root`, GSAP bundled from Null Motion).
-`render.cjs` seeks it frame by frame and pipes every frame into FFmpeg, so no frame is dropped.
+It is a HyperFrames composition in the [Null Motion](https://github.com/blixvip/NullMotion) template format:
+`promo-video/index.html` holds one paused GSAP timeline (`window.__timelines.root`, GSAP bundled from Null Motion) plus a
+`renderAt(t)` function for the time-driven parts (shape morphs, typing, streaming, counters). `render.cjs` seeks it frame
+by frame and pipes every frame into FFmpeg, so no frame is dropped.
 
 ```bash
-# needs Node, Playwright with Chromium, FFmpeg and curl (Inter and JetBrains Mono are fetched once into promo-video/fonts/)
+# needs Node, Playwright with Chromium, FFmpeg and curl (Google Sans Flex and Material Symbols are fetched once into promo-video/fonts/)
 NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs
 ```
 
