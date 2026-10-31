@@ -47,3 +47,20 @@ NODE_PATH=$(npm root -g) node store-listing/generator/render.cjs phone    # or o
 ```
 
 Open `generator/index.html?mode=phone` in a browser to preview a set as one panorama.
+
+## Promo video
+
+`promo-video/out/nano-prompt-ground-promo.mp4` is a 27-second 1920 x 1080 motion-graphics film (30 fps, no audio):
+hook, icon build, prompt → streamed answer, offline/private, speed stats, feature grid and an end card.
+
+It is a HyperFrames composition in the [Null Motion](https://github.com/blixvip/NullMotion) template format:
+`promo-video/index.html` holds one paused GSAP timeline (`window.__timelines.root`, GSAP bundled from Null Motion) and
+reuses `generator/ui.js` and `generator/scenes.js`, so the phone shows the same app recreation as the screenshots.
+`render.cjs` seeks the timeline frame by frame and pipes every frame into FFmpeg, so no frame is dropped.
+
+```bash
+# needs Node, Playwright with Chromium, FFmpeg and curl (fonts are fetched once into promo-video/fonts/)
+NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs
+```
+
+Open `promo-video/index.html#play` in a browser to preview it live.

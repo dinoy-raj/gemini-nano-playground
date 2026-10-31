@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nano Prompt Ground promo</title>
+<!-- HyperFrames composition in the Null Motion template format (https://github.com/blixvip/NullMotion):
+     one paused GSAP timeline registered as window.__timelines.root, seeked frame by frame by render.cjs.
+     Open index.html#play to preview it in a browser. -->
+<script src="gsap.min.js"></script>
+<style>
+  @font-face { font-family: 'Google Sans Flex'; font-weight: 1 1000; font-display: block; src: url(fonts/GoogleSansFlex-latin.woff2) format('woff2'); }
+  @font-face { font-family: 'Material Symbols Rounded'; font-weight: 100 700; font-display: block; src: url(fonts/MaterialSymbolsRounded.woff2) format('woff2'); }
+  :root { --ink: #16133D; --ink2: #4A4870; --paper: #F5F6FF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper);
+          font-family: 'Google Sans Flex', sans-serif; -webkit-font-smoothing: antialiased; }
+  .layer { position: absolute; inset: 0; }
+
+  /* ---- app UI recreation (shared with ../generator) */
+  .ms { font-family: 'Material Symbols Rounded'; font-variation-settings: 'FILL' 1, 'wght' 500, 'opsz' 24; line-height: 1; display: inline-block; font-style: normal; }
+  .row { display: flex; align-items: center; }
+  .col { display: flex; flex-direction: column; }
+  .box { position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .shape { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .box > .ms { position: relative; }
+  .app { position: relative; display: flex; flex-direction: column; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; }
+  .sb { display: flex; align-items: center; justify-content: space-between; color: #E6E0E9; flex-shrink: 0; position: relative; }
+  .nav { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav i { display: block; background: #E6E0E9; border-radius: 99px; }
+  .md p { margin-bottom: calc(var(--dp) * 12); }
+  .md ul { padding-left: calc(var(--dp) * 22); margin-bottom: calc(var(--dp) * 12); }
+  .md li { margin-bottom: calc(var(--dp) * 6); }
+  .md strong { font-weight: 700; }
+  .stats { display: flex; flex-wrap: wrap; }
+  .caret { display: inline-block; vertical-align: text-bottom; margin-left: 2px; border-radius: 2px; }
+
+  /* ---- colour fields, one per section, taken from the icon palette */
+  .field { clip-path: circle(0px at 50% 50%); overflow: hidden; }
+  .field .blob { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .field .slab { position: absolute; border-radius: 9%/6%; background: rgba(255,255,255,.12); }
+  .spark { position: absolute; width: 90px; height: 90px; }
+
+  /* ---- marketing type */
+  .text { position: absolute; left: 140px; top: 0; width: 1000px; }
+  .tag { display: inline-flex; align-items: center; gap: .5em; padding: .4em 1.05em .4em .45em; border-radius: 99px; font-size: 32px;
+         background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.38); color: #fff; font-weight: 650; }
+  .tag img { width: 1.6em; height: 1.6em; border-radius: 30%; }
+  .title { color: #fff; font-size: 108px; font-weight: 820; letter-spacing: -0.035em; line-height: 1.04; }
+  .title .w { display: inline-block; }
+  .title em { font-style: normal; display: inline-block; background: #fff; color: var(--hi); border-radius: .22em; padding: 0 .16em .04em; }
+  .sub { color: rgba(255,255,255,.9); font-size: 40px; font-weight: 450; line-height: 1.3; margin-top: 28px; }
+  .chip { position: absolute; display: inline-flex; align-items: center; gap: 16px; padding: 14px 30px 14px 14px; border-radius: 24px;
+          background: #fff; color: #10172A; font-size: 34px; font-weight: 680; white-space: nowrap; letter-spacing: -0.01em;
+          box-shadow: 0 28px 60px -12px rgba(8,20,40,.4), 0 4px 12px rgba(8,20,40,.1); }
+  .chip.flow { position: relative; }
+  .chip .ic { width: 58px; height: 58px; display: flex; align-items: center; justify-content: center; border-radius: 30%; color: #fff;
+              background: linear-gradient(135deg, var(--a), var(--b)); }
+  .chip .ic .ms { font-size: 34px; }
+
+  /* ---- device */
+  #rig { position: absolute; left: 1250px; top: 74px; width: 446px; height: 930px; perspective: 2200px; }
+  #backcard { position: absolute; left: -60px; top: 40px; width: 560px; height: 860px; border-radius: 64px;
+              background: linear-gradient(135deg, rgba(255,255,255,.36), rgba(255,255,255,.1)); }
+  #phone { position: absolute; inset: 0; padding: 14px; border-radius: 58px; background: #0C0B11; transform-style: preserve-3d;
+           box-shadow: 0 0 0 3px rgba(255,255,255,.22), 0 70px 140px -20px rgba(8,20,40,.55), 0 20px 40px rgba(8,20,40,.25); }
+  #screen { position: relative; width: 100%; height: 100%; border-radius: 44px; overflow: hidden; background: #141218; }
+  #cam { position: absolute; left: 50%; top: 12px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #000; z-index: 3; box-shadow: inset 0 0 0 2px #1d1c28; }
+  #ripple { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; background: rgba(255,255,255,.55); opacity: 0; z-index: 4; }
+
+  /* ---- hook + logo */
+  #hook { position: absolute; left: 0; right: 0; top: 330px; text-align: center; color: var(--ink); font-weight: 820; letter-spacing: -0.04em; }
+  #hook .l1 { font-size: 150px; line-height: 1.05; }
+  #hook .l1 span { display: inline-block; }
+  #hook .l2 { position: relative; height: 190px; font-size: 150px; line-height: 1.2; }
+  #hook .l2 > * { position: absolute; left: 50%; top: 0; transform: translateX(-50%); white-space: nowrap; }
+  #hStrike { position: absolute; left: -2%; top: 50%; width: 0; height: 18px; border-radius: 9px; background: #F0522B; }
+  #hPocket { font-style: normal; color: #fff; background: linear-gradient(135deg, #22CE82, #0A8C5A); border-radius: .22em; padding: 0 .2em .06em; }
+  .icon { position: absolute; width: 380px; height: 380px; }
+  .icon svg { width: 100%; height: 100%; overflow: visible; }
+  #logoIcon { left: 770px; top: 300px; }
+  #wordmark { position: absolute; left: 600px; top: 395px; color: var(--ink); font-size: 116px; font-weight: 820; letter-spacing: -0.04em; white-space: nowrap; }
+  #tagline { position: absolute; left: 606px; top: 545px; color: var(--ink2); font-size: 46px; font-weight: 500; white-space: nowrap; }
+
+  /* ---- stats */
+  .stat { position: absolute; top: 420px; width: 470px; height: 300px; border-radius: 44px; background: #fff; padding: 46px 50px;
+          box-shadow: 0 40px 90px -20px rgba(8,20,40,.5); }
+  .stat .v { color: var(--ink); font-size: 128px; font-weight: 800; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat .v small { font-size: 56px; font-weight: 650; margin-left: 8px; letter-spacing: -0.02em; }
+  .stat .l { color: #5B6474; font-size: 34px; font-weight: 560; margin-top: 26px; }
+  .stat .ms { position: absolute; right: 42px; top: 42px; font-size: 48px; color: #8F6EFF; }
+
+  /* ---- feature tiles */
+  .tile { position: absolute; width: 520px; height: 200px; border-radius: 40px; background: #fff; padding: 36px; display: flex; gap: 28px; align-items: center;
+          box-shadow: 0 34px 80px -20px rgba(90,30,10,.45); }
+  .tile .ic { width: 112px; height: 112px; flex: none; border-radius: 30%; display: flex; align-items: center; justify-content: center; color: #fff;
+              background: linear-gradient(135deg, #FF9D42, #F0522B); }
+  .tile .ic .ms { font-size: 60px; }
+  .tile b { display: block; color: var(--ink); font-size: 40px; font-weight: 760; letter-spacing: -0.02em; }
+  .tile span.d { display: block; color: #5B6474; font-size: 29px; font-weight: 480; margin-top: 8px; line-height: 1.25; }
+
+  /* ---- end card */
+  #endIcon { left: 790px; top: 120px; width: 340px; height: 340px; }
+  #endName { position: absolute; left: 0; right: 0; top: 470px; text-align: center; color: var(--ink); font-size: 120px; font-weight: 820; letter-spacing: -0.04em; }
+  #endSub { position: absolute; left: 0; right: 0; top: 618px; text-align: center; color: var(--ink2); font-size: 48px; font-weight: 500; }
+  #endCta { position: absolute; left: 50%; top: 725px; transform: translateX(-50%); display: flex; align-items: center; gap: 22px; padding: 20px 46px 20px 22px;
+            border-radius: 99px; background: var(--ink); color: #fff; font-size: 44px; font-weight: 720; white-space: nowrap; }
+  #endCta .ic { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #22CE82, #0A8C5A); }
+  #endCta .ms { font-size: 50px; }
+  #endPerks { position: absolute; left: 0; right: 0; top: 870px; display: flex; justify-content: center; gap: 56px; color: var(--ink2); font-size: 34px; font-weight: 600; }
+  #endPerks span { display: inline-flex; align-items: center; gap: 12px; }
+  #endPerks .ms { color: #12B76A; font-size: 38px; }
+  #legal { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; color: #8A8AA3; font-size: 22px; font-weight: 450; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="27" data-track-index="0" data-width="1920" data-height="1080">
+
+  <!-- 1 · Hook -->
+  <div id="hook">
+    <div class="l1"><span>AI</span> <span>in</span> <span>the</span></div>
+    <div class="l2"><span id="hCloud">cloud.<span id="hStrike"></span></span><em id="hPocket">your pocket.</em></div>
+  </div>
+
+  <!-- 2 · Logo -->
+  <div id="logoIcon" class="icon" data-icon></div>
+  <div id="wordmark">Nano Prompt Ground</div>
+  <div id="tagline">Gemini Nano, right on your phone.</div>
+
+  <!-- colour fields (wipe in over each other) -->
+  <div class="layer field" id="fGreen"  data-a="#22CE82" data-b="#0A8C5A" data-glow="#FDE047"></div>
+  <div class="layer field" id="fBlue"   data-a="#4C8DFF" data-b="#1E55DC" data-glow="#FF8FC8"></div>
+  <div class="layer field" id="fPurple" data-a="#8F6EFF" data-b="#5634E0" data-glow="#5EE7F5"></div>
+  <div class="layer field" id="fOrange" data-a="#FF9D42" data-b="#F0522B" data-glow="#FFE066"></div>
+  <div class="layer field" id="fEnd" style="background:var(--paper)"></div>
+
+  <!-- 3 · Prompt + stream -->
+  <div class="text" id="s3" style="--hi:#0A7A4E;top:250px">
+    <div class="tag"><img src="../../fastlane/metadata/android/en-US/images/icon.png" alt="">Playground</div>
+    <div style="position:relative;height:420px;margin-top:34px">
+      <div id="s3a" style="position:absolute;inset:0">
+        <div class="title"><span class="w">Prompt</span> <em class="w">anything</em></div>
+        <div class="sub">Summaries, rewrites, ideas and haiku.<br>No account. No API key.</div>
+      </div>
+      <div id="s3b" style="position:absolute;inset:0">
+        <div class="title"><span class="w">Watch</span> <span class="w">answers</span> <em class="w">stream in</em></div>
+        <div class="sub">Token by token, with rich Markdown.</div>
+      </div>
+    </div>
+  </div>
+  <div id="s3chips" style="--a:#22CE82;--b:#0A8C5A"></div>
+
+  <!-- device -->
+  <div id="rig">
+    <div id="backcard"></div>
+    <div id="phone"><div id="screen"><div id="cam"></div><div id="app"></div></div><div id="ripple"></div></div>
+  </div>
+  <div id="s3chips2" style="--a:#22CE82;--b:#0A8C5A"></div>
+
+  <!-- 4 · Private + offline -->
+  <div class="text" id="s4" style="--hi:#1D4ED8;top:250px;--a:#4C8DFF;--b:#1E55DC">
+    <div class="tag"><span class="ms" style="font-size:1.3em;margin-left:.15em">airplanemode_active</span>Works offline</div>
+    <div class="title" style="margin-top:34px"><span class="w">No</span> <span class="w">signal?</span><br><em class="w">No problem.</em></div>
+    <div class="sub">Every prompt is answered on your phone.<br>Nothing is sent to a server.</div>
+    <div id="s4chips" style="display:flex;flex-wrap:wrap;gap:22px;margin-top:44px;width:1040px"></div>
+  </div>
+
+  <!-- 5 · Speed -->
+  <div class="layer" id="s5" style="--hi:#4C2FD1">
+    <div class="title" style="position:absolute;left:0;right:0;top:150px;text-align:center"><span class="w">See</span> <span class="w">the</span> <em class="w">speed</em> <span class="w">of</span> <span class="w">every</span> <span class="w">answer</span></div>
+    <div class="stat" style="left:175px"><span class="ms">timer</span><div class="v"><span id="vMs">0</span><small>ms</small></div><div class="l">Inference time</div></div>
+    <div class="stat" style="left:725px"><span class="ms">token</span><div class="v" id="vTok">0</div><div class="l">Output tokens</div></div>
+    <div class="stat" style="left:1275px"><span class="ms">flag</span><div class="v" id="vFin">STOP</div><div class="l">Finish reason</div></div>
+    <div class="sub" id="s5sub" style="position:absolute;left:0;right:0;top:790px;text-align:center">Measured after every response, with a live counter while Nano thinks.</div>
+  </div>
+
+  <!-- 6 · Features -->
+  <div class="layer" id="s6" style="--hi:#D9461C">
+    <div class="title" style="position:absolute;left:0;right:0;top:110px;text-align:center"><span class="w">Made</span> <span class="w">for</span> <span class="w">the</span> <em class="w">curious</em></div>
+    <div id="tiles"></div>
+  </div>
+
+  <!-- 7 · End card -->
+  <div class="layer" id="end">
+    <div id="endIcon" class="icon" data-icon></div>
+    <div id="endName">Nano Prompt Ground</div>
+    <div id="endSub">Private, offline AI. Right on your phone.</div>
+    <div id="endCta"><span class="ic"><span class="ms">play_arrow</span></span>Free on Google Play</div>
+    <div id="endPerks"><span><span class="ms">check_circle</span>No account</span><span><span class="ms">check_circle</span>No API key</span><span><span class="ms">check_circle</span>No cloud</span></div>
+    <div id="legal">Gemini Nano is a model by Google. Nano Prompt Ground is an independent, open-source project and is not affiliated with Google.</div>
+  </div>
+</div>
+
+<script src="../generator/ui.js"></script>
+<script src="../generator/scenes.js"></script>
+<script>
+// ------------------------------------------------------------------ static build
+const ICON_SVG = `<svg viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="#back" x1="84" y1="150" x2="428" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#60A5FA"/></linearGradient>
+    <linearGradient id="#front" x1="84" y1="150" x2="428" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34D399"/><stop offset="0.5" stop-color="#12B76A"/><stop offset="1" stop-color="#0E9F6E"/></linearGradient>
+    <radialGradient id="#glow" cx="100" cy="390" r="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDE047" stop-opacity="0.95"/><stop offset="0.6" stop-color="#FDE047" stop-opacity="0.43"/><stop offset="1" stop-color="#FDE047" stop-opacity="0"/></radialGradient>
+    <linearGradient id="#top" x1="0" y1="150" x2="0" y2="260" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.38"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+  </defs>
+  <g transform="translate(256 256) scale(0.9) translate(-256 -248)">
+    <g class="i-back"><path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##back)" transform="rotate(8 256 270) translate(0 -38)"/></g>
+    <g class="i-front">
+      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##front)"/>
+      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##glow)"/>
+      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##top)"/>
+    </g>
+    <path class="i-chev" d="M150,228L206,270L150,312" fill="none" stroke="#FFFFFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="160" stroke-dashoffset="160"/>
+    <path class="i-spark" d="M300,224C304.16,252.08 323.92,271.84 352,276C323.92,280.16 304.16,299.92 300,328C295.84,299.92 276.08,280.16 248,276C276.08,271.84 295.84,252.08 300,224Z" fill="#FFFFFF"/>
+  </g></svg>`;
+// Each copy of the icon gets its own gradient ids.
+document.querySelectorAll('[data-icon]').forEach((node, i) => { node.innerHTML = ICON_SVG.replaceAll('#back', 'b' + i).replaceAll('#front', 'f' + i).replaceAll('#glow', 'g' + i).replaceAll('#top', 't' + i); });
+
+const SPARK = `<svg viewBox="0 0 100 100"><path d="M50 0C53 30 70 47 100 50C70 53 53 70 50 100C47 70 30 53 0 50C30 47 47 30 50 0Z" fill="#fff"/></svg>`;
+for (const f of document.querySelectorAll('.field[data-a]')) {
+  const { a, b, glow } = f.dataset;
+  f.style.background = `linear-gradient(135deg, ${a}, ${b})`;
+  f.innerHTML = `<div class="blob" style="left:-240px;bottom:-320px;width:900px;height:900px;background:${glow};opacity:.55"></div>
+    <div class="blob" style="right:-200px;top:-300px;width:800px;height:800px;background:#fff;opacity:.18"></div>
+    <div class="slab" style="left:-160px;top:-120px;width:760px;height:620px;transform:rotate(-9deg)"></div>
+    <div class="spark" style="left:1060px;top:930px;width:70px;height:70px;opacity:.7">${SPARK}</div>
+    <div class="spark" style="left:70px;top:80px;width:60px;height:60px;opacity:.6">${SPARK}</div>`;
+}
+
+const chip = (icon, text, css = '', cls = '') => `<div class="chip ${cls}" style="${css}"><span class="ic"><span class="ms">${icon}</span></span>${text}</div>`;
+// Callouts overlapping the device edges, like the store screenshots.
+document.getElementById('s3chips').innerHTML =
+  chip('summarize', 'Summarise', 'right:620px;top:250px') + chip('lightbulb', 'Brainstorm', 'right:610px;top:640px');
+document.getElementById('s3chips2').innerHTML =
+  chip('edit_note', 'Rewrite', 'left:1600px;top:400px') + chip('school', 'Explain', 'left:1590px;top:790px') +
+  chip('bolt', 'Token by token', 'left:1560px;top:560px', 'stream');
+document.getElementById('s4chips').innerHTML =
+  chip('airplanemode_active', 'Airplane mode', '', 'flow') + chip('signal_wifi_off', 'Zero data used', '', 'flow') +
+  chip('lock', 'Processed locally', '', 'flow') + chip('cloud_off', 'Nothing sent to a server', '', 'flow');
+
+const TILES = [
+  ['share', 'Share to Nano', 'Send text from any app'],
+  ['format_list_bulleted', 'Rich Markdown', 'Lists, headings and code'],
+  ['verified', 'Know your model', 'See your nano-v2 or nano-v3'],
+  ['content_copy', 'Copy in one tap', 'Grab any answer instantly'],
+  ['palette', 'Material 3 Expressive', 'Dynamic colour, playful motion'],
+  ['code', 'Open source', 'Learn the Prompt API hands-on'],
+];
+document.getElementById('tiles').innerHTML = TILES.map(([ic, t, d], i) =>
+  `<div class="tile" style="left:${150 + (i % 3) * 560}px;top:${370 + Math.floor(i / 3) * 250}px"><div class="ic"><span class="ms">${ic}</span></div><div><b>${t}</b><span class="d">${d}</span></div></div>`).join('');
+
+// ------------------------------------------------------------------ app screen, driven by time
+const QUERY = 'Write a haiku about coffee on a rainy Monday';
+const HAIKU = 'Grey rain on the glass,\nsteam curls from a warm first cup.\nMonday, take it slow.';
+const HAIKU_TOKENS = HAIKU.match(/\S+\s*/g);
+const OFFLINE = SCENES[2].app;
+const clamp01 = x => Math.max(0, Math.min(1, x));
+const T = { type: [7.3, 9.0], tap: 9.25, think: 9.45, stream: [10.55, 11.95], stats: 12.05, flip: 12.85 };
+
+function screenState(t) {
+  if (t < T.think) {
+    const n = Math.round(clamp01((t - T.type[0]) / (T.type[1] - T.type[0])) * QUERY.length);
+    return { expanded: true, query: QUERY.slice(0, n), count: 0 };
+  }
+  if (t < T.stream[0]) return { query: QUERY, count: Math.floor(t - T.think), inferencing: true };
+  if (t < T.flip) {
+    const n = Math.ceil(clamp01((t - T.stream[0]) / (T.stream[1] - T.stream[0])) * HAIKU_TOKENS.length);
+    const done = n >= HAIKU_TOKENS.length;
+    const caret = done ? '' : '<span class="caret" style="height:22px;width:2px;background:#D0BCFF"></span>';
+    return { query: QUERY, count: 1, response: `<p><em>${HAIKU_TOKENS.slice(0, n).join('').replace(/\n/g, '<br>')}${caret}</em></p>`,
+             stats: t >= T.stats ? ['612.0', '21', 'STOP'] : null };
+  }
+  return OFFLINE;
+}
+
+const appEl = document.getElementById('app');
+const ripple = document.getElementById('ripple');
+let lastKey = '';
+function renderAt(t) {
+  const s = screenState(t);
+  const key = JSON.stringify(s);
+  if (key !== lastKey) {
+    lastKey = key;
+    appEl.innerHTML = appScreen(s, 380, 820, 1.1);
+    if (s.expanded) {
+      // Park the tap ripple on the big sparkle (send) button.
+      const send = [...appEl.querySelectorAll('.box')].sort((a, b) => b.offsetWidth - a.offsetWidth)[0];
+      let x = send.offsetWidth / 2, y = send.offsetHeight / 2;
+      for (let n = send; n && n.id !== 'screen'; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; }
+      ripple.style.left = (14 + x) + 'px';
+      ripple.style.top = (14 + y) + 'px';
+      send.id = 'sendBtn';
+    }
+  }
+  const spin = appEl.querySelector('.spin');
+  if (spin) spin.style.transform = `rotate(${t * 220}deg) scale(${1 + 0.12 * Math.sin(t * 7)})`;
+  const caret = appEl.querySelector('.caret');
+  if (caret) caret.style.opacity = s.expanded && t > T.type[1] ? (Math.floor(t * 2.2) % 2 ? 0 : 1) : 1;
+  const send = document.getElementById('sendBtn');
+  if (send) send.style.transform = `scale(${t > T.tap - 0.05 && t < T.tap + 0.15 ? 0.88 : 1})`;
+
+  // Number counters
+  const k = clamp01((t - 17.7) / 1.1), e = 1 - Math.pow(1 - k, 3);
+  document.getElementById('vMs').textContent = Math.round(612 * e);
+  document.getElementById('vTok').textContent = Math.round(21 * e);
+}
+
+// ------------------------------------------------------------------ timeline
+const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+const wipe = (sel, at, x, y, dur = 0.75) => tl.fromTo(sel, { clipPath: `circle(0px at ${x}px ${y}px)` },
+  { clipPath: `circle(2300px at ${x}px ${y}px)`, duration: dur, ease: 'power3.inOut' }, at);
+const words = sel => document.querySelectorAll(sel);
+
+// 1 · Hook (0 – 3)
+tl.from('#hook .l1 span', { y: 90, opacity: 0, duration: 0.6, stagger: 0.12 }, 0.15);
+tl.from('#hCloud', { y: 90, opacity: 0, duration: 0.6 }, 0.55);
+tl.to('#hStrike', { width: '104%', duration: 0.35, ease: 'power2.inOut' }, 1.3);
+tl.to('#hCloud', { y: 70, opacity: 0, duration: 0.35, ease: 'power2.in' }, 1.75);
+tl.from('#hPocket', { scale: 0.5, opacity: 0, duration: 0.6, ease: 'back.out(2)' }, 1.95);
+tl.to('#hook', { scale: 0.85, opacity: 0, duration: 0.45, ease: 'power2.in' }, 2.75);
+
+// 2 · Logo build (3 – 6.4)
+tl.set('#logoIcon', { opacity: 0 }, 0).set('#logoIcon', { opacity: 1 }, 3.0);
+tl.from('#logoIcon .i-back', { y: 140, rotation: -24, opacity: 0, transformOrigin: '50% 50%', duration: 0.7, ease: 'back.out(1.6)' }, 3.0);
+tl.from('#logoIcon .i-front', { scale: 0, transformOrigin: '50% 50%', duration: 0.65, ease: 'back.out(1.7)' }, 3.12);
+tl.to('#logoIcon .i-chev', { strokeDashoffset: 0, duration: 0.4, ease: 'power2.out' }, 3.5);
+tl.from('#logoIcon .i-spark', { scale: 0, rotation: -120, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.out(2.2)' }, 3.6);
+tl.to('#logoIcon', { x: -560, scale: 0.72, duration: 0.85, ease: 'expo.inOut' }, 4.25);
+tl.fromTo('#wordmark', { clipPath: 'inset(0 100% 0 0)', x: -40 }, { clipPath: 'inset(0 0% 0 0)', x: 0, duration: 0.8, ease: 'expo.out' }, 4.75);
+tl.from('#tagline', { y: 30, opacity: 0, duration: 0.5 }, 5.05);
+tl.set('#logoIcon .i-spark', { rotation: 0 }, 5.6);
+tl.to('#logoIcon .i-spark', { rotation: 90, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.inOut(2)' }, 5.6);
+
+// 3 · Prompt (6.3 – 12.7)
+wipe('#fGreen', 6.15, 400, 540, 0.85);
+tl.set('#rig', { autoAlpha: 0 }, 0).set('#rig', { autoAlpha: 1 }, 6.55);
+tl.fromTo('#rig', { x: 760, rotation: 14 }, { x: 0, rotation: -3, duration: 1.1, ease: 'expo.out' }, 6.55);
+tl.from('#backcard', { rotation: -12, x: 60, opacity: 0, duration: 1.2, ease: 'expo.out' }, 6.55);
+tl.to('#backcard', { rotation: 7, duration: 1.2, ease: 'expo.out' }, 6.55);
+tl.from('#s3 .tag', { y: 40, opacity: 0, duration: 0.5 }, 6.7);
+tl.from('#s3a .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.1 }, 6.8);
+tl.from('#s3a .sub', { y: 40, opacity: 0, duration: 0.5 }, 7.05);
+tl.set('#s3b', { opacity: 0 }, 0);
+const s3chips = [...words('#s3chips .chip'), ...words('#s3chips2 .chip:not(.stream)')];
+tl.from([s3chips[0], s3chips[2], s3chips[1], s3chips[3]], { scale: 0, opacity: 0, duration: 0.5, stagger: 0.18, ease: 'back.out(2)' }, 7.4);
+tl.to(s3chips, { scale: 0, opacity: 0, duration: 0.3, stagger: 0.05, ease: 'power2.in' }, 8.95);
+tl.fromTo('#ripple', { scale: 0.2, opacity: 0.8 }, { scale: 2.2, opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, T.tap);
+tl.to('#s3a', { y: -60, opacity: 0, duration: 0.35, ease: 'power2.in' }, 9.3);
+tl.set('#s3b', { opacity: 1 }, 9.6);
+tl.from('#s3b .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.1 }, 9.6);
+tl.from('#s3b .sub', { y: 40, opacity: 0, duration: 0.5 }, 9.95);
+tl.from('#s3chips2 .stream', { scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(2)' }, 10.6);
+tl.to('#s3chips2 .stream', { scale: 0, opacity: 0, duration: 0.3, ease: 'power2.in' }, 12.4);
+tl.to('#s3', { y: -50, opacity: 0, duration: 0.4, ease: 'power2.in' }, 12.35);
+tl.to('#rig', { scale: 1.04, duration: 1.2, ease: 'sine.inOut' }, 10.5);
+
+// 4 · Offline (12.6 – 16.9)
+wipe('#fBlue', 12.55, 1470, 540, 0.85);
+tl.to('#phone', { rotationY: 90, duration: 0.3, ease: 'power2.in' }, T.flip - 0.3);
+tl.to('#phone', { rotationY: 0, duration: 0.5, ease: 'back.out(1.6)' }, T.flip);
+tl.to('#rig', { scale: 1, duration: 0.6 }, 12.6);
+tl.from('#s4 .tag', { y: 40, opacity: 0, duration: 0.5 }, 13.0);
+tl.from('#s4 .title .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.1 }, 13.1);
+tl.from('#s4 .sub', { y: 40, opacity: 0, duration: 0.5 }, 13.45);
+tl.from('#s4chips .chip', { scale: 0, opacity: 0, duration: 0.5, stagger: 0.16, ease: 'back.out(2)', transformOrigin: '0% 50%' }, 13.8);
+tl.to('#s4', { y: -50, opacity: 0, duration: 0.4, ease: 'power2.in' }, 16.55);
+tl.to('#rig', { x: 900, rotation: 14, duration: 0.7, ease: 'power3.in' }, 16.45);
+
+// 5 · Speed (17 – 20.6)
+wipe('#fPurple', 16.85, 960, 1080, 0.8);
+tl.set('#s5', { opacity: 0 }, 0).set('#s5', { opacity: 1 }, 17.0);
+tl.from('#s5 .title .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.07 }, 17.15);
+tl.from('#s5 .stat', { y: 160, opacity: 0, rotation: 4, duration: 0.7, stagger: 0.14, ease: 'back.out(1.4)' }, 17.45);
+tl.from('#vFin', { opacity: 0, scale: 0.6, transformOrigin: '0% 50%', duration: 0.5, ease: 'back.out(2)' }, 18.5);
+tl.from('#s5sub', { y: 40, opacity: 0, duration: 0.5 }, 18.75);
+tl.to('#s5', { y: -60, opacity: 0, duration: 0.4, ease: 'power2.in' }, 20.25);
+
+// 6 · Features (20.6 – 23.7)
+wipe('#fOrange', 20.45, 960, 0, 0.8);
+tl.set('#s6', { opacity: 0 }, 0).set('#s6', { opacity: 1 }, 20.6);
+tl.from('#s6 .title .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.09 }, 20.75);
+tl.from('#s6 .tile', { y: 120, scale: 0.85, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'back.out(1.5)' }, 21.05);
+tl.to('#s6 .tile .ic', { rotation: 360, duration: 0.8, stagger: 0.1, ease: 'back.inOut(1.4)' }, 22.3);
+tl.to('#s6', { scale: 0.94, opacity: 0, duration: 0.4, ease: 'power2.in' }, 23.4);
+
+// 7 · End card (23.7 – 27)
+wipe('#fEnd', 23.55, 960, 540, 0.8);
+tl.set('#end', { opacity: 0 }, 0).set('#end', { opacity: 1 }, 23.7);
+tl.from('#endIcon .i-back', { y: 140, rotation: -24, opacity: 0, transformOrigin: '50% 50%', duration: 0.7, ease: 'back.out(1.6)' }, 23.85);
+tl.from('#endIcon .i-front', { scale: 0, transformOrigin: '50% 50%', duration: 0.65, ease: 'back.out(1.7)' }, 23.95);
+tl.to('#endIcon .i-chev', { strokeDashoffset: 0, duration: 0.4 }, 24.3);
+tl.from('#endIcon .i-spark', { scale: 0, rotation: -120, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.out(2.2)' }, 24.4);
+tl.fromTo('#endName', { clipPath: 'inset(0 50% 0 50%)' }, { clipPath: 'inset(0 0% 0 0%)', duration: 0.8, ease: 'expo.out' }, 24.45);
+tl.from('#endSub', { y: 30, opacity: 0, duration: 0.5 }, 24.75);
+tl.from('#endCta', { scale: 0.6, opacity: 0, duration: 0.6, ease: 'back.out(2)' }, 25.05);
+tl.from('#endPerks > span', { y: 30, opacity: 0, duration: 0.45, stagger: 0.1 }, 25.35);
+tl.from('#legal', { opacity: 0, duration: 0.5 }, 25.6);
+tl.to('#endCta', { scale: 1.05, duration: 0.35, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 26.1);
+
+// Slow parallax drift on every field so the colour never sits still.
+for (const f of document.querySelectorAll('.field[data-a]')) {
+  tl.fromTo(f.querySelectorAll('.blob'), { x: -60, y: 40 }, { x: 60, y: -40, duration: 27, ease: 'none' }, 0);
+  tl.fromTo(f.querySelectorAll('.spark'), { rotation: 0 }, { rotation: 180, duration: 27, ease: 'none' }, 0);
+}
+tl.set({}, {}, 27);
+
+window.__timelines = window.__timelines || {};
+window.__timelines.root = tl;
+window.__seek = t => { tl.seek(t, false); renderAt(t); };
+window.__ready = document.fonts.ready.then(() => window.__seek(0));
+if (location.hash === '#play') {
+  window.__ready.then(() => { tl.eventCallback('onUpdate', () => renderAt(tl.time())); tl.repeat(-1).play(); });
+}
+// Fit the 1920×1080 stage to the window when previewing.
+function fit() { const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('root').style.transform = s < 1 ? `scale(${s})` : ''; document.getElementById('root').style.transformOrigin = '0 0'; }
+if (location.hash === '#play') { addEventListener('resize', fit); fit(); }
+</script>
+</body>
+</html>
