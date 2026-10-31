@@ -43,7 +43,11 @@ function ensureFonts() {
   let ffmpeg;
   if (!stills) {
     fs.mkdirSync(path.dirname(OUT), { recursive: true });
-    ffmpeg = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
+    // Soundtrack + effects are synthesised by music.py and muxed in as AAC.
+    const music = path.join(DIR, 'out/soundtrack.wav');
+    execFileSync('python3', [path.join(DIR, 'music.py'), music], { stdio: 'inherit' });
+    ffmpeg = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-i', music,
+      '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '192k', '-shortest',
       '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', OUT], { stdio: ['pipe', 'inherit', 'inherit'] });
   }
   for (const [n, f] of frames.entries()) {

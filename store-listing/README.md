@@ -50,7 +50,7 @@ Open `generator/index.html?mode=phone` in a browser to preview a set as one pano
 
 ## Promo video
 
-`promo-video/out/nano-prompt-ground-promo.mp4` is a 28-second 1920 x 1080 motion-graphics film (30 fps, no audio)
+`promo-video/out/nano-prompt-ground-promo.mp4` is a 28-second 1920 x 1080 motion-graphics film (30 fps, with an original soundtrack)
 in Material 3 Expressive style: a light tonal scheme generated with material-color-utilities from the icon
 (primary = green window #12B76A, secondary = blue card #60A5FA, tertiary = yellow glow #FDE047), Google Sans Flex with animated weight,
 the expressive shape library (cookie, sunny, clover, gem, soft burst…) morphing frame by frame with spring overshoot,
@@ -69,5 +69,10 @@ by frame and pipes every frame into FFmpeg, so no frame is dropped.
 # needs Node, Playwright with Chromium, FFmpeg and curl (Google Sans Flex and Material Symbols are fetched once into promo-video/fonts/)
 NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs
 ```
+
+The soundtrack is synthesised from scratch by `promo-video/music.py` (numpy only, nothing sampled or licensed):
+120 BPM in C major on a grid that puts downbeats on the scene cuts, F-G-Em-Am resolving to Cmaj9 on the end card,
+a breakdown while Nano is thinking, plus whooshes, typing, taps, switch clicks and chimes timed to the animation.
+`render.cjs` runs it and muxes the result as AAC; run `python3 store-listing/promo-video/music.py` alone to just rebuild the WAV.
 
 Open `promo-video/index.html#play` in a browser to preview it live.
