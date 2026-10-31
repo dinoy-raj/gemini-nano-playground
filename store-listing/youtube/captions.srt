@@ -1,0 +1,48 @@
+1
+00:00:00,000 --> 00:00:03,600
+[upbeat deep house music]
+Your phone thinks offline.
+
+2
+00:00:03,600 --> 00:00:05,800
+Wi-Fi off. Mobile data off. Airplane mode on.
+No signal. Still smart.
+
+3
+00:00:05,800 --> 00:00:08,900
+Prompt: "Write a haiku about coffee
+on a rainy Monday"
+
+4
+00:00:08,900 --> 00:00:10,000
+Thinking on device…
+
+5
+00:00:10,000 --> 00:00:11,600
+Grey rain on the glass,
+steam curls from a warm first cup.
+
+6
+00:00:11,600 --> 00:00:12,600
+Monday, take it slow.
+612 ms · 21 tokens · 0 B sent
+
+7
+00:00:12,600 --> 00:00:16,000
+From prompt to poem in 612 ms.
+Measured on your phone after every answer.
+
+8
+00:00:16,000 --> 00:00:20,200
+Your words stay yours.
+Processed locally. 0 B uploaded.
+
+9
+00:00:20,200 --> 00:00:24,000
+Built for the curious: share to Nano, live token stream,
+inference stats, Markdown answers, open source.
+
+10
+00:00:24,000 --> 00:00:28,000
+Nano Prompt Ground. Private, offline AI.
+Free on Google Play.

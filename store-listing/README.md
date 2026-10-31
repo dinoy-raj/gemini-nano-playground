@@ -98,3 +98,10 @@ Helvetica and Gilroy are commercial fonts and are not in the repo. The renderer 
 Plus Jakarta Sans Bold (a free geometric look-alike for Gilroy). Static fonts can't animate weight, so these variants pin it.
 
 Open `promo-video/index.html#play` in a browser to preview it live.
+
+## YouTube
+
+[`youtube/youtube.md`](youtube/youtube.md) has everything for publishing the promo on YouTube and linking it from the
+Play listing: title options, description, tags, Studio settings, an end-screen plan and a pinned comment. Alongside it are
+`youtube/thumbnail.jpg` (1280 x 720, from `thumbnail.html`), `youtube/captions.srt` and `youtube/youtube-upload.mp4`
+(the film with 48 kHz audio). Rebuild with `NODE_PATH=$(npm root -g) node store-listing/youtube/render.cjs`.

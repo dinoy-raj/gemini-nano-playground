@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Nano Prompt Ground thumbnail</title>
+<!-- YouTube thumbnail, 1280 x 720. Same Material 3 Expressive scheme (from the icon) as ../promo-video. -->
+<style>
+  @font-face { font-family: 'Google Sans Flex'; font-weight: 1 1000; font-display: block; src: url(../promo-video/fonts/GoogleSansFlex-latin.woff2) format('woff2'); }
+  @font-face { font-family: 'Material Symbols Rounded'; font-weight: 100 700; font-display: block; src: url(../promo-video/fonts/MaterialSymbolsRounded.woff2) format('woff2'); }
+  :root { --primary: #006D3C; --on-primary: #FFFFFF; --pc-wash: #C2FFD1; --on-pc: #00210E; --on-pc-v: #00522C;
+          --sc: #D4E3FF; --tc: #FFE24C; --surface: #F8FAF5; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1280px; height: 720px; overflow: hidden; }
+  #t { position: relative; width: 1280px; height: 720px; overflow: hidden; background: var(--pc-wash); font-family: 'Google Sans Flex', sans-serif; color: var(--on-pc); }
+  .abs { position: absolute; }
+  svg.shape { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ms { font-family: 'Material Symbols Rounded'; font-variation-settings: 'FILL' 1, 'wght' 600, 'opsz' 48; line-height: 1; font-style: normal; }
+  .chip { display: inline-flex; align-items: center; gap: 12px; height: 62px; padding: 0 28px 0 20px; border-radius: 20px; background: var(--surface); font-size: 30px; font-weight: 650; color: var(--on-pc-v); }
+  .chip .ms { font-size: 34px; color: var(--primary); }
+  h1 { font-size: 132px; font-weight: 850; letter-spacing: -.045em; line-height: .98; }
+  .pill { display: inline-block; margin-top: 14px; padding: 2px 34px 14px; border-radius: 999px; background: var(--primary); color: var(--on-primary); font-size: 112px; font-weight: 850; letter-spacing: -.045em; line-height: 1.05; }
+</style>
+</head>
+<body>
+<div id="t">
+  <div class="abs" style="left:-150px;top:470px;width:420px;height:420px"><svg class="shape" viewBox="0 0 100 100"><path data-s="sunny" fill="#FFE24C"/></svg></div>
+  <div class="abs" style="left:1060px;top:-120px;width:340px;height:340px"><svg class="shape" viewBox="0 0 100 100"><path data-s="clover4" fill="#D4E3FF"/></svg></div>
+  <div class="abs" style="left:740px;top:110px;width:500px;height:500px"><svg class="shape" viewBox="0 0 100 100"><path data-s="cookie12" fill="#F8FAF5"/></svg></div>
+  <div class="abs" style="left:800px;top:185px;width:380px;height:350px">
+    <svg viewBox="70 100 372 330" style="width:100%;height:100%">
+      <defs><linearGradient id="b" x1="84" y1="150" x2="428" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#60A5FA"/></linearGradient>
+      <linearGradient id="f" x1="84" y1="150" x2="428" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34D399"/><stop offset=".5" stop-color="#12B76A"/><stop offset="1" stop-color="#0E9F6E"/></linearGradient>
+      <radialGradient id="g" cx="100" cy="390" r="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDE047" stop-opacity=".95"/><stop offset=".6" stop-color="#FDE047" stop-opacity=".43"/><stop offset="1" stop-color="#FDE047" stop-opacity="0"/></radialGradient></defs>
+      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(#b)" transform="rotate(8 256 270) translate(0 -38)"/>
+      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(#f)"/>
+      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(#g)"/>
+      <path d="M150,228L206,270L150,312" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M300,224C304,252 324,272 352,276C324,280 304,300 300,328C296,300 276,280 248,276C276,272 296,252 300,224Z" fill="#fff"/>
+    </svg>
+  </div>
+  <div class="abs" style="left:72px;top:92px">
+    <div class="chip"><span class="ms">auto_awesome</span>Gemini Nano · on device</div>
+    <h1 style="margin-top:36px">AI on your<br>phone.</h1>
+    <div class="pill">Offline.</div>
+  </div>
+</div>
+<script>
+const PI = Math.PI;
+const R = {
+  sunny: t => 50 * (1 - .14 * Math.pow(0.5 - 0.5 * Math.cos(8 * t), .8)),
+  clover4: t => 50 * (.62 + .38 * Math.pow(Math.abs(Math.cos(2 * t)), .55)),
+  cookie12: t => 50 * (1 - .08 * (0.5 - 0.5 * Math.cos(12 * t))),
+};
+document.querySelectorAll('[data-s]').forEach(p => {
+  let d = '';
+  for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * PI, r = R[p.dataset.s](t); d += (i ? 'L' : 'M') + (50 + r * Math.cos(t - PI / 2)).toFixed(2) + ' ' + (50 + r * Math.sin(t - PI / 2)).toFixed(2); }
+  p.setAttribute('d', d + 'Z');
+});
+window.__ready = document.fonts.ready;
+</script>
+</body>
+</html>
