@@ -14,8 +14,8 @@ const OUT = path.resolve(args.find(a => a.endsWith('.mp4')) || path.join(DIR, 'o
 
 // Fonts are fetched once (Chromium can't always reach Google Fonts directly) and kept out of Git.
 const FONTS = {
-  'GoogleSansFlex-latin.woff2': ['Google+Sans+Flex:opsz,wght@6..144,1..1000', '/* latin */'],
-  'MaterialSymbolsRounded.woff2': ['Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200', ''],
+  'Inter-latin.woff2': ['Inter:wght@100..900', '/* latin */'],
+  'JetBrainsMono-latin.woff2': ['JetBrains+Mono:wght@100..800', '/* latin */'],
 };
 function ensureFonts() {
   const ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';

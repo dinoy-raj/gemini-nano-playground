@@ -50,16 +50,21 @@ Open `generator/index.html?mode=phone` in a browser to preview a set as one pano
 
 ## Promo video
 
-`promo-video/out/nano-prompt-ground-promo.mp4` is a 27-second 1920 x 1080 motion-graphics film (30 fps, no audio):
-hook, icon build, prompt → streamed answer, offline/private, speed stats, feature grid and an end card.
+`promo-video/out/nano-prompt-ground-promo.mp4` is a 28-second 1920 x 1080 motion-graphics film (30 fps, no audio),
+with its own look rather than the store screenshots': an obsidian stage, silver type, one mint accent glow,
+mono microcopy, orbit rings, a travelling spark, light sweeps and blur reveals. No phone mockup; the product is shown as
+a glass prompt composer, a token-by-token streamed answer and live HUD readouts.
 
-It is a HyperFrames composition in the [Null Motion](https://github.com/blixvip/NullMotion) template format:
-`promo-video/index.html` holds one paused GSAP timeline (`window.__timelines.root`, GSAP bundled from Null Motion) and
-reuses `generator/ui.js` and `generator/scenes.js`, so the phone shows the same app recreation as the screenshots.
-`render.cjs` seeks the timeline frame by frame and pipes every frame into FFmpeg, so no frame is dropped.
+Scenes: kinetic headline ("Your phone thinks offline.") → no-signal HUD → prompt typed and sent → haiku streams in with
+inference stats → 612 ms speed beat → "Your words stay yours." (packets blocked before the cloud) → feature list → end card.
+
+It is a HyperFrames composition in the [Null Motion](https://github.com/blixvip/NullMotion) template format, built from
+the motion vocabulary of its templates (kinetic headline, prompt composer, chat sim, blur reveal, connector list):
+`promo-video/index.html` holds one paused GSAP timeline (`window.__timelines.root`, GSAP bundled from Null Motion).
+`render.cjs` seeks it frame by frame and pipes every frame into FFmpeg, so no frame is dropped.
 
 ```bash
-# needs Node, Playwright with Chromium, FFmpeg and curl (fonts are fetched once into promo-video/fonts/)
+# needs Node, Playwright with Chromium, FFmpeg and curl (Inter and JetBrains Mono are fetched once into promo-video/fonts/)
 NODE_PATH=$(npm root -g) node store-listing/promo-video/render.cjs
 ```
 

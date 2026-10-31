@@ -6,403 +6,410 @@
 <title>Nano Prompt Ground promo</title>
 <!-- HyperFrames composition in the Null Motion template format (https://github.com/blixvip/NullMotion):
      one paused GSAP timeline registered as window.__timelines.root, seeked frame by frame by render.cjs.
+     The look follows Null Motion's own templates (kinetic headline, prompt composer, chat sim, blur reveal,
+     connector list): obsidian stage, silver type, one accent glow, mono microcopy, orbits, sparks and sheens.
      Open index.html#play to preview it in a browser. -->
 <script src="gsap.min.js"></script>
 <style>
-  @font-face { font-family: 'Google Sans Flex'; font-weight: 1 1000; font-display: block; src: url(fonts/GoogleSansFlex-latin.woff2) format('woff2'); }
-  @font-face { font-family: 'Material Symbols Rounded'; font-weight: 100 700; font-display: block; src: url(fonts/MaterialSymbolsRounded.woff2) format('woff2'); }
-  :root { --ink: #16133D; --ink2: #4A4870; --paper: #F5F6FF; }
+  @font-face { font-family: 'Inter'; font-weight: 100 900; font-display: block; src: url(fonts/Inter-latin.woff2) format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-weight: 100 800; font-display: block; src: url(fonts/JetBrainsMono-latin.woff2) format('woff2'); }
+  :root { --silver: #f4f4f6; --muted: rgba(244,244,246,.5); --accent: #6EF2B5; --accent-rgb: 110,242,181; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
-  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper);
-          font-family: 'Google Sans Flex', sans-serif; -webkit-font-smoothing: antialiased; }
-  .layer { position: absolute; inset: 0; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #050506; color: var(--silver);
+          font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; perspective: 1400px; }
+  .scene { position: absolute; inset: 0; }
+  .abs { position: absolute; }
+  .silver { background: linear-gradient(180deg, #fff 0%, #dedee2 44%, #999aa2 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .index { display: flex; align-items: center; gap: 14px; font-size: 18px; }
+  .index i { width: 26px; height: 1px; background: var(--accent); box-shadow: 0 0 16px rgba(var(--accent-rgb),.6); }
+  .center-x { left: 0; right: 0; display: flex; justify-content: center; }
 
-  /* ---- app UI recreation (shared with ../generator) */
-  .ms { font-family: 'Material Symbols Rounded'; font-variation-settings: 'FILL' 1, 'wght' 500, 'opsz' 24; line-height: 1; display: inline-block; font-style: normal; }
-  .row { display: flex; align-items: center; }
-  .col { display: flex; flex-direction: column; }
-  .box { position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .shape { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .box > .ms { position: relative; }
-  .app { position: relative; display: flex; flex-direction: column; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; }
-  .sb { display: flex; align-items: center; justify-content: space-between; color: #E6E0E9; flex-shrink: 0; position: relative; }
-  .nav { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .nav i { display: block; background: #E6E0E9; border-radius: 99px; }
-  .md p { margin-bottom: calc(var(--dp) * 12); }
-  .md ul { padding-left: calc(var(--dp) * 22); margin-bottom: calc(var(--dp) * 12); }
-  .md li { margin-bottom: calc(var(--dp) * 6); }
-  .md strong { font-weight: 700; }
-  .stats { display: flex; flex-wrap: wrap; }
-  .caret { display: inline-block; vertical-align: text-bottom; margin-left: 2px; border-radius: 2px; }
+  /* ---- backdrop */
+  #atmo { left: 260px; top: 140px; width: 1400px; height: 800px; background: radial-gradient(ellipse at 50% 50%, rgba(var(--accent-rgb),.13) 0%, rgba(80,110,130,.07) 34%, rgba(4,8,10,0) 70%); filter: blur(12px); }
+  #grid { inset: 0; background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+          background-size: 80px 80px; -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 0%, transparent 72%); mask-image: radial-gradient(ellipse at 50% 50%, #000 0%, transparent 72%); }
+  #vignette { inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,.65) 100%); pointer-events: none; }
+  #grain { inset: 0; opacity: .07; mix-blend-mode: overlay; pointer-events: none; }
+  .orbit { border: 1px solid rgba(244,244,246,.09); border-radius: 50%; }
+  .orbit::after { content: ""; position: absolute; inset: 40px 80px; border: 1px solid rgba(var(--accent-rgb),.14); border-radius: 50%; }
+  .guide { height: 1px; background: linear-gradient(90deg, transparent, rgba(244,244,246,.14) 16%, rgba(var(--accent-rgb),.4) 50%, rgba(244,244,246,.14) 84%, transparent); }
+  .spark { width: 10px; height: 10px; margin: -5px; border-radius: 50%; background: #f2fff8; opacity: 0;
+           box-shadow: 0 0 12px rgba(242,255,248,.9), 0 0 34px rgba(var(--accent-rgb),.7), 0 0 80px rgba(var(--accent-rgb),.3); }
 
-  /* ---- colour fields, one per section, taken from the icon palette */
-  .field { clip-path: circle(0px at 50% 50%); overflow: hidden; }
-  .field .blob { position: absolute; border-radius: 50%; filter: blur(120px); }
-  .field .slab { position: absolute; border-radius: 9%/6%; background: rgba(255,255,255,.12); }
-  .spark { position: absolute; width: 90px; height: 90px; }
+  /* ---- kinetic headline */
+  .line { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 34px; white-space: nowrap; }
+  .mask { overflow: hidden; padding: 18px 4px 26px; }
+  .word { display: block; font-size: 128px; font-weight: 780; line-height: .9; letter-spacing: -.055em; filter: drop-shadow(0 12px 25px rgba(0,0,0,.25)); }
+  .pill-wrap { position: relative; padding: 30px 0; }
+  .shadow { position: absolute; left: 10%; right: 10%; bottom: 8px; height: 28px; border-radius: 50%; background: rgba(0,0,0,.6); filter: blur(18px); }
+  .pill { position: relative; padding: 30px 60px 36px; overflow: hidden; border-radius: 999px;
+          background: linear-gradient(180deg, rgba(42,42,47,.98) 0%, rgba(17,17,20,.99) 58%, rgba(7,7,9,.99) 100%); border: 1px solid rgba(255,255,255,.18);
+          box-shadow: inset 0 2px rgba(255,255,255,.2), inset 0 -1px rgba(var(--accent-rgb),.25), 0 0 54px rgba(var(--accent-rgb),.16), 0 24px 48px rgba(0,0,0,.4); }
+  .pill::before { content: ""; position: absolute; inset: 1px 28px auto; height: 45%; border-radius: 999px; background: linear-gradient(180deg, rgba(255,255,255,.09), transparent); }
+  .pill .word { position: relative; z-index: 2; font-size: 100px; letter-spacing: -.045em; }
+  .sheen { position: absolute; z-index: 3; top: -20%; left: -38%; width: 26%; height: 140%; opacity: 0; transform: skewX(-16deg);
+           background: linear-gradient(105deg, transparent, rgba(255,255,255,.72), rgba(var(--accent-rgb),.3), transparent); filter: blur(1px); }
 
-  /* ---- marketing type */
-  .text { position: absolute; left: 140px; top: 0; width: 1000px; }
-  .tag { display: inline-flex; align-items: center; gap: .5em; padding: .4em 1.05em .4em .45em; border-radius: 99px; font-size: 32px;
-         background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.38); color: #fff; font-weight: 650; }
-  .tag img { width: 1.6em; height: 1.6em; border-radius: 30%; }
-  .title { color: #fff; font-size: 108px; font-weight: 820; letter-spacing: -0.035em; line-height: 1.04; }
-  .title .w { display: inline-block; }
-  .title em { font-style: normal; display: inline-block; background: #fff; color: var(--hi); border-radius: .22em; padding: 0 .16em .04em; }
-  .sub { color: rgba(255,255,255,.9); font-size: 40px; font-weight: 450; line-height: 1.3; margin-top: 28px; }
-  .chip { position: absolute; display: inline-flex; align-items: center; gap: 16px; padding: 14px 30px 14px 14px; border-radius: 24px;
-          background: #fff; color: #10172A; font-size: 34px; font-weight: 680; white-space: nowrap; letter-spacing: -0.01em;
-          box-shadow: 0 28px 60px -12px rgba(8,20,40,.4), 0 4px 12px rgba(8,20,40,.1); }
-  .chip.flow { position: relative; }
-  .chip .ic { width: 58px; height: 58px; display: flex; align-items: center; justify-content: center; border-radius: 30%; color: #fff;
-              background: linear-gradient(135deg, var(--a), var(--b)); }
-  .chip .ic .ms { font-size: 34px; }
+  /* ---- glass */
+  .glass { background: linear-gradient(180deg, #1b1b1f 0%, #121215 100%); border: 1px solid rgba(255,255,255,.09);
+           box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 40px 90px rgba(0,0,0,.6); }
 
-  /* ---- device */
-  #rig { position: absolute; left: 1250px; top: 74px; width: 446px; height: 930px; perspective: 2200px; }
-  #backcard { position: absolute; left: -60px; top: 40px; width: 560px; height: 860px; border-radius: 64px;
-              background: linear-gradient(135deg, rgba(255,255,255,.36), rgba(255,255,255,.1)); }
-  #phone { position: absolute; inset: 0; padding: 14px; border-radius: 58px; background: #0C0B11; transform-style: preserve-3d;
-           box-shadow: 0 0 0 3px rgba(255,255,255,.22), 0 70px 140px -20px rgba(8,20,40,.55), 0 20px 40px rgba(8,20,40,.25); }
-  #screen { position: relative; width: 100%; height: 100%; border-radius: 44px; overflow: hidden; background: #141218; }
-  #cam { position: absolute; left: 50%; top: 12px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #000; z-index: 3; box-shadow: inset 0 0 0 2px #1d1c28; }
-  #ripple { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; background: rgba(255,255,255,.55); opacity: 0; z-index: 4; }
+  /* ---- S2 offline HUD */
+  #bars { left: 820px; top: 250px; width: 280px; height: 220px; display: flex; align-items: flex-end; gap: 26px; }
+  #bars b { flex: 1; border-radius: 12px; background: linear-gradient(180deg, #f4f4f6, #8d8d95); }
+  #slash { left: 790px; top: 352px; width: 340px; height: 14px; border-radius: 7px; background: var(--accent); box-shadow: 0 0 30px rgba(var(--accent-rgb),.7); transform: rotate(-38deg); transform-origin: 0 50%; }
+  .status { width: 760px; display: flex; justify-content: space-between; font-size: 24px; padding: 18px 4px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .status span:last-child { color: var(--silver); }
+  .status .on { color: var(--accent) !important; text-shadow: 0 0 18px rgba(var(--accent-rgb),.6); }
 
-  /* ---- hook + logo */
-  #hook { position: absolute; left: 0; right: 0; top: 330px; text-align: center; color: var(--ink); font-weight: 820; letter-spacing: -0.04em; }
-  #hook .l1 { font-size: 150px; line-height: 1.05; }
-  #hook .l1 span { display: inline-block; }
-  #hook .l2 { position: relative; height: 190px; font-size: 150px; line-height: 1.2; }
-  #hook .l2 > * { position: absolute; left: 50%; top: 0; transform: translateX(-50%); white-space: nowrap; }
-  #hStrike { position: absolute; left: -2%; top: 50%; width: 0; height: 18px; border-radius: 9px; background: #F0522B; }
-  #hPocket { font-style: normal; color: #fff; background: linear-gradient(135deg, #22CE82, #0A8C5A); border-radius: .22em; padding: 0 .2em .06em; }
-  .icon { position: absolute; width: 380px; height: 380px; }
-  .icon svg { width: 100%; height: 100%; overflow: visible; }
-  #logoIcon { left: 770px; top: 300px; }
-  #wordmark { position: absolute; left: 600px; top: 395px; color: var(--ink); font-size: 116px; font-weight: 820; letter-spacing: -0.04em; white-space: nowrap; }
-  #tagline { position: absolute; left: 606px; top: 545px; color: var(--ink2); font-size: 46px; font-weight: 500; white-space: nowrap; }
+  /* ---- S3 composer + answer */
+  #card { left: 420px; top: 330px; width: 1080px; padding: 40px 40px 26px; border-radius: 30px; }
+  #text { font-size: 42px; line-height: 1.42; color: #d7d7dc; min-height: 120px; letter-spacing: -.01em; }
+  #text b { color: #fff; font-weight: 650; }
+  #text .hl { background: linear-gradient(180deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 650; }
+  .caret { display: inline-block; width: 3px; height: 42px; background: #cfcfd4; margin-left: 3px; vertical-align: -8px; }
+  #bottom { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
+  .chip { display: inline-flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 14px; font-size: 22px; color: #ECECEE;
+          background: linear-gradient(180deg, #26262b, #16161a); border: 1px solid rgba(255,255,255,.1); }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(var(--accent-rgb),.8); }
+  .pillbtn { padding: 12px 20px; border-radius: 999px; font-size: 20px; background: #161618; border: 1px solid rgba(255,255,255,.08); }
+  #send { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none;
+          background: linear-gradient(180deg, #F2F2F2 0%, #B8B8BC 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,.8), 0 12px 26px rgba(0,0,0,.5); }
+  #cur { left: 0; top: 0; width: 46px; height: 46px; z-index: 6; }
+  #think { left: 0; right: 0; top: 600px; display: flex; flex-direction: column; align-items: center; gap: 34px; }
+  #orb { position: relative; width: 120px; height: 120px; }
+  #orb i { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(var(--accent-rgb),.5); }
+  #orb b { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px; border-radius: 50%; background: #f2fff8;
+           box-shadow: 0 0 20px rgba(242,255,248,.9), 0 0 60px rgba(var(--accent-rgb),.8); }
+  #answer { left: 0; right: 0; top: 520px; text-align: center; font-size: 66px; font-weight: 600; line-height: 1.24; letter-spacing: -.03em; }
+  #answer span { display: inline-block; margin-right: .26em; }
+  #hud { left: 0; right: 0; top: 880px; display: flex; justify-content: center; gap: 70px; font-size: 22px; }
+  #hud div { display: flex; gap: 14px; align-items: baseline; }
+  #hud b { color: var(--silver); font-weight: 600; font-size: 30px; letter-spacing: .04em; }
 
-  /* ---- stats */
-  .stat { position: absolute; top: 420px; width: 470px; height: 300px; border-radius: 44px; background: #fff; padding: 46px 50px;
-          box-shadow: 0 40px 90px -20px rgba(8,20,40,.5); }
-  .stat .v { color: var(--ink); font-size: 128px; font-weight: 800; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
-  .stat .v small { font-size: 56px; font-weight: 650; margin-left: 8px; letter-spacing: -0.02em; }
-  .stat .l { color: #5B6474; font-size: 34px; font-weight: 560; margin-top: 26px; }
-  .stat .ms { position: absolute; right: 42px; top: 42px; font-size: 48px; color: #8F6EFF; }
+  /* ---- S4 speed */
+  #big { left: 0; right: 0; top: 270px; display: flex; justify-content: center; align-items: baseline; gap: 20px; }
+  #bigNum { font-size: 400px; font-weight: 800; letter-spacing: -.07em; line-height: .9; font-variant-numeric: tabular-nums; }
+  #bigUnit { font-size: 110px; font-weight: 700; color: var(--accent); letter-spacing: -.03em; text-shadow: 0 0 40px rgba(var(--accent-rgb),.5); }
 
-  /* ---- feature tiles */
-  .tile { position: absolute; width: 520px; height: 200px; border-radius: 40px; background: #fff; padding: 36px; display: flex; gap: 28px; align-items: center;
-          box-shadow: 0 34px 80px -20px rgba(90,30,10,.45); }
-  .tile .ic { width: 112px; height: 112px; flex: none; border-radius: 30%; display: flex; align-items: center; justify-content: center; color: #fff;
-              background: linear-gradient(135deg, #FF9D42, #F0522B); }
-  .tile .ic .ms { font-size: 60px; }
-  .tile b { display: block; color: var(--ink); font-size: 40px; font-weight: 760; letter-spacing: -0.02em; }
-  .tile span.d { display: block; color: #5B6474; font-size: 29px; font-weight: 480; margin-top: 8px; line-height: 1.25; }
+  /* ---- S5 privacy */
+  .glyph { width: 220px; height: 220px; }
+  .glyph svg { width: 100%; height: 100%; overflow: visible; }
+  #lane { left: 620px; top: 660px; width: 680px; height: 2px; background-image: linear-gradient(90deg, rgba(255,255,255,.25) 50%, transparent 50%); background-size: 18px 2px; }
+  #wall { left: 1030px; top: 560px; width: 4px; height: 200px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 24px rgba(var(--accent-rgb),.8), 0 0 70px rgba(var(--accent-rgb),.4); }
+  .packet { left: 640px; top: 655px; width: 12px; height: 12px; border-radius: 3px; background: #f4f4f6; box-shadow: 0 0 14px rgba(255,255,255,.7); opacity: 0; }
 
-  /* ---- end card */
-  #endIcon { left: 790px; top: 120px; width: 340px; height: 340px; }
-  #endName { position: absolute; left: 0; right: 0; top: 470px; text-align: center; color: var(--ink); font-size: 120px; font-weight: 820; letter-spacing: -0.04em; }
-  #endSub { position: absolute; left: 0; right: 0; top: 618px; text-align: center; color: var(--ink2); font-size: 48px; font-weight: 500; }
-  #endCta { position: absolute; left: 50%; top: 725px; transform: translateX(-50%); display: flex; align-items: center; gap: 22px; padding: 20px 46px 20px 22px;
-            border-radius: 99px; background: var(--ink); color: #fff; font-size: 44px; font-weight: 720; white-space: nowrap; }
-  #endCta .ic { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #22CE82, #0A8C5A); }
-  #endCta .ms { font-size: 50px; }
-  #endPerks { position: absolute; left: 0; right: 0; top: 870px; display: flex; justify-content: center; gap: 56px; color: var(--ink2); font-size: 34px; font-weight: 600; }
-  #endPerks span { display: inline-flex; align-items: center; gap: 12px; }
-  #endPerks .ms { color: #12B76A; font-size: 38px; }
-  #legal { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; color: #8A8AA3; font-size: 22px; font-weight: 450; }
+  /* ---- S6 features */
+  .row { position: absolute; left: 960px; width: 800px; height: 118px; border-radius: 22px; display: flex; align-items: center; gap: 30px; padding: 0 34px; }
+  .row .n { font-size: 20px; width: 36px; }
+  .row .t { font-size: 36px; font-weight: 680; letter-spacing: -.02em; color: var(--silver); }
+  .row .d { font-size: 23px; color: var(--muted); margin-top: 6px; }
+  .row .dot { margin-left: auto; opacity: .25; }
+  #rowHi { position: absolute; z-index: 2; left: 960px; width: 800px; height: 118px; border-radius: 22px; border: 1px solid rgba(var(--accent-rgb),.55);
+           box-shadow: 0 0 40px rgba(var(--accent-rgb),.18), inset 0 0 30px rgba(var(--accent-rgb),.06); opacity: 0; }
+
+  /* ---- S7 end */
+  #plate { left: 50%; top: 300px; transform: translateX(-50%); display: flex; align-items: center; gap: 40px; padding: 54px 84px; border-radius: 36px; overflow: hidden; white-space: nowrap; }
+  #plate .sweep { position: absolute; top: 0; bottom: 0; left: -40%; width: 35%; background: linear-gradient(105deg, transparent, rgba(255,255,255,.18) 50%, transparent); transform: skewX(-16deg); }
+  #mark { width: 132px; height: 132px; }
+  #mark svg { width: 100%; height: 100%; }
+  #wordmark { font-size: 104px; font-weight: 760; letter-spacing: -.045em; line-height: 1.05; padding-bottom: 6px; }
+  #endTag { top: 600px; font-size: 40px; font-weight: 450; color: rgba(244,244,246,.72); letter-spacing: -.01em; }
+  #cta { left: 50%; top: 700px; transform: translateX(-50%); display: flex; align-items: center; gap: 20px; padding: 22px 46px 24px 26px; border-radius: 999px; font-size: 38px; font-weight: 650; white-space: nowrap; }
+  #cta .play { width: 58px; height: 58px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(var(--accent-rgb),.55); }
+  #legal { bottom: 40px; font-size: 15px; letter-spacing: .14em; color: rgba(244,244,246,.35); }
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="root" data-start="0" data-duration="27" data-track-index="0" data-width="1920" data-height="1080">
+<div id="root" data-composition-id="root" data-start="0" data-duration="28" data-track-index="0" data-width="1920" data-height="1080">
+  <div class="abs" id="grid"></div>
+  <div class="abs" id="atmo"></div>
+  <div class="abs orbit" id="orbit" style="left:410px;top:270px;width:1100px;height:540px"></div>
+  <div class="abs guide" id="guide" style="left:180px;top:540px;width:1560px"></div>
 
-  <!-- 1 · Hook -->
-  <div id="hook">
-    <div class="l1"><span>AI</span> <span>in</span> <span>the</span></div>
-    <div class="l2"><span id="hCloud">cloud.<span id="hStrike"></span></span><em id="hPocket">your pocket.</em></div>
+  <!-- 1 · Kinetic headline -->
+  <div class="scene" id="s1">
+    <div class="abs center-x" style="top:330px"><div class="mono index" id="s1idx"><i></i>Gemini Nano · running on device<i></i></div></div>
+    <div class="line" style="top:405px">
+      <div class="mask"><span class="word silver" id="w1">Your phone</span></div>
+      <div class="pill-wrap" id="pillWrap"><div class="shadow"></div><div class="pill" id="pill"><span class="word silver">thinks</span><div class="sheen" id="sheen"></div></div></div>
+      <div class="mask"><span class="word silver" id="w2">offline.</span></div>
+    </div>
+    <div class="abs center-x mono" style="top:720px;font-size:18px" id="s1micro">No cloud &nbsp;·&nbsp; No account &nbsp;·&nbsp; No API key</div>
   </div>
 
-  <!-- 2 · Logo -->
-  <div id="logoIcon" class="icon" data-icon></div>
-  <div id="wordmark">Nano Prompt Ground</div>
-  <div id="tagline">Gemini Nano, right on your phone.</div>
+  <!-- 2 · No signal -->
+  <div class="scene" id="s2">
+    <div class="abs" id="bars"><b style="height:25%"></b><b style="height:50%"></b><b style="height:75%"></b><b style="height:100%"></b></div>
+    <div class="abs" id="slash"></div>
+    <div class="abs center-x" style="top:540px"><div>
+      <div class="status mono"><span>Wi-Fi</span><span>Off</span></div>
+      <div class="status mono"><span>Mobile data</span><span>Off</span></div>
+      <div class="status mono"><span>Gemini Nano</span><span class="on">Ready</span></div>
+    </div></div>
+    <div class="abs center-x" style="top:810px"><div class="word silver" style="font-size:92px" id="s2h">No signal. Still smart.</div></div>
+  </div>
 
-  <!-- colour fields (wipe in over each other) -->
-  <div class="layer field" id="fGreen"  data-a="#22CE82" data-b="#0A8C5A" data-glow="#FDE047"></div>
-  <div class="layer field" id="fBlue"   data-a="#4C8DFF" data-b="#1E55DC" data-glow="#FF8FC8"></div>
-  <div class="layer field" id="fPurple" data-a="#8F6EFF" data-b="#5634E0" data-glow="#5EE7F5"></div>
-  <div class="layer field" id="fOrange" data-a="#FF9D42" data-b="#F0522B" data-glow="#FFE066"></div>
-  <div class="layer field" id="fEnd" style="background:var(--paper)"></div>
-
-  <!-- 3 · Prompt + stream -->
-  <div class="text" id="s3" style="--hi:#0A7A4E;top:250px">
-    <div class="tag"><img src="../../fastlane/metadata/android/en-US/images/icon.png" alt="">Playground</div>
-    <div style="position:relative;height:420px;margin-top:34px">
-      <div id="s3a" style="position:absolute;inset:0">
-        <div class="title"><span class="w">Prompt</span> <em class="w">anything</em></div>
-        <div class="sub">Summaries, rewrites, ideas and haiku.<br>No account. No API key.</div>
-      </div>
-      <div id="s3b" style="position:absolute;inset:0">
-        <div class="title"><span class="w">Watch</span> <span class="w">answers</span> <em class="w">stream in</em></div>
-        <div class="sub">Token by token, with rich Markdown.</div>
+  <!-- 3 · Prompt → answer -->
+  <div class="scene" id="s3">
+    <div class="abs glass" id="card">
+      <div id="text"><span id="typed"></span><span class="caret" id="caret"></span></div>
+      <div id="bottom">
+        <div class="chip" id="chip1"><span class="dot"></span>Gemini Nano</div>
+        <div class="chip" id="chip2"><span class="mono" style="font-size:16px;letter-spacing:.14em">On device</span></div>
+        <div style="flex:1"></div>
+        <div class="pillbtn mono" style="font-size:16px">nano-v3</div>
+        <div id="send"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
       </div>
     </div>
-  </div>
-  <div id="s3chips" style="--a:#22CE82;--b:#0A8C5A"></div>
-
-  <!-- device -->
-  <div id="rig">
-    <div id="backcard"></div>
-    <div id="phone"><div id="screen"><div id="cam"></div><div id="app"></div></div><div id="ripple"></div></div>
-  </div>
-  <div id="s3chips2" style="--a:#22CE82;--b:#0A8C5A"></div>
-
-  <!-- 4 · Private + offline -->
-  <div class="text" id="s4" style="--hi:#1D4ED8;top:250px;--a:#4C8DFF;--b:#1E55DC">
-    <div class="tag"><span class="ms" style="font-size:1.3em;margin-left:.15em">airplanemode_active</span>Works offline</div>
-    <div class="title" style="margin-top:34px"><span class="w">No</span> <span class="w">signal?</span><br><em class="w">No problem.</em></div>
-    <div class="sub">Every prompt is answered on your phone.<br>Nothing is sent to a server.</div>
-    <div id="s4chips" style="display:flex;flex-wrap:wrap;gap:22px;margin-top:44px;width:1040px"></div>
+    <div class="abs" id="cur"><svg viewBox="0 0 24 24" style="width:100%;height:100%;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))"><path d="M5 3l14 8-6 1.6L10 19z" fill="#fff" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+    <div class="abs" id="think"><div id="orb"><i></i><i></i><i></i><b></b></div><div class="mono" style="font-size:22px">Thinking on device · <span id="thinkT" style="color:var(--silver)">0.0s</span></div></div>
+    <div class="abs" id="answer"></div>
+    <div class="abs mono" id="hud">
+      <div>Inference <b id="hMs">0 ms</b></div><div>Tokens <b id="hTok">0</b></div><div>Finish <b>STOP</b></div><div>Network <b style="color:var(--accent)">0 B</b></div>
+    </div>
   </div>
 
-  <!-- 5 · Speed -->
-  <div class="layer" id="s5" style="--hi:#4C2FD1">
-    <div class="title" style="position:absolute;left:0;right:0;top:150px;text-align:center"><span class="w">See</span> <span class="w">the</span> <em class="w">speed</em> <span class="w">of</span> <span class="w">every</span> <span class="w">answer</span></div>
-    <div class="stat" style="left:175px"><span class="ms">timer</span><div class="v"><span id="vMs">0</span><small>ms</small></div><div class="l">Inference time</div></div>
-    <div class="stat" style="left:725px"><span class="ms">token</span><div class="v" id="vTok">0</div><div class="l">Output tokens</div></div>
-    <div class="stat" style="left:1275px"><span class="ms">flag</span><div class="v" id="vFin">STOP</div><div class="l">Finish reason</div></div>
-    <div class="sub" id="s5sub" style="position:absolute;left:0;right:0;top:790px;text-align:center">Measured after every response, with a live counter while Nano thinks.</div>
+  <!-- 4 · Speed -->
+  <div class="scene" id="s4">
+    <div class="abs center-x" style="top:230px"><div class="mono index"><i></i>Inference time<i></i></div></div>
+    <div class="abs" id="big"><span class="silver" id="bigNum">0</span><span id="bigUnit">ms</span></div>
+    <div class="abs center-x" style="top:740px"><div style="font-size:44px;font-weight:500;color:rgba(244,244,246,.75);letter-spacing:-.01em" id="s4sub">From prompt to poem. No round trip.</div></div>
+  </div>
+
+  <!-- 5 · Privacy -->
+  <div class="scene" id="s5">
+    <div class="line" style="top:150px">
+      <div class="mask"><span class="word silver" id="p1">Your words stay</span></div>
+      <div class="pill-wrap" id="pillWrap2"><div class="shadow"></div><div class="pill" id="pill2"><span class="word silver">yours.</span><div class="sheen" id="sheen2"></div></div></div>
+    </div>
+    <div class="abs glyph" id="gDevice" style="left:400px;top:550px">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#f4f4f6" stroke-width="2.5" stroke-linecap="round"><rect x="28" y="8" width="44" height="84" rx="9"/><path d="M45 15h10"/><path d="M42 50l6 6 10-12" stroke="var(--accent)" stroke-width="3.5"/></svg>
+    </div>
+    <div class="abs" id="lane"></div>
+    <div class="abs" id="wall"></div>
+    <div id="packets"></div>
+    <div class="abs glyph" id="gCloud" style="left:1300px;top:550px">
+      <svg viewBox="0 0 100 100" fill="none" stroke="rgba(244,244,246,.45)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 72h42a16 16 0 0 0 0-32a22 22 0 0 0-42-4a18 18 0 0 0 0 36z"/><path id="cloudX" d="M14 88L88 14" stroke="#f4f4f6" stroke-width="3" stroke-dasharray="105" stroke-dashoffset="105"/></svg>
+    </div>
+    <div class="abs mono" style="left:380px;top:800px;width:260px;text-align:center;font-size:18px">Your phone</div>
+    <div class="abs mono" style="left:1280px;top:800px;width:260px;text-align:center;font-size:18px">Uploaded&nbsp; <span style="color:var(--accent)">0 B</span></div>
+    <div class="abs center-x mono" style="top:950px;font-size:18px" id="s5micro">Processed locally · Android AICore · ML Kit Prompt API</div>
   </div>
 
   <!-- 6 · Features -->
-  <div class="layer" id="s6" style="--hi:#D9461C">
-    <div class="title" style="position:absolute;left:0;right:0;top:110px;text-align:center"><span class="w">Made</span> <span class="w">for</span> <span class="w">the</span> <em class="w">curious</em></div>
-    <div id="tiles"></div>
+  <div class="scene" id="s6">
+    <div class="abs" style="left:160px;top:330px">
+      <div class="mono index" id="s6idx"><i></i>Open source · Kotlin · Compose</div>
+      <div class="mask" style="margin-top:20px"><span class="word silver" style="font-size:112px" id="f1">Built for</span></div>
+      <div class="mask" style="margin-top:-24px"><span class="word silver" style="font-size:112px" id="f2">the curious.</span></div>
+    </div>
+    <div id="rowHi"></div>
+    <div id="rows"></div>
   </div>
 
   <!-- 7 · End card -->
-  <div class="layer" id="end">
-    <div id="endIcon" class="icon" data-icon></div>
-    <div id="endName">Nano Prompt Ground</div>
-    <div id="endSub">Private, offline AI. Right on your phone.</div>
-    <div id="endCta"><span class="ic"><span class="ms">play_arrow</span></span>Free on Google Play</div>
-    <div id="endPerks"><span><span class="ms">check_circle</span>No account</span><span><span class="ms">check_circle</span>No API key</span><span><span class="ms">check_circle</span>No cloud</span></div>
-    <div id="legal">Gemini Nano is a model by Google. Nano Prompt Ground is an independent, open-source project and is not affiliated with Google.</div>
+  <div class="scene" id="s7">
+    <div class="abs glass" id="plate">
+      <div id="mark"></div>
+      <div class="silver" id="wordmark">Nano Prompt Ground</div>
+      <div class="sweep" id="sweep"></div>
+    </div>
+    <div class="abs center-x" id="endTag">Private, offline AI. Right on your phone.</div>
+    <div class="abs glass" id="cta"><span class="play"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#06120c"/></svg></span><span class="silver">Free on Google Play</span></div>
+    <div class="abs center-x mono" id="legal">Gemini Nano is a model by Google · Nano Prompt Ground is independent and not affiliated with Google</div>
   </div>
+
+  <div class="abs spark" id="spark"></div>
+  <div class="abs" id="vignette"></div>
+  <svg class="abs" id="grain" width="1920" height="1080"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
 </div>
 
-<script src="../generator/ui.js"></script>
-<script src="../generator/scenes.js"></script>
 <script>
 // ------------------------------------------------------------------ static build
-const ICON_SVG = `<svg viewBox="0 0 512 512">
-  <defs>
-    <linearGradient id="#back" x1="84" y1="150" x2="428" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#60A5FA"/></linearGradient>
-    <linearGradient id="#front" x1="84" y1="150" x2="428" y2="390" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34D399"/><stop offset="0.5" stop-color="#12B76A"/><stop offset="1" stop-color="#0E9F6E"/></linearGradient>
-    <radialGradient id="#glow" cx="100" cy="390" r="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FDE047" stop-opacity="0.95"/><stop offset="0.6" stop-color="#FDE047" stop-opacity="0.43"/><stop offset="1" stop-color="#FDE047" stop-opacity="0"/></radialGradient>
-    <linearGradient id="#top" x1="0" y1="150" x2="0" y2="260" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.38"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
-  </defs>
-  <g transform="translate(256 256) scale(0.9) translate(-256 -248)">
-    <g class="i-back"><path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##back)" transform="rotate(8 256 270) translate(0 -38)"/></g>
-    <g class="i-front">
-      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##front)"/>
-      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##glow)"/>
-      <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(##top)"/>
-    </g>
-    <path class="i-chev" d="M150,228L206,270L150,312" fill="none" stroke="#FFFFFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="160" stroke-dashoffset="160"/>
-    <path class="i-spark" d="M300,224C304.16,252.08 323.92,271.84 352,276C323.92,280.16 304.16,299.92 300,328C295.84,299.92 276.08,280.16 248,276C276.08,271.84 295.84,252.08 300,224Z" fill="#FFFFFF"/>
-  </g></svg>`;
-// Each copy of the icon gets its own gradient ids.
-document.querySelectorAll('[data-icon]').forEach((node, i) => { node.innerHTML = ICON_SVG.replaceAll('#back', 'b' + i).replaceAll('#front', 'f' + i).replaceAll('#glow', 'g' + i).replaceAll('#top', 't' + i); });
+document.getElementById('mark').innerHTML = `<svg viewBox="84 112 344 290">
+  <defs><linearGradient id="mb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a5a62"/><stop offset="1" stop-color="#2a2a30"/></linearGradient>
+  <linearGradient id="mf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f6"/><stop offset="1" stop-color="#9a9aa2"/></linearGradient></defs>
+  <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(#mb)" transform="rotate(8 256 270) translate(0 -38)"/>
+  <path d="M144,150H368A60,60 0 0 1 428,210V330A60,60 0 0 1 368,390H144A60,60 0 0 1 84,330V210A60,60 0 0 1 144,150Z" fill="url(#mf)"/>
+  <path d="M150,228L206,270L150,312" fill="none" stroke="#111114" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M300,224C304,252 324,272 352,276C324,280 304,300 300,328C296,300 276,280 248,276C276,272 296,252 300,224Z" fill="#0b6b47"/></svg>`;
 
-const SPARK = `<svg viewBox="0 0 100 100"><path d="M50 0C53 30 70 47 100 50C70 53 53 70 50 100C47 70 30 53 0 50C30 47 47 30 50 0Z" fill="#fff"/></svg>`;
-for (const f of document.querySelectorAll('.field[data-a]')) {
-  const { a, b, glow } = f.dataset;
-  f.style.background = `linear-gradient(135deg, ${a}, ${b})`;
-  f.innerHTML = `<div class="blob" style="left:-240px;bottom:-320px;width:900px;height:900px;background:${glow};opacity:.55"></div>
-    <div class="blob" style="right:-200px;top:-300px;width:800px;height:800px;background:#fff;opacity:.18"></div>
-    <div class="slab" style="left:-160px;top:-120px;width:760px;height:620px;transform:rotate(-9deg)"></div>
-    <div class="spark" style="left:1060px;top:930px;width:70px;height:70px;opacity:.7">${SPARK}</div>
-    <div class="spark" style="left:70px;top:80px;width:60px;height:60px;opacity:.6">${SPARK}</div>`;
-}
-
-const chip = (icon, text, css = '', cls = '') => `<div class="chip ${cls}" style="${css}"><span class="ic"><span class="ms">${icon}</span></span>${text}</div>`;
-// Callouts overlapping the device edges, like the store screenshots.
-document.getElementById('s3chips').innerHTML =
-  chip('summarize', 'Summarise', 'right:620px;top:250px') + chip('lightbulb', 'Brainstorm', 'right:610px;top:640px');
-document.getElementById('s3chips2').innerHTML =
-  chip('edit_note', 'Rewrite', 'left:1600px;top:400px') + chip('school', 'Explain', 'left:1590px;top:790px') +
-  chip('bolt', 'Token by token', 'left:1560px;top:560px', 'stream');
-document.getElementById('s4chips').innerHTML =
-  chip('airplanemode_active', 'Airplane mode', '', 'flow') + chip('signal_wifi_off', 'Zero data used', '', 'flow') +
-  chip('lock', 'Processed locally', '', 'flow') + chip('cloud_off', 'Nothing sent to a server', '', 'flow');
-
-const TILES = [
-  ['share', 'Share to Nano', 'Send text from any app'],
-  ['format_list_bulleted', 'Rich Markdown', 'Lists, headings and code'],
-  ['verified', 'Know your model', 'See your nano-v2 or nano-v3'],
-  ['content_copy', 'Copy in one tap', 'Grab any answer instantly'],
-  ['palette', 'Material 3 Expressive', 'Dynamic colour, playful motion'],
-  ['code', 'Open source', 'Learn the Prompt API hands-on'],
+const ROWS = [
+  ['Share to Nano', 'Send text from any app straight into a prompt'],
+  ['Live token stream', 'Watch every answer write itself'],
+  ['Inference stats', 'Time, tokens and finish reason, every time'],
+  ['Markdown answers', 'Lists, headings and code, rendered'],
+  ['Know your model', 'See whether you run nano-v2 or nano-v3'],
 ];
-document.getElementById('tiles').innerHTML = TILES.map(([ic, t, d], i) =>
-  `<div class="tile" style="left:${150 + (i % 3) * 560}px;top:${370 + Math.floor(i / 3) * 250}px"><div class="ic"><span class="ms">${ic}</span></div><div><b>${t}</b><span class="d">${d}</span></div></div>`).join('');
+const ROW_Y = i => 236 + i * 136;
+document.getElementById('rows').innerHTML = ROWS.map(([t, d], i) =>
+  `<div class="row glass" style="top:${ROW_Y(i)}px"><span class="mono n">0${i + 1}</span><div><div class="t">${t}</div><div class="d">${d}</div></div><span class="dot"></span></div>`).join('');
+document.getElementById('packets').innerHTML = Array.from({ length: 7 }, () => '<div class="abs packet"></div>').join('');
 
-// ------------------------------------------------------------------ app screen, driven by time
-const QUERY = 'Write a haiku about coffee on a rainy Monday';
-const HAIKU = 'Grey rain on the glass,\nsteam curls from a warm first cup.\nMonday, take it slow.';
-const HAIKU_TOKENS = HAIKU.match(/\S+\s*/g);
-const OFFLINE = SCENES[2].app;
+const SEG = [['Write a ', ''], ['haiku', 'b'], [' about ', ''], ['coffee on a rainy Monday', 'hl']];
+const FULL = SEG.map(s => s[0]).join('');
+const HAIKU = ['Grey rain on the glass,', 'steam curls from a warm first cup.', 'Monday, take it slow.'];
+const answer = document.getElementById('answer');
+answer.innerHTML = HAIKU.map(l => l.split(' ').map(w => `<span class="silver">${w}</span>`).join('')).join('<br>');
+const tokens = [...answer.querySelectorAll('span')];
+
+// ------------------------------------------------------------------ time-driven text
+const T = { type: [6.1, 8.0], tap: 8.5, think: [8.9, 9.7], stream: [9.75, 11.0], hud: 11.15, big: [13.0, 14.1] };
 const clamp01 = x => Math.max(0, Math.min(1, x));
-const T = { type: [7.3, 9.0], tap: 9.25, think: 9.45, stream: [10.55, 11.95], stats: 12.05, flip: 12.85 };
-
-function screenState(t) {
-  if (t < T.think) {
-    const n = Math.round(clamp01((t - T.type[0]) / (T.type[1] - T.type[0])) * QUERY.length);
-    return { expanded: true, query: QUERY.slice(0, n), count: 0 };
-  }
-  if (t < T.stream[0]) return { query: QUERY, count: Math.floor(t - T.think), inferencing: true };
-  if (t < T.flip) {
-    const n = Math.ceil(clamp01((t - T.stream[0]) / (T.stream[1] - T.stream[0])) * HAIKU_TOKENS.length);
-    const done = n >= HAIKU_TOKENS.length;
-    const caret = done ? '' : '<span class="caret" style="height:22px;width:2px;background:#D0BCFF"></span>';
-    return { query: QUERY, count: 1, response: `<p><em>${HAIKU_TOKENS.slice(0, n).join('').replace(/\n/g, '<br>')}${caret}</em></p>`,
-             stats: t >= T.stats ? ['612.0', '21', 'STOP'] : null };
-  }
-  return OFFLINE;
-}
-
-const appEl = document.getElementById('app');
-const ripple = document.getElementById('ripple');
-let lastKey = '';
+const easeOut = x => 1 - Math.pow(1 - clamp01(x), 3);
+const typed = document.getElementById('typed');
 function renderAt(t) {
-  const s = screenState(t);
-  const key = JSON.stringify(s);
-  if (key !== lastKey) {
-    lastKey = key;
-    appEl.innerHTML = appScreen(s, 380, 820, 1.1);
-    if (s.expanded) {
-      // Park the tap ripple on the big sparkle (send) button.
-      const send = [...appEl.querySelectorAll('.box')].sort((a, b) => b.offsetWidth - a.offsetWidth)[0];
-      let x = send.offsetWidth / 2, y = send.offsetHeight / 2;
-      for (let n = send; n && n.id !== 'screen'; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; }
-      ripple.style.left = (14 + x) + 'px';
-      ripple.style.top = (14 + y) + 'px';
-      send.id = 'sendBtn';
-    }
+  const n = Math.round(clamp01((t - T.type[0]) / (T.type[1] - T.type[0])) * FULL.length);
+  let used = 0, html = '';
+  for (const [s, c] of SEG) {
+    if (used >= n) break;
+    const part = s.slice(0, Math.min(s.length, n - used));
+    html += c ? `<span class="${c}">${part}</span>` : part;
+    used += s.length;
   }
-  const spin = appEl.querySelector('.spin');
-  if (spin) spin.style.transform = `rotate(${t * 220}deg) scale(${1 + 0.12 * Math.sin(t * 7)})`;
-  const caret = appEl.querySelector('.caret');
-  if (caret) caret.style.opacity = s.expanded && t > T.type[1] ? (Math.floor(t * 2.2) % 2 ? 0 : 1) : 1;
-  const send = document.getElementById('sendBtn');
-  if (send) send.style.transform = `scale(${t > T.tap - 0.05 && t < T.tap + 0.15 ? 0.88 : 1})`;
+  typed.innerHTML = html;
+  document.getElementById('caret').style.opacity = t > T.type[1] && Math.floor(t * 2.4) % 2 ? 0 : 1;
 
-  // Number counters
-  const k = clamp01((t - 17.7) / 1.1), e = 1 - Math.pow(1 - k, 3);
-  document.getElementById('vMs').textContent = Math.round(612 * e);
-  document.getElementById('vTok').textContent = Math.round(21 * e);
+  document.getElementById('thinkT').textContent = (Math.max(0, Math.min(t, T.think[1]) - T.think[0]) * 0.75).toFixed(1) + 's';
+
+  // Tokens arrive one by one, each sharpening out of a blur.
+  tokens.forEach((s, i) => {
+    const at = T.stream[0] + (i / tokens.length) * (T.stream[1] - T.stream[0]);
+    const k = easeOut((t - at) / 0.35);
+    s.style.opacity = k;
+    s.style.filter = `blur(${(1 - k) * 12}px)`;
+    s.style.transform = `translateY(${(1 - k) * 18}px)`;
+  });
+
+  const h = easeOut((t - T.hud) / 0.7);
+  document.getElementById('hMs').textContent = Math.round(612 * h) + ' ms';
+  document.getElementById('hTok').textContent = Math.round(21 * h);
+  document.getElementById('bigNum').textContent = Math.round(612 * easeOut((t - T.big[0]) / (T.big[1] - T.big[0])));
 }
 
 // ------------------------------------------------------------------ timeline
-const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
-const wipe = (sel, at, x, y, dur = 0.75) => tl.fromTo(sel, { clipPath: `circle(0px at ${x}px ${y}px)` },
-  { clipPath: `circle(2300px at ${x}px ${y}px)`, duration: dur, ease: 'power3.inOut' }, at);
-const words = sel => document.querySelectorAll(sel);
+const tl = gsap.timeline({ paused: true, defaults: { ease: 'power4.out' } });
+const show = (sel, a, b) => { tl.set(sel, { autoAlpha: 0 }, 0).set(sel, { autoAlpha: 1 }, a); if (b) tl.set(sel, { autoAlpha: 0 }, b); };
+const blurOut = (sel, at, dur = 0.4) => tl.to(sel, { opacity: 0, y: -24, filter: 'blur(14px)', duration: dur, ease: 'power2.in' }, at);
+const sweepSpark = (at, x0, y0, x1, y1, dur = 0.7) => {
+  tl.set('#spark', { x: x0, y: y0, opacity: 1 }, at);
+  tl.to('#spark', { x: x1, y: y1, duration: dur, ease: 'power3.inOut' }, at);
+  tl.to('#spark', { opacity: 0, duration: 0.2, ease: 'sine.out' }, at + dur - 0.1);
+};
 
-// 1 · Hook (0 – 3)
-tl.from('#hook .l1 span', { y: 90, opacity: 0, duration: 0.6, stagger: 0.12 }, 0.15);
-tl.from('#hCloud', { y: 90, opacity: 0, duration: 0.6 }, 0.55);
-tl.to('#hStrike', { width: '104%', duration: 0.35, ease: 'power2.inOut' }, 1.3);
-tl.to('#hCloud', { y: 70, opacity: 0, duration: 0.35, ease: 'power2.in' }, 1.75);
-tl.from('#hPocket', { scale: 0.5, opacity: 0, duration: 0.6, ease: 'back.out(2)' }, 1.95);
-tl.to('#hook', { scale: 0.85, opacity: 0, duration: 0.45, ease: 'power2.in' }, 2.75);
+// backdrop: always alive
+tl.from('#atmo', { opacity: 0, scale: .72, filter: 'blur(30px)', duration: 1, ease: 'power3.out' }, 0);
+tl.fromTo('#atmo', { x: -40 }, { x: 40, duration: 28, ease: 'none' }, 0);
+tl.from('#grid', { opacity: 0, duration: 1.4, ease: 'sine.out' }, 0);
+tl.from('#orbit', { opacity: 0, scale: .9, rotation: -9, duration: .9, ease: 'power3.inOut' }, .05);
+tl.to('#orbit', { rotation: 12, duration: 27, ease: 'none' }, .95);
+tl.from('#guide', { scaleX: 0, duration: .7, ease: 'power3.inOut' }, .1);
 
-// 2 · Logo build (3 – 6.4)
-tl.set('#logoIcon', { opacity: 0 }, 0).set('#logoIcon', { opacity: 1 }, 3.0);
-tl.from('#logoIcon .i-back', { y: 140, rotation: -24, opacity: 0, transformOrigin: '50% 50%', duration: 0.7, ease: 'back.out(1.6)' }, 3.0);
-tl.from('#logoIcon .i-front', { scale: 0, transformOrigin: '50% 50%', duration: 0.65, ease: 'back.out(1.7)' }, 3.12);
-tl.to('#logoIcon .i-chev', { strokeDashoffset: 0, duration: 0.4, ease: 'power2.out' }, 3.5);
-tl.from('#logoIcon .i-spark', { scale: 0, rotation: -120, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.out(2.2)' }, 3.6);
-tl.to('#logoIcon', { x: -560, scale: 0.72, duration: 0.85, ease: 'expo.inOut' }, 4.25);
-tl.fromTo('#wordmark', { clipPath: 'inset(0 100% 0 0)', x: -40 }, { clipPath: 'inset(0 0% 0 0)', x: 0, duration: 0.8, ease: 'expo.out' }, 4.75);
-tl.from('#tagline', { y: 30, opacity: 0, duration: 0.5 }, 5.05);
-tl.set('#logoIcon .i-spark', { rotation: 0 }, 5.6);
-tl.to('#logoIcon .i-spark', { rotation: 90, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.inOut(2)' }, 5.6);
+// 1 · Kinetic headline (0 – 3.6)
+show('#s1', 0, 3.7);
+tl.from('#s1idx', { opacity: 0, y: 10, duration: .4, ease: 'power2.out' }, .2);
+tl.from('#w1', { x: -120, y: 18, rotation: -1.2, opacity: 0, filter: 'blur(8px)', duration: .75 }, .25);
+tl.fromTo('#pill', { scaleX: .93, scaleY: 1.06, y: 12, opacity: 0, filter: 'blur(6px)' }, { scaleX: 1.08, scaleY: .95, y: -4, opacity: 1, filter: 'blur(0px)', duration: .43, ease: 'power3.out' }, .5);
+tl.to('#pill', { scaleX: 1, scaleY: 1, y: 0, duration: .34, ease: 'back.out(1.55)' }, .9);
+tl.from('#pillWrap .shadow', { opacity: 0, scaleX: .55, duration: .6, ease: 'power3.out' }, .55);
+tl.from('#w2', { x: 120, y: -18, rotation: 1.2, opacity: 0, filter: 'blur(8px)', duration: .75 }, .38);
+tl.from('#s1micro', { opacity: 0, y: 9, duration: .42, ease: 'power2.out' }, .85);
+sweepSpark(1.3, 760, 540, 1180, 534);
+tl.to('#sheen', { opacity: .82, left: '118%', duration: .76, ease: 'power3.inOut' }, 1.3);
+tl.to('#sheen', { opacity: 0, duration: .18 }, 1.9);
+tl.to('#s1 .line', { scale: 1.03, duration: 1.6, ease: 'sine.inOut' }, 1.5);
+blurOut(['#s1idx', '#s1 .line', '#s1micro'], 3.2);
+tl.to('#guide', { scaleX: 0.04, duration: .5, ease: 'power3.in' }, 3.2);
 
-// 3 · Prompt (6.3 – 12.7)
-wipe('#fGreen', 6.15, 400, 540, 0.85);
-tl.set('#rig', { autoAlpha: 0 }, 0).set('#rig', { autoAlpha: 1 }, 6.55);
-tl.fromTo('#rig', { x: 760, rotation: 14 }, { x: 0, rotation: -3, duration: 1.1, ease: 'expo.out' }, 6.55);
-tl.from('#backcard', { rotation: -12, x: 60, opacity: 0, duration: 1.2, ease: 'expo.out' }, 6.55);
-tl.to('#backcard', { rotation: 7, duration: 1.2, ease: 'expo.out' }, 6.55);
-tl.from('#s3 .tag', { y: 40, opacity: 0, duration: 0.5 }, 6.7);
-tl.from('#s3a .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.1 }, 6.8);
-tl.from('#s3a .sub', { y: 40, opacity: 0, duration: 0.5 }, 7.05);
-tl.set('#s3b', { opacity: 0 }, 0);
-const s3chips = [...words('#s3chips .chip'), ...words('#s3chips2 .chip:not(.stream)')];
-tl.from([s3chips[0], s3chips[2], s3chips[1], s3chips[3]], { scale: 0, opacity: 0, duration: 0.5, stagger: 0.18, ease: 'back.out(2)' }, 7.4);
-tl.to(s3chips, { scale: 0, opacity: 0, duration: 0.3, stagger: 0.05, ease: 'power2.in' }, 8.95);
-tl.fromTo('#ripple', { scale: 0.2, opacity: 0.8 }, { scale: 2.2, opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, T.tap);
-tl.to('#s3a', { y: -60, opacity: 0, duration: 0.35, ease: 'power2.in' }, 9.3);
-tl.set('#s3b', { opacity: 1 }, 9.6);
-tl.from('#s3b .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.1 }, 9.6);
-tl.from('#s3b .sub', { y: 40, opacity: 0, duration: 0.5 }, 9.95);
-tl.from('#s3chips2 .stream', { scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(2)' }, 10.6);
-tl.to('#s3chips2 .stream', { scale: 0, opacity: 0, duration: 0.3, ease: 'power2.in' }, 12.4);
-tl.to('#s3', { y: -50, opacity: 0, duration: 0.4, ease: 'power2.in' }, 12.35);
-tl.to('#rig', { scale: 1.04, duration: 1.2, ease: 'sine.inOut' }, 10.5);
+// 2 · No signal (3.6 – 5.6)
+show('#s2', 3.6, 5.6);
+tl.from('#bars b', { scaleY: 0, transformOrigin: '50% 100%', duration: .45, stagger: .07, ease: 'back.out(1.6)' }, 3.6);
+tl.to('#bars b', { opacity: .14, duration: .2, stagger: { each: .12, from: 'end' }, ease: 'power1.in' }, 4.15);
+tl.fromTo('#slash', { scaleX: 0 }, { scaleX: 1, duration: .35, ease: 'power3.inOut' }, 4.55);
+tl.from('#s2 .status', { opacity: 0, x: -30, duration: .35, stagger: .12, ease: 'power3.out' }, 4.0);
+tl.from('#s2h', { opacity: 0, filter: 'blur(18px)', scale: .96, duration: .6, ease: 'power2.out' }, 4.7);
+tl.to('#guide', { scaleX: 1, opacity: .5, duration: .7, ease: 'power3.inOut' }, 4.8);
+blurOut(['#bars', '#slash', '#s2 .status', '#s2h'], 5.25, .35);
 
-// 4 · Offline (12.6 – 16.9)
-wipe('#fBlue', 12.55, 1470, 540, 0.85);
-tl.to('#phone', { rotationY: 90, duration: 0.3, ease: 'power2.in' }, T.flip - 0.3);
-tl.to('#phone', { rotationY: 0, duration: 0.5, ease: 'back.out(1.6)' }, T.flip);
-tl.to('#rig', { scale: 1, duration: 0.6 }, 12.6);
-tl.from('#s4 .tag', { y: 40, opacity: 0, duration: 0.5 }, 13.0);
-tl.from('#s4 .title .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.1 }, 13.1);
-tl.from('#s4 .sub', { y: 40, opacity: 0, duration: 0.5 }, 13.45);
-tl.from('#s4chips .chip', { scale: 0, opacity: 0, duration: 0.5, stagger: 0.16, ease: 'back.out(2)', transformOrigin: '0% 50%' }, 13.8);
-tl.to('#s4', { y: -50, opacity: 0, duration: 0.4, ease: 'power2.in' }, 16.55);
-tl.to('#rig', { x: 900, rotation: 14, duration: 0.7, ease: 'power3.in' }, 16.45);
+// 3 · Prompt → answer (5.6 – 12.6)
+show('#s3', 5.6, 12.7);
+tl.to('#guide', { opacity: 0, duration: .3 }, 5.6);
+tl.from('#card', { y: 60, opacity: 0, scale: .96, duration: .8, ease: 'expo.out' }, 5.65);
+tl.from(['#chip1', '#chip2'], { y: 16, opacity: 0, scale: .9, duration: .5, stagger: .1, ease: 'back.out(1.7)' }, 6.6);
+tl.fromTo('#cur', { x: 1560, y: 860, opacity: 0 }, { x: 1452, y: 556, opacity: 1, duration: .8, ease: 'power3.inOut' }, 7.6);
+tl.to('#send', { scale: .86, duration: .12 }, T.tap);
+tl.to('#send', { scale: 1, duration: .32, ease: 'back.out(2.4)' }, T.tap + .12);
+tl.to('#cur', { opacity: 0, duration: .25 }, 8.75);
+tl.to('#card', { y: -200, scale: .78, opacity: .55, filter: 'blur(1px)', duration: .8, ease: 'expo.inOut' }, 8.65);
+tl.fromTo('#think', { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .4, ease: 'power3.out' }, T.think[0]);
+tl.fromTo('#orb i', { scale: .3, opacity: .9 }, { scale: 1.6, opacity: 0, duration: .9, stagger: .28, ease: 'power2.out' }, T.think[0]);
+tl.to('#think', { opacity: 0, scale: .9, filter: 'blur(10px)', duration: .3, ease: 'power2.in' }, T.think[1] - .15);
+tl.from('#hud > div', { opacity: 0, y: 14, duration: .45, stagger: .08, ease: 'power3.out' }, T.hud);
+tl.to('#answer', { scale: 1.03, duration: 1.4, ease: 'sine.inOut' }, 11.0);
+blurOut(['#card', '#answer', '#hud'], 12.25);
 
-// 5 · Speed (17 – 20.6)
-wipe('#fPurple', 16.85, 960, 1080, 0.8);
-tl.set('#s5', { opacity: 0 }, 0).set('#s5', { opacity: 1 }, 17.0);
-tl.from('#s5 .title .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.07 }, 17.15);
-tl.from('#s5 .stat', { y: 160, opacity: 0, rotation: 4, duration: 0.7, stagger: 0.14, ease: 'back.out(1.4)' }, 17.45);
-tl.from('#vFin', { opacity: 0, scale: 0.6, transformOrigin: '0% 50%', duration: 0.5, ease: 'back.out(2)' }, 18.5);
-tl.from('#s5sub', { y: 40, opacity: 0, duration: 0.5 }, 18.75);
-tl.to('#s5', { y: -60, opacity: 0, duration: 0.4, ease: 'power2.in' }, 20.25);
+// 4 · Speed (12.6 – 16)
+show('#s4', 12.6, 16.1);
+tl.from('#s4 .index', { opacity: 0, y: 10, duration: .4 }, 12.7);
+tl.from('#big', { opacity: 0, scale: .82, filter: 'blur(24px)', duration: .9, ease: 'expo.out' }, 12.85);
+tl.from('#s4sub', { opacity: 0, y: 20, duration: .5, ease: 'power3.out' }, 13.9);
+sweepSpark(14.3, 600, 600, 1330, 600, .8);
+tl.to('#big', { scale: 1.04, duration: 1.6, ease: 'sine.inOut' }, 14.1);
+tl.to('#orbit', { scale: 1.15, duration: 1.2, ease: 'power2.inOut' }, 13.0);
+blurOut('#s4 > *', 15.65, .4);
 
-// 6 · Features (20.6 – 23.7)
-wipe('#fOrange', 20.45, 960, 0, 0.8);
-tl.set('#s6', { opacity: 0 }, 0).set('#s6', { opacity: 1 }, 20.6);
-tl.from('#s6 .title .w', { y: 110, opacity: 0, duration: 0.6, stagger: 0.09 }, 20.75);
-tl.from('#s6 .tile', { y: 120, scale: 0.85, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'back.out(1.5)' }, 21.05);
-tl.to('#s6 .tile .ic', { rotation: 360, duration: 0.8, stagger: 0.1, ease: 'back.inOut(1.4)' }, 22.3);
-tl.to('#s6', { scale: 0.94, opacity: 0, duration: 0.4, ease: 'power2.in' }, 23.4);
+// 5 · Privacy (16 – 20.2)
+show('#s5', 16.0, 20.3);
+tl.to('#orbit', { scale: 1, duration: 1, ease: 'power2.inOut' }, 16.0);
+tl.from('#p1', { x: -120, opacity: 0, filter: 'blur(8px)', duration: .75 }, 16.05);
+tl.fromTo('#pill2', { scaleX: .93, scaleY: 1.06, y: 12, opacity: 0, filter: 'blur(6px)' }, { scaleX: 1.08, scaleY: .95, y: -4, opacity: 1, filter: 'blur(0px)', duration: .43, ease: 'power3.out' }, 16.3);
+tl.to('#pill2', { scaleX: 1, scaleY: 1, y: 0, duration: .34, ease: 'back.out(1.55)' }, 16.7);
+tl.from(['#gDevice', '#gCloud'], { opacity: 0, y: 30, duration: .6, stagger: .15, ease: 'power3.out' }, 16.6);
+tl.from('#lane', { scaleX: 0, transformOrigin: '0 50%', duration: .6, ease: 'power3.inOut' }, 16.9);
+tl.from('#wall', { scaleY: 0, duration: .45, ease: 'back.out(2)' }, 17.35);
+tl.from('#s5 .mono', { opacity: 0, duration: .5, stagger: .1 }, 17.2);
+document.querySelectorAll('.packet').forEach((p, i) => {
+  const at = 17.5 + i * .3;
+  tl.fromTo(p, { x: 0, opacity: 0, scale: 1 }, { x: 384, opacity: 1, duration: .55, ease: 'power1.in' }, at);
+  tl.to(p, { scale: 2.6, opacity: 0, duration: .22, ease: 'power2.out' }, at + .55);
+  tl.fromTo('#wall', { boxShadow: '0 0 24px rgba(110,242,181,.8), 0 0 70px rgba(110,242,181,.4)' },
+    { boxShadow: '0 0 40px rgba(110,242,181,1), 0 0 120px rgba(110,242,181,.7)', duration: .12, yoyo: true, repeat: 1, immediateRender: false }, at + .55);
+});
+tl.to('#cloudX', { strokeDashoffset: 0, duration: .45, ease: 'power3.inOut' }, 18.1);
+tl.to('#sheen2', { opacity: .82, left: '118%', duration: .76, ease: 'power3.inOut' }, 18.4);
+tl.to('#sheen2', { opacity: 0, duration: .18 }, 19.0);
+blurOut('#s5 > *', 19.85, .4);
 
-// 7 · End card (23.7 – 27)
-wipe('#fEnd', 23.55, 960, 540, 0.8);
-tl.set('#end', { opacity: 0 }, 0).set('#end', { opacity: 1 }, 23.7);
-tl.from('#endIcon .i-back', { y: 140, rotation: -24, opacity: 0, transformOrigin: '50% 50%', duration: 0.7, ease: 'back.out(1.6)' }, 23.85);
-tl.from('#endIcon .i-front', { scale: 0, transformOrigin: '50% 50%', duration: 0.65, ease: 'back.out(1.7)' }, 23.95);
-tl.to('#endIcon .i-chev', { strokeDashoffset: 0, duration: 0.4 }, 24.3);
-tl.from('#endIcon .i-spark', { scale: 0, rotation: -120, transformOrigin: '50% 50%', duration: 0.6, ease: 'back.out(2.2)' }, 24.4);
-tl.fromTo('#endName', { clipPath: 'inset(0 50% 0 50%)' }, { clipPath: 'inset(0 0% 0 0%)', duration: 0.8, ease: 'expo.out' }, 24.45);
-tl.from('#endSub', { y: 30, opacity: 0, duration: 0.5 }, 24.75);
-tl.from('#endCta', { scale: 0.6, opacity: 0, duration: 0.6, ease: 'back.out(2)' }, 25.05);
-tl.from('#endPerks > span', { y: 30, opacity: 0, duration: 0.45, stagger: 0.1 }, 25.35);
-tl.from('#legal', { opacity: 0, duration: 0.5 }, 25.6);
-tl.to('#endCta', { scale: 1.05, duration: 0.35, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 26.1);
+// 6 · Features (20.2 – 24)
+show('#s6', 20.2, 24.1);
+tl.from('#s6idx', { opacity: 0, y: 10, duration: .4 }, 20.3);
+tl.from(['#f1', '#f2'], { yPercent: 110, duration: .8, stagger: .12, ease: 'expo.out' }, 20.35);
+tl.from('#rows .row', { x: 160, opacity: 0, filter: 'blur(10px)', duration: .7, stagger: .11, ease: 'expo.out' }, 20.6);
+tl.set('#rowHi', { y: ROW_Y(0) }, 0);
+tl.to('#rowHi', { opacity: 1, duration: .25 }, 21.5);
+ROWS.forEach((_, i) => {
+  if (i) tl.to('#rowHi', { y: ROW_Y(i), duration: .35, ease: 'power3.inOut' }, 21.5 + i * .42);
+  tl.to(`#rows .row:nth-child(${i + 1}) .dot`, { opacity: 1, duration: .2 }, 21.6 + i * .42);
+});
+blurOut(['#s6 > div:first-child', '#rows', '#rowHi'], 23.65, .4);
 
-// Slow parallax drift on every field so the colour never sits still.
-for (const f of document.querySelectorAll('.field[data-a]')) {
-  tl.fromTo(f.querySelectorAll('.blob'), { x: -60, y: 40 }, { x: 60, y: -40, duration: 27, ease: 'none' }, 0);
-  tl.fromTo(f.querySelectorAll('.spark'), { rotation: 0 }, { rotation: 180, duration: 27, ease: 'none' }, 0);
-}
-tl.set({}, {}, 27);
+// 7 · End card (24 – 28)
+show('#s7', 24.0);
+tl.set(['#mark', '#wordmark'], { filter: 'blur(20px)', opacity: .3 }, 0);
+tl.from('#plate', { y: 70, opacity: 0, scale: .9, duration: .8, ease: 'back.out(1.3)' }, 24.05);
+tl.fromTo('#sweep', { x: 0 }, { x: '560%', duration: 1.1, ease: 'power2.inOut' }, 24.75);
+tl.to(['#mark', '#wordmark'], { filter: 'blur(0px)', opacity: 1, duration: .9, ease: 'power2.out' }, 24.9);
+tl.fromTo('#plate', { boxShadow: 'inset 0 1px 0 rgba(255,255,255,.1), 0 40px 90px rgba(0,0,0,.6)' },
+  { boxShadow: 'inset 0 1px 0 rgba(255,255,255,.18), 0 50px 110px rgba(0,0,0,.6), 0 0 110px rgba(110,242,181,.28)', duration: .8, ease: 'sine.out' }, 25.2);
+tl.from('#endTag', { opacity: 0, y: 16, filter: 'blur(8px)', duration: .6, ease: 'power3.out' }, 25.45);
+tl.from('#cta', { opacity: 0, y: 30, scale: .92, duration: .6, ease: 'back.out(1.7)' }, 25.75);
+tl.from('#legal', { opacity: 0, duration: .6 }, 26.2);
+sweepSpark(26.3, 690, 790, 1230, 790, .8);
+tl.to('#plate', { scale: 1.02, duration: 1.8, ease: 'sine.inOut' }, 26.1);
+tl.set({}, {}, 28);
 
 window.__timelines = window.__timelines || {};
 window.__timelines.root = tl;
@@ -410,10 +417,9 @@ window.__seek = t => { tl.seek(t, false); renderAt(t); };
 window.__ready = document.fonts.ready.then(() => window.__seek(0));
 if (location.hash === '#play') {
   window.__ready.then(() => { tl.eventCallback('onUpdate', () => renderAt(tl.time())); tl.repeat(-1).play(); });
+  const fit = () => { const s = Math.min(innerWidth / 1920, innerHeight / 1080); const r = document.getElementById('root'); r.style.transformOrigin = '0 0'; r.style.transform = s < 1 ? `scale(${s})` : ''; };
+  addEventListener('resize', fit); fit();
 }
-// Fit the 1920×1080 stage to the window when previewing.
-function fit() { const s = Math.min(innerWidth / 1920, innerHeight / 1080); document.getElementById('root').style.transform = s < 1 ? `scale(${s})` : ''; document.getElementById('root').style.transformOrigin = '0 0'; }
-if (location.hash === '#play') { addEventListener('resize', fit); fit(); }
 </script>
 </body>
 </html>
