@@ -39,12 +39,26 @@ class ChatViewModel @Inject constructor(private val generativeModel: GenerativeM
 
 
     init {
+        initialiseNano()
+    }
+
+    private fun initialiseNano() {
         checkForFeatureStatus {
             viewModelScope.launch {
                 collectNanoConfigurations(generativeModel)
                 generativeModel.warmup()
             }
         }
+    }
+
+    /**
+     * Re-runs the availability check, e.g. after the user updated AICore / Play services
+     * from the unavailable screen.
+     */
+    fun retryFeatureCheck() {
+        if (homeState.value.featureAvailability == FeatureAvailability.Checking) return
+        homeState.value = homeState.value.copy(featureAvailability = FeatureAvailability.Checking)
+        initialiseNano()
     }
 
 

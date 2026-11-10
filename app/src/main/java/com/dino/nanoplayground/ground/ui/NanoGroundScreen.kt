@@ -35,9 +35,22 @@ fun NanoGroundScreen(
         when (it) {
             FeatureAvailability.Checking -> FeatureStatusCheckingScreen()
             FeatureAvailability.Downloading -> FeatureDownloadingScreen(state.downloadProgress)
-            FeatureAvailability.UnAvailable -> FeatureUnAvailableScreen()
-            FeatureAvailability.ConnectionError -> FeatureUnAvailableScreen(stringResource(R.string.connection_error_message))
-            is FeatureAvailability.Error -> FeatureUnAvailableScreen(it.message)
+            FeatureAvailability.UnAvailable -> FeatureUnAvailableScreen(
+                onRetry = viewModel::retryFeatureCheck
+            )
+
+            FeatureAvailability.ConnectionError -> FeatureUnAvailableScreen(
+                title = stringResource(R.string.connection_error_title),
+                message = stringResource(R.string.connection_error_message),
+                onRetry = viewModel::retryFeatureCheck
+            )
+
+            is FeatureAvailability.Error -> FeatureUnAvailableScreen(
+                title = stringResource(R.string.feature_error_title),
+                message = stringResource(R.string.feature_error_message),
+                details = it.message,
+                onRetry = viewModel::retryFeatureCheck
+            )
             FeatureAvailability.Available -> ChatScreen(viewModel, intentPrompt, onNavigate)
         }
     }

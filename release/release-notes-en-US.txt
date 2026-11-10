@@ -1,1 +1,1 @@
-Search feature is now available for testing
+Clearer screen for devices without Gemini Nano: explains what is needed, lets you re-check availability, update Android AICore and view supported devices.
